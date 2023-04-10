@@ -16,7 +16,7 @@
 // Structures
 #include "structures.h"
 // Classes
-#include "classes.h"
+#include "Timer.h"
 //     Functions - flow control of the "main" function - what does it do
 #include "functions.h"
 // this is where the program starts

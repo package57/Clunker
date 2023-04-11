@@ -15,12 +15,13 @@
 #include "arrays.h"
 // Structures
 #include "structures.h"
-// Class Definitions
+// Class Definitions - defined classes of main
 #include "Timer.h"
 //     Functions - flow control of the "main" function - what does it do
 #include "functions.h"
-// Class declairation 
+// Class declairation - main classes that are being used
 #include "classes.h"
+// Exterior classes 
 
 
 // this is where the program starts

@@ -15,13 +15,18 @@
 #include "arrays.h"
 // Structures
 #include "structures.h"
-// Classes
+// Class Definitions
 #include "Timer.h"
 //     Functions - flow control of the "main" function - what does it do
 #include "functions.h"
+// Class declairation 
+#include "classes.h"
+
+
 // this is where the program starts
 int main()
 {
+
     std::cout << "Clunker is C++ exposed - raw!" << std::endl;
 // these functions are performed in Sequence
 // provide initial values to variables
@@ -548,5 +553,12 @@ void ValuesofStructues()
 // Delete HEAP
 void DeleteHeap()
 {
+    std::cout << "Delete Heap " << std::endl;
+    
     delete charThingH;
+    delete timerH;
+
+    std::cout << "press enter to continue" << std::endl;
+    std::cin.get();
+	system("clear");
 }

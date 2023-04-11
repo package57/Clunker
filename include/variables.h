@@ -3,7 +3,8 @@
 // just as everything in Unix is a file, everything in C++ has a "type". A type defines what a thing is and what you can do with it. the compiler will set you straight!
 // NOTE: C++ is most easily read from right to left between semi colons - try it
 // Character Types
-// read: charThing is a character
+// the crafty C++ compiler 'does stuff' - all the time
+// read the below line as "charThing is of char type", or more accurately "charThing is of char class" 
 char charThing;
 char16_t char16tThing;  // to be demystified
 char32_t char32tThing;  // to be demystified

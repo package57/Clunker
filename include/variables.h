@@ -39,6 +39,10 @@ bool boolThing;
 // string type
 std::string stringThing;
 
+// prefixes 
+// const  // to be demystified
+// static // to be demystified
+
 // date / time
 int start_s;
 int stop_s;

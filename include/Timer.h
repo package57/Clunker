@@ -14,6 +14,8 @@ class Timer
         Timer();
         virtual ~Timer();
 
+        void dummy();
+
     protected:
 
     private:

@@ -14,3 +14,12 @@ Timer::~Timer()
     std::cout << "Elapsed Time " << ms << "milliseconds\n";
     std::cout << "End Timer\n"; 
 }
+// Methods
+void Timer::dummy()
+{
+// this 'method' exists only to show the difference using the method
+// if Timer is used from the stack - static allocation (call)
+// or if Timer is used from the heap - dynamic allocation (call) - aka allocated as 'new'
+    std::cout << "Timer - dummy\n";
+
+}

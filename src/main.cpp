@@ -17,11 +17,12 @@
 #include "structures.h"
 // Class Definitions - defined classes of main
 #include "Timer.h"
-//     Functions - flow control of the "main" function - what does it do
+// Functions - flow control of the "main" function - what does it do
 #include "functions.h"
-// Class declairation - main classes that are being used
+// Class declaration - Clunker classes that are being used by Clunker
 #include "classes.h"
-// Exterior classes 
+// External classes  - External Classes that are being used by Clunker 
+#include "Xclasses.h"
 
 
 // this is where the program starts
@@ -29,6 +30,14 @@ int main()
 {
 
     std::cout << "Clunker is C++ exposed - raw!" << std::endl;
+
+// a static call to the dummy method of Timer
+    timer.dummy();
+
+// a dynamic call call to the dummy method of Timer
+    timerH->dummy();
+
+
 // these functions are performed in Sequence
 // provide initial values to variables
     InitializeVariables();
@@ -396,6 +405,8 @@ void ValuesofArrays()
 void InitializeStructuresX()
 {
     std::cout << "Initialize Structures - bad " << std::endl;
+    Timer time;
+
     start_s = clock();
 
     for (x = 0; x < 500; x++)

@@ -1,4 +1,4 @@
-// Heap memory - mut delete after use
+// Heap memory - must delete after use
 // "new" returns a pointer to memory
 char * charThingH = new char;
 /*

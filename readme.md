@@ -18,7 +18,7 @@ Punch cards are sheets of heavy paper, brown, about 3 inch by 7. With one corner
 Trimmed off, in various colors, very handy. On the punch cards,there was a layout printed, 8 rows and 80 columns. Hint, 8 rows.
 
 			
-![alt text](https://images.computerhistory.org/revonline/images/X6300.2012-03-01.jpg?w=600 "punchcard")
+![alt text](https://ids.si.edu/ids/deliveryService?max_w=550&id=NMAH-AHB2017q015292 "punchcard")
 
 
 You the programmer would write your code in block letters on coding sheets, green sheets of paper a little bigger than a legal pad, pre printed with rows and columns of little boxes. You wrote a character in each little box. In pencil of course. 

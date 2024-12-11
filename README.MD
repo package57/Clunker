@@ -38,14 +38,17 @@ A physical index. I would go a step further and put the program name in the last
 If you dropped your stack on the floor, you could place it into a card sorter and it would fix it for you - if you had sequence numbers. Otherwise you would have to manually restack your deck comparing it to the code sheets, or re punch your cards. In school or at work these machines and services were valuable.
 
 So now you have your stack, or multiple stacks, imagine one line of code is one card! I've seen programs that used multiple boxes of cards, 2000 each, on cart trays on wheels. Some of these programs represented several months of work. They were nearly priceless. see Sir George Williams affair 1969 Montreal Canada.
-"As the police and the students fought in the halls, other students threw computer punch cards out of the windows, littering the streets above with thousands of punch cards ". Believe me, it was a pile too thick to drive through. Millions of hours of programming were lost.
+
+*"As the police and the students fought in the halls, other students threw computer punch cards out of the windows, littering the streets above with thousands of punch cards ". *
+
+Believe me, it was a pile too thick to drive through. Millions of hours of programming were lost.
 
 When you were ready to run your program, you added some special cards in front and back of your stack (brown) - to compile, link and run (red), followed by your data cards(green)! It is 'data' processing after all, we're not dialing controls here or shooting at things. You loaded your stack into a card reader,  pressed F1 , R, Send on the keyboard of the Card Reader.
 Then waited for someone to gather your 'listing' off the printer. Houston Automated Spool Protocol aka 'HASP'. Then you would head back to your desk to 'desk check' your output. No debug. No watching. No nothing.
 
 Everything with your eyes and your head and multiple eyes were essential. You could ask for a 'core dump' and get a stack of paper or hex output. Good Luck. 
 
-This is how programmers lived and data processing occurred until about 1980. I started in 1982 and this is how it was done. Actually, I remember in college in the late 70's there was only one CRT, the "main" console. There was always a collection of future Phd's surrounding it, cigarettes hanging from their lips, deep in thought, staring at the blinking cursor. Mesmerized. 
+This is how programmers lived and data processing occurred until about 1980. I started in 1982 and this is how it was done. Actually, I remember in college in the late 70's there was only one CRT, the 'main' console. There was always a collection of future Phd's surrounding it, cigarettes hanging from their lips, deep in thought, staring at the blinking cursor. Mesmerized. 
 
 Next up was the DEC writer! A dot matrix printer with a keyboard. It would spit out a line and you would type in a response.
  
@@ -76,13 +79,13 @@ Iteration - looping, doing things again and again, over and over consistently an
 The next most important thing to remember is this. The very basic requirement is that your program 'works'. How did it work? How long did it take to run? What resources were needed? What difficulties were encountered? What was accomplished? What went wrong? How do you fix that? You will quickly forget why you wrote what you wrote, so be as clear as possible with your code 'style', don't get fancy. The computer can handle millions of instructions. Modern compilers and pre compilers will 'fancy' up your logic for you - even if that wasn't your plan.
 see C++ case statement.
 
-Remember Syntax is Syntax but people are people and you brain can only handle so much pain. C++ will have you asking "what the hell does that mean" all day into tomorrow. C++ is funny. The only thing about it that I like is it's 'typed' and supports structured programming techniques. Oh and if you want to, you can create 'objects' but in 40 professional years I never did once!  
+Remember Syntax is Syntax but people are people and your brain can only handle so much pain. C++ will have you asking 'what the hell does that mean' all day into tomorrow. C++ is funny. The only thing about it that I like is it's 'typed' and supports structured programming techniques. Oh and if you want to, you can create 'objects' but in 40 professional years I never did once! 
 
-In over 40 years experience programming, building and deploying mission critical applications, I've never created an 'Object'. I've heard that there is nothing you can do in "C++" that you can't do in "C". The “C” programming language is from 1970 and was used to write Unix. C++ is C with Objects. So, why would you use C++ and leverage it's Object Oriented features? We'll get into that a little.
+In over 40 years experience programming, building and deploying mission critical applications, I've never created an 'Object'. I've heard that there is nothing you can do in 'C++' that you can't do in 'C'. The 'C' programming language is from 1970 and was used to write Unix. C++ is C with Objects. So, why would you use C++ and leverage it's Object Oriented features? We'll get into that a little.
 
 Another thing that's glaring is the lack of file processing knowledge. The References perhaps have a single page dedicated to files. I find this appalling. Information Technology and Data Processing have two things in common: files. The Tutorials are focused on little bits of data being passed around. My last project I was dealing with multiple petabytes of data. Spread across dozens of files and databases. I'll unshroud that and cover Databases too. 
 
-Let's pull the vail off presentation. In my life I never used a Graphical User Interface aka "GUI". All I ever did was manipulate characters so a Character User Interface or "CUI" was more than adequate. So what's a GUI for? Well it's for graphics, presenting pictures, images. Adjusting 'dials'. Ya, ok. We wont need any of that. 
+Let's pull the vail off presentation. In my life I never used a Graphical User Interface aka 'GUI'. All I ever did was manipulate characters so a Character User Interface or 'CUI' was more than adequate. So what's a GUI for? Well it's for graphics, presenting pictures, images. Adjusting 'dials'. Ya, ok. We wont need any of that. 
 
 The biggest 'miss' in References and Tutorials is the 'Why' of everything. I believe that time will be better spent learning why to use a feature. After that "syntax is syntax" right? Well, with C++ you'll spend lot's of time figuring out syntax. It's it's own little monster. There are no doubt volumes written about C++ syntax, and why it's structured as such. I often times don’t get it myself. 
 
@@ -124,7 +127,7 @@ One last word on comments. As a matter of practice I start every program with co
 
 At my first gig, they realized that we were off course and set us straight. We were taken, one by one and placed into a room, for let’s say, for reeducation! We were trained to do things the same way. In the end, if you looked at a piece of code, you could tell what it was for and how it worked. No fear of making changes. You could not tell who wrote it. Perfect. Unfortunately, of all the places I’ve worked, that was the only job that did that. The good news is that everywhere I worked, if there was an issue in the code, the managers could look at the code and say to me 'it wasn’t you'. True, I do things in a very particular way, but not my way.                   
  
-Thing. The smallest program in C++. I called it Thing, you can call your program anything you’d like. C++ is funny, you can call the file “abc.cpp” and the program “xyz”. It’s all up to you. Most of the time, the file that contains the ‘main’ function will be called ‘main.cpp’ . With more comments than code. This will change. 
+Thing. The smallest program in C++. I called it Thing, you can call your program anything you’d like. C++ is funny, you can call the file 'abc.cpp' and the program 'xyz'. It’s all up to you. Most of the time, the file that contains the ‘main’ function will be called ‘main.cpp’ . With more comments than code. This will change. 
 
 ```
 // a function "()" called main, 
@@ -143,9 +146,9 @@ The ‘main’ function always returns an integer, a number. If something is wro
 $g++ -o Thing Thing.cpp
 ```
 
-All this command says is run program 'g++', the compiler, create an executable “-o”, called “Thing” from the code in file Thing.cpp. A compiler is a program. It converts your ‘Thing.cpp’ file into an executable ‘Thing’ file. There are many compiler options. Look them up and play around. An executable is a file in binary. It contains all the zeros and ones that the CPU understands to do this and that.   
+All this command says is run program 'g++', the compiler, create an executable “-o”, called “Thing” from the code in file Thing.cpp. A compiler is a program. It converts your ‘Thing.cpp’ file into an executable ‘Thing’ file. There are many compiler options. Look them up and play around. An executable is a file in binary. It contains all the zeros and ones that the CPU understands to do this and that.  
  
-You run the ‘Thing’ program by the Unix command “./” followed by what you want to run:
+You run the ‘Thing’ program by the Unix command './' followed by what you want to run:
 
 ```
 $./Thing
@@ -209,8 +212,8 @@ int main()
 ```
 
 
-Remember I said C++ is funny? Way back in the olden days in DOS this "<<" meant
-input and that ">>" output. So you would, for example having a program that did ‘data processing’ have an input file and an output file and would tell DOS to run it like this: 
+Remember I said C++ is funny? Way back in the olden days in DOS this '<<' meant
+input and that '>>' output. So you would, for example having a program that did ‘data processing’ have an input file and an output file and would tell DOS to run it like this: 
 
 ```
 myprogram << input.txt >> output.txt
@@ -6426,7 +6429,9 @@ void CLEditFrame::LookForFF()	 // implemented in main.cpp
 }
 ```
 Now the intent is clear. Look for the sub string. The result will either be not found “-1” or the position of the location of the first character of the sub string. Remember it is the position in the string, an array. If we find the string we capture where it is, count it and set the next search start position. Can you figure out how to make this even more efficient? Pierre, what do you mean? What's wrong with it now?
+
 **void CaptureFF();**  	// declared in functions.h
+
 ```
 void CLEditFrame::CaptureFF() 	// implemented in main.cpp
 {
@@ -7587,8 +7592,7 @@ class CLEditSM
 };
 
 CLEditSM.cpp
-// this is the Shell-Metzner sort an adaptation of the Shell sort by Marlene Metzner
-// the fastest sort on the planet
+/* this is the Shell-Metzner sort an adaptation of the Shell sort by Marlene 	Metzner the fastest sort on the planet */
 #include "CLEditSM.h"
 CLEditSM::CLEditSM()
 {
@@ -7659,6 +7663,113 @@ void CLEditSM::Swap()
 
 }
 ```
+
+**just for fun**
+We can improve the sort. We can make it actually usefull. Normal mere mortals
+perform a sort on a coluom on a spread sheet, or fields on a record, like name etc. In a database you'd sort (ORDER BY) one of more table colums. But, lets be smarter than that. How you ask?
+Well, in the current logic we're sorting the entire line. Not very usefull. If you specify a certain coloum or set of coloums, everytime you want to change the colums you have to change the sort. The sort is in out CLEditSM object. What if there was a way to change the Sort from outside CLEditSM? There is.
+In CLEditSM we'll always sort the same thing, the same area. There is no structure like a spreadsheet or a database here, just a string. So what we need to do is provide the data that we want to sort in the area that is being sorted.
+We can then change our minds whenever we want in CLEDitMain and never change CLEditSM. Isn't that cleaver? 
+**Change in CLEditSM.h** add a sortarea and change the TYPE of temp
+```
+       struct InputFile
+        {
+			std::string sortarea;   // the sort area
+			std::string IFCode; // the line of code
+        };
+        InputFile inputfile[25000];
+
+private:
+        InputFile temp;
+
+```
+**Change CLEditSM.cpp** how smart is that
+```
+void CLEditSM::LoopLoop()
+{
+
+    l = i + m;
+
+
+    if (inputfile[i].sortarea > inputfile[l].sortarea)
+    {
+        Swap();
+        i -= m;
+    }
+    else
+    {
+        i = -1;
+    }
+
+}
+void CLEditSM::Swap()
+{
+
+    temp = inputfile[i];
+
+    inputfile[i] = inputfile[l];
+
+    inputfile[l] = temp;
+
+}
+```
+
+**Change CLEditMain.cpp**
+Change in functions.h add a function to populate the sortarea, it could get hard
+```
+	 void SortArea(); 
+```
+**Change in CLEditMAin.cpp** change to use SortArea() to populate sortarea
+```
+void CLEditFrame::SortSM()
+{
+	* * * MORE BELOW
+    for (i = 0; i < wfilecnt; i++)
+    {
+        SortArea();
+    }
+
+	* * * MORE BELOW
+```
+
+**void SortArea();** // delared in functions.h
+
+```
+void CLEditFrame::SortArea()	// implemented in Main.cpp
+{
+
+    if (i == 1)
+    {
+        LogFile << "SortArea " << std::endl;
+    }
+// we need the length of the code line
+    WorkStrl = winputfile[i].wIFCode.length();
+// assume we get nothing
+    SM.inputfile[i].sortarea = "";
+// we cant look at the line if it's shorter than what we want sorted
+// pretend we want to sort the first 5 characters length
+// after the first 5 characters, starting position 6
+// meaning characters 6,7,8,9 & 10
+    if  (WorkStrl >=  10)
+    {
+        WorkStr = winputfile[i].wIFCode.substr(6, 5);
+        SM.inputfile[i].sortarea += WorkStr;
+    }
+// and we want to sort the first 5 characters after the first 20
+// meaning characters 21,22,23,24 & 25
+    if  (WorkStrl >=  25)
+    {
+        WorkStr = winputfile[i].wIFCode.substr(21, 5);
+        SM.inputfile[i].sortarea += WorkStr;
+    }
+
+    SM.inputfile[i].IFCode = winputfile[i].wIFCode;
+
+}
+```
+Try it. It's so much fun! You'll never think of sorting the same way. 
+
+**Back to CLEdit**
 This is a real mile stone. We’ve completed OnApplyClicked! Let’s finish out our connection OnKeyDown. We had much more to do. We left it because these are keyboard event driven connections to actions. It’s clear that we’re injecting actions between the send LoadScreen, receive ProcessScreen loop. At the level of the ENTER key event, and not a key level event. We’re not going to react to key press event like the IDE does. We don’t need to. 
 
 Add to functions.h
@@ -7762,8 +7873,8 @@ void CLEditFrame::FindNext()   // implemented in main.cpp
 
     for (f = 0; f < FindCnt; f++)
     {
-        if (FF[f].index > prevf)    // look for the index in the after the prior
-//						 one
+        if (FF[f].index > prevf)  /* look for the index in the after the prior
+									 one */
         {
             frstl = FF[f].index + 1;    //off by one eh
             prevf = FF[f].index;
@@ -7881,12 +7992,9 @@ Example
 // do the other thing
 ```
 
-Step two is to create high level, empty files, as containers for the code. I put comments into each of those. Then as I added topics and logic to this document, I did the exact same action in the IDE and I compiled and tested as I progressed. This ensures, as best possible the completeness of this document. Recall that so far, there are two basically empty class implementations. We’ll complete those
-now.
-They are small so we’ll just dive into CLEditCF. This is for file processing, not stream processing. Real life, not silly list taking and such. I need to digress.
-Bits and bytes hardly matter unless they are organized into some form of useful collection. We are not taking about dials, buttons, check boxes. Were talking about real data. Real data is complicated.
+Step two is to create high level, empty files, as containers for the code. I put comments into each of those. Then as I added topics and logic to this document, I did the exact same action in the IDE and I compiled and tested as I progressed. This ensures, as best possible the completeness of this document. Recall that so far, there are two basically empty class implementations. We’ll complete those now. They are small so we’ll just dive into CLEditCF. This is for file processing, not stream processing. Real life, not silly list taking and such. I need to digress. Bits and bytes hardly matter unless they are organized into some form of useful collection. We are not taking about dials, buttons, check boxes. Were talking about real data. Real data is complicated.
 Take my personal favorite example, names and addresses. Everyone has a name and address. People have a first name, a last name and perhaps a middle initial. Some people have a title at the end of their names like lawyers, esquire, or doctors MD. Then in the address typically we see street number, street, apartment number, city, state, zip, county, country. 
-How many different ways can you combine all those values? How many different days can you define those values? Is zip code 5 numbers, or 9 numbers. Does it include the dash? The US Postal Service has one way, the IRS another. And uess what, nobody is the same. Oh. How many addresses can a person have? Good questions. 
+How many different ways can you combine all those values? How many different days can you define those values? Is zip code 5 numbers, or 9 numbers. Does it include the dash? The US Postal Service has one way, the IRS another. And guess what, nobody is the same. Oh. How many addresses can a person have? Good questions. 
 The point to be made here is that data requires structure. The whole idea is called data administration. It’s both a science, and an art. You need to decide, what data, what it will look like and how are you going to 'process' it. You also have to be disciplined. When you read that C++ is a strongly typed language, that’s type discipline. 
 Everyone born before the year 2000, and those after, experience the cost of poor data administration and some woefully poor data discipline. My professional career started in 1982, on cards. With only 80 bytes per card, how do you imagine they decided to define Dates? You guess it, they said to themselves, we don’t need the century, we’ll save two bytes! Besides, this program wont be running in 20 years, and I’ll be retired by then. Not to mention format, will it be yymmdd, mmddyy, ddmmyy or julian yyddd or dddyy. You save 1 byte!
 Were they ever wrong! Programs that I wrote at AT&T in the 90’s are still running 1000’s of times per day, even today. Today’s ‘modern’ languages have ‘date’ types and all sorts of functions to deal with them.

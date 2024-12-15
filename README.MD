@@ -79,6 +79,9 @@ Iteration - looping, doing things again and again, over and over consistently an
 The next most important thing to remember is this. The very basic requirement is that your program 'works'. How did it work? How long did it take to run? What resources were needed? What difficulties were encountered? What was accomplished? What went wrong? How do you fix that? You will quickly forget why you wrote what you wrote, so be as clear as possible with your code 'style', don't get fancy. The computer can handle millions of instructions. Modern compilers and pre compilers will 'fancy' up your logic for you - even if that wasn't your plan.
 see C++ case statement.
 
+A compiler is a program. It translates your code into 'machine' languge. Machine language is in 'binary'. Binary is the language of the CPU. For some languages, the compiler is written in the language it compiles. Like Pascal for example. Some frameworks like .Net allow you do code in almost whatever language you want. You can have a project that mixes C#, Visual Basic etc. 
+The pre compiler tranlates the code into a common intermediate language. Sometimes the intermediate language is compiled at the point its needed. Compilers produce ooutput specific to the operating system. Not all programs run on all platforms. 
+
 Remember Syntax is Syntax but people are people and your brain can only handle so much pain. C++ will have you asking 'what the hell does that mean' all day into tomorrow. C++ is funny. The only thing about it that I like is it's 'typed' and supports structured programming techniques. Oh and if you want to, you can create 'objects' but in 40 professional years I never did once! 
 
 In over 40 years experience programming, building and deploying mission critical applications, I've never created an 'Object'. I've heard that there is nothing you can do in 'C++' that you can't do in 'C'. The 'C' programming language is from 1970 and was used to write Unix. C++ is C with Objects. So, why would you use C++ and leverage it's Object Oriented features? We'll get into that a little.
@@ -104,7 +107,7 @@ I do everything on the Unix operating system, Linux Mint in fact. In Unix 'every
 	
 **A program is nothing more than plain text in a file.**
 	
-Let me repeat that.A ‘program’ is a simple text file with instructions. There are thousands of specialized programs working together on any computer. We'll focus on ours. What separates a C++ file from a hole in the ground is the file name extension, in this case '.cpp'. All programs have their own syntax and their own ways to implement features of the language. 
+Let me repeat that. A ‘program’ is a simple text file with instructions. There are thousands of specialized programs working together on any computer. We'll focus on ours. What separates a C++ file from a hole in the ground is the file name extension, in this case '.cpp'. All programs have their own syntax and their own ways to implement features of the language. 
 
 I created a folder called Thing. I used a simple text editor and created a file called Thing.cpp.
 
@@ -146,7 +149,7 @@ The ‘main’ function always returns an integer, a number. If something is wro
 $g++ -o Thing Thing.cpp
 ```
 
-All this command says is run program 'g++', the compiler, create an executable “-o”, called “Thing” from the code in file Thing.cpp. A compiler is a program. It converts your ‘Thing.cpp’ file into an executable ‘Thing’ file. There are many compiler options. Look them up and play around. An executable is a file in binary. It contains all the zeros and ones that the CPU understands to do this and that.  
+All this command says is run program 'g++', the compiler, create an executable “-o”, called “Thing” from the code in file Thing.cpp. A compiler is a program. It converts your ‘Thing.cpp’ file into an executable ‘Thing’ file. There are many compiler options. Look them up and play around. An executable is a file in binary. It contains all the zeros and ones that the CPU understands to do this and that.
  
 You run the ‘Thing’ program by the Unix command './' followed by what you want to run:
 
@@ -156,9 +159,13 @@ $./Thing
 
 In the Terminal, it looks like this:
 	
-![](../Pictures/Terminal1.png)
+```
+pierre@pierre-OptiPlex-9020:~$ cd Thing
+pierre@pierre-OptiPlex-9020:~/Thing$ ./Thing
+pierre@pierre-OptiPlex-9020:~/Thing$ 
+```
  
-And, as expected, nothing happens! Perfect. Unix is terse. ./Thing means run the main().      
+And, as expected, nothing happens! Perfect. Unix is terse. ./Thing means run the main().     
 
 So far we’ve learned that numbers are called ‘int’ in C++.  An ‘int’ is a type, a type of thing. Whole numbers, greater than 0. Everything must have a type, numbers, letters, fractions etc. C++ eats types for breakfast. There are several type of numbers! 
 
@@ -295,9 +302,9 @@ Clunker
 $
 ```
 
-When I see 'endl' I don't have to hurt my brain trying to figure out what it might mean. I'm not that smart. By now you get the point that if you make a change to the program and expect a different result, you need to compile it, after changing the code first. I encountered a programmer that just kept recompiling over and over expecting a different result. Sad.   
+When I see 'endl' I don't have to hurt my brain trying to figure out what it might mean. I'm not that smart. By now you get the point that if you make a change to the program and expect a different result, you need to compile it, after changing the code first. I encountered a programmer that just kept recompiling over and over expecting a different result. Sad.  
 
-The observant will notice that 'cout' is a string ‘streamer’ to the terminal/console. btw wcerr and wclog are for system error and log. Try them.
+The observant will notice that 'cout' is a string ‘streamer’ to the terminal/console. btw cerr and clog are for system error and log. Try them.
 
 C++ is funny. It will let you write your code, very poorly. 
 
@@ -320,7 +327,7 @@ int main()
 ```
 
 
-Compile Input and run it! Have some fun!
+Compile Input and run it! Have some fun! 
 
 How about this one. I called it End.cpp. It will sit there forever until you press enter. There’s a lesson there.
 
@@ -5800,6 +5807,149 @@ Add to objects.h – we’ll implement the class later. What “CLEditCF CF;” 
 	// this is an instance of a class to process a file
 		CLEditCF CF;
 ```
+Here we just declared a dynammic instance of a class. C++ is funny.
+We could have declared CLEditCF * CF; in objects.h. 
+Then everywhere before we refer to CF dot anything, in Main.cpp 
+we implement CLEditCF * CF = new CLEditCF;
+and then change everything CF dot to use CF-> 
+then do a delete CF; when we're done
+there are couple of other minor changes too, the compiler will ding you
+we'll implement CF dynamically, arrows and DB statically, dots for fun
+C++ is funny
+If you code...
+
+```
+	if (a == b)
+	{
+		go to label;
+	} 
+	
+	CLEditCF * CF = new CLEditCF;
+	
+	// do  CF stuff
+	
+	delete CF;
+	
+label:
+
+	// do more stuff
+}
+```
+
+C++ thinks you made a mistake 'jumping' over a dynamic allocation and gets scared for you!	It will force you to code this... to make C++ feel safer 
+
+```
+	if (a == b)
+	{
+		// do more stuff
+		return;
+	} 
+	
+	CLEditCF * CF = new CLEditCF;
+	
+	// do CF stuff
+	
+	delete CF;
+	
+label:
+
+	// do more stuff
+}
+```
+
+I think a fantastic lesson would be to test this both ways, and see which is faster. 
+I'll do this test script first with the dynamic allocation
+	open CLEditMain.cpp
+	saveas dynamic.txt 
+then as a ststic allocation
+	open CLEditMain.cpp
+	saveas static.txt 
+Dynamic Test Results: 
+**open**
+init 
+Welcome Fri Dec 13 13:39:04 2024
+
+File In Bytes 99611
+File In Records 4625
+open file 
+elapsed time: 144.194
+
+**save**
+init 
+Welcome Fri Dec 13 13:41:48 2024
+
+File In Bytes 99611
+File In Records 4625
+open file 
+elapsed time: 143.939
+
+What in the actual? The log looks as though the 'saveas' didn't work!
+Our screen says saveas dynamic.txt applied. The file static.txt is created.
+So what gives? C++ didn't say there was anything wrong. But something is!
+And I doubt it's because it's Friday thte 13th.
+
+We opened the log file and wrote to it many times. No issues. 
+Let me see, how did we open the log file? 
+LogFile.open("CLEditCFLogFile.txt", std::ios::out);
+All four files are fsteam types.
+We check the open status of the mainfiles filei and fileo
+*We didn't check the status of the log and error files.*
+We need to add that I think!
+Let's see what happens. 
+
+Well, well. so many bugs. 
+First, the manner of the open was not the problem.
+The problem was there was no 'close' for the Log or Error files.
+What that did was only log the first run, not the others.
+C++ said nothing. Nice. 
+Then, I was using 'save' instead of 'saveas' and overwriting the wrong file!
+Lucky for me the actions 'open', 'save' and 'saveas' actually work!
+Mercifully, I take a backup of my work daily.
+Also, I think, actually I know, the byte count on 'save' is wrong.
+It's different by the record count. This is because we've added a endline to each record. Can I live with that? No. 
+
+Dynamic Test Results; 
+**open**
+init 
+Welcome Sat Dec 14 13:40:28 2024
+
+open file 
+elapsed time: 143.844
+File In Bytes 100807
+File In Records 4662
+File Out Bytes 0
+File Out Records 0
+**saveas**
+init 
+Welcome Sat Dec 14 13:41:06 2024
+
+save file 
+elapsed time: 4.154
+File In Bytes 0
+File In Records 4662
+File Out Bytes 100807
+File Out Records 4662
+
+Static Test Results;
+**open**
+**saveas**
+
+I made a ton of changes to CLEditCF while *testing*. 
+It's interesting to see that reading a file and loading a structure takes alot longer than the opposite. I'll need to explore that.
+
+Also the record count and byte couts are good, but, something is shifting data 
+My test script is 'opem filename' followed immediately by 'saveas newname'
+Using a Unix command in a terminal, diff filename newname 
+there are odd differences!
+need to fix!
+**here**
+
+```
+the end
+```
+
+
+
 Add to variables.h
 ```
  int CLEditCFrc;	
@@ -5810,33 +5960,37 @@ void CLEditFrame::CreateFile()   // implemented in Main.cpp
 {
 
     LogFile << "Create File" << std::endl;   // need a block copy and file name
-
+    
+    CLEditCF * CF = new CLEditCF;
+    
     InitCF();
 
     for (i = 0; i < CCrows; i++)
     {
+        WorkStr = ccinputfile[i].cIFCode;
         SetEndl();
-        CF.inputfile[i].IFCode = ccinputfile[i].cIFCode;
+        CF->inputfile[i].IFCode = WorkStr;
     }
-
-    CF.fileoname = CurrentFile;
-    CF.fileoreccnt = CCrows;
-    CLEditCFrc = CF.savefile(CF.fileoname);
-
+    
+    CF->fileoname = CurrentFile;
+    CF->fileoreccnt = CCrows;
+    CLEditCFrc = CF->savefile(CF->fileoname);
+    
     if  (CLEditCFrc != 0)
     {
         wxLogStatus(PrimaryCommand + " " + FirstParameter + " Create file error");
         goto ExitCreateFile;
     }
-
+    
     LoadScreen();   //always from work input
-
+    
     wxLogStatus(PrimaryCommand + " " + FirstParameter + " applied");
 
 ExitCreateFile:
 
-    WipeCommand();
+     delete CF;
 
+     WipeCommand();
 }
 ```
 A word please. References. Have you noticed that we’re using classes, some within our project and some outside. And we reference, or use, different functions of each class. Sometimes this is coded, written, as Apply = new wxButton followed by   Apply->Bind() or other time you see it written, as CLEditCF CF; followed by   CF.savefile();. See the difference? Why does C++ do that? No idea. The ‘new’ means dynamic allocation. What? It means, load the program into memory, on the ‘heap’, only if and when I say so with ‘new’. Oh, and if I forget to delete it when I’m done, I generate a memory leak and the computer will crash. Nice. If I don’t use ‘new’ it means static allocation, the program is included with your logic, like junk in your trunk that you never use. Which is better and why you would prefer one or the other would occupy books. I can say that wxWidget things must be allocated as ‘new’. Wxwidgets performs the ‘deletes’. You’ll see we actually allocate some things as ‘new’ in CLEditDB and we do the ‘delete’. You’ll see. My issue is that C++ makes you code the reference in a different way, even tough, it ‘knows’ one is static and the other is dynamic. Country dumb.               
@@ -5858,7 +6012,6 @@ class CLEditCF
         std::string fileiname;
         std::string fileoname;
 
-        int fileibytecnt;
         int fileireccnt;
         int fileoreccnt;
 
@@ -5921,8 +6074,7 @@ A word about function location and use. In the ancient past, we desk checked our
 
 It’s a judgment call. In ancient times, we created a ‘flow chart’. Using box shapes as symbols for functions and drew lines from box to box to visually describe what the program was supposed to do. It’s funny, but at my first professional job, I was assigned a program to write and I banged it out in no time. I told my boss I was done and the first thing out of his mouth was “let me see the flow chart”. I didn’t have one. He deleted my program. I hadn’t made a copy. I learned a few lessons there. 
 
-The point I’m trying to make is that you’ll see logic flows that overlap. So what do you do? Do you create a virtually duplicate copy with a different name, or, use the same function in both flows? The right answer is not easy to come by. If you duplicate the function with a new name like flowAthis() and flowBthis(), then you can never break one flow by changing this(). On the other hand, if this() needs to change, you have to change all the occurrences this(). The answer is, it depends. How complex is this(). In InitCF() it does one thing and only one thing. If you need that function in more than one flow, then use InitCF() where you need to. However, be sure that InitCF() does not get more complex.
-Otherwise flowA and or flowB might break outright, or exhibit an undesirable hidden feature. The best, dare I say, best practice is to keep your functions as pure and basic as possible. 
+The point I’m trying to make is that you’ll see logic flows that overlap. So what do you do? Do you create a virtually duplicate copy with a different name, or, use the same function in both flows? The right answer is not easy to come by. If you duplicate the function with a new name like flowAthis() and flowBthis(), then you can never break both flows by changing one. On the other hand, if this() needs to change, you have to change all the occurrences this(). The answer is, it depends. How complex is this(). In InitCF() it does one thing and only one thing. If you need that function in more than one flow, then use InitCF() where you need to. However, be sure that InitCF() does not get more complex. Otherwise flowA and or flowB might break outright, or exhibit an undesirable hidden feature. The best, dare I say, best practice is to keep your functions as pure and basic as possible. 
 
 The compiler will not care how many exact copies of this() you create. It will notice they are duplicates and only create one. Yup, it will do that. There is this, in my humble opinion, bad idea of function ‘overloading’. You can create for example 'void fun()' and 'int fun()'. C++ will be happy to let you do that. It will create different versions of fun(), and generate different names for each. It won’t tell you the names, this is a process called, I kid you not, 'mangling'. It will execute the right fun() based on the code you use to invoke the function. If you code 'anint = fun();' or just 'fun();' C++ will know what you mean. I’m not a big fan. I get it, it’s pretty cleaver but I feel like you lose control of what you are really trying to do. When you use more wxWidget parts, you’ll, as your typing, see all the different shapes and sizes of fun(). Which one is right? You’ll find out eventually.                                    
 
@@ -5943,15 +6095,31 @@ void CLEditFrame::InitCF()  // implemented in main.cpp
 
 }
 ```
-This is in order to add a new line or “carriage return” to each line of text. We remove it when we import the file with a ‘copy’, ‘open’ or ‘fromstage’. Make sense? We don’t what to see the 'carriage return' on the screen, but we need it in the file as a record terminator.    
+This is in order to add a new line or “carriage return” to each line of text. We remove it when we import the file with a ‘copy’, ‘open’ or ‘fromstage’. Make sense? We don’t what to see the 'carriage return' on the screen, but we need it in the file as a record terminator. 
 **void SetEndl();**  	// declared in functions.h
 ```
 void CLEditFrame::SetEndl()  // implemented in main.cpp
 {
 
-    LogFile << "Set Endl " << std::endl;
-
-    winputfile[i].wIFCode += '\n';
+    WorkStrl = WorkStr.length();
+    
+    for (pos = (WorkStrl - 1); pos > 0; pos--)
+    {
+        if (WorkStr[pos] != ' ')
+        {
+            if (pos == (WorkStrl -1))  // this means the line end has no space
+            {
+                WorkStr += '\n';
+                return;
+            }
+            else                       // this means the line ends with a space
+            {
+                pos++;
+                WorkStr[pos] = '\n';
+                return;
+            }
+        }
+    }
 
 }
 ```
@@ -5982,13 +6150,15 @@ void CLEditFrame::CreateTable()  // implemented in main.cpp
 
     for (i = 0; i < CCrows; i++)
     {
+        WorkStr = ccinputfile[i].cIFCode;
         SetEndl();
-        DB.inputfile[i].IFCode = ccinputfile[i].cIFCode;
+        DB.inputfile[i].IFCode = WorkStr;
     }
 
     DB.DataBase = FirstParameter;
-
     DB.TableName = SecondParameter;
+    
+    DB.Initialize();
 // the next three lines are the equivalent of an "open"
 //create a driver object
     DB.Driver();
@@ -6058,9 +6228,9 @@ class CLEditDB
         void Connect();
         void Statement();
         void ToStage();
-        void Free();
         int  Cursor();
         void FromStage();
+        void Free();
 
     protected:
 
@@ -6068,7 +6238,47 @@ class CLEditDB
 
 };
 ```
-Add this file, a class, to your project. 
+Add this file, a class, to your project. You may or may not have noticed that a class declares two functions, one with the name of the class, the other with a squiggle '~' in front of the name of the class. 
+
+
+```
+class CLEditDB
+{
+    public:
+
+        CLEditDB();
+        virtual ~CLEditDB();
+```
+
+
+The first one is called a 'constructor'. This is called when you declare CLEditDB DB;. The destructor is called when DB falls out of scope. Constructors are usefull for doing things before anything else. 
+
+Here is what the internet says:
+
+```
+The constructor IS the "Initialize function"
+Rather than calling two functions
+
+object = new Class;
+object.initialize();
+
+You just call
+
+object = new Class();
+```
+
+So it's just another piece of C++ funny stuff. Never mind that, we'll always have a real live initialize, because, this makes things clear. We do not like 'hidden' or in OOP terms 'encapsulated' stuff. We need to know and see what we're doing all the time. Look at it this way, imagine you use code SomeObject MyObject; and imagine that constructor for SomeObject searches your computer for stored passwords? You'll never see that, even in debugmode. It happens everyday.
+
+Not to worry. No idea what 'virtual' means.
+
+Here is what the internet says:
+
+```
+a virtual function defines a target function to be executed, but the target might not be known at compile time. They are mainly used to achieve runtime polymorphism.
+```
+
+I can't even begin to imagine what that would be used for. I'm not that smart.
+
 file CLEDitDB.cpp – the implementation, partial
 ```
 #include "CLEditDB.h"
@@ -6131,11 +6341,11 @@ void CLEditFrame::CopyFile()  // implemented in main.cpp
         goto ExitCopyFile;
     }
 
-
-    CF.fileiname = FirstParameter;
-    CF.fileoname = SecondParameter;
-    CLEditCFrc = CF.copyfile(CF.fileiname, CF.fileoname);
-
+    CLEditCF * CF = new CLEditCF;
+    CF->fileiname = FirstParameter;
+    CF->fileoname = SecondParameter;
+    CLEditCFrc = CF->copyfile(CF->fileiname, CF->fileoname);
+   
     if  (CLEditCFrc != 0)
     {
         CLEditCFmsg();
@@ -6145,7 +6355,9 @@ void CLEditFrame::CopyFile()  // implemented in main.cpp
         wxLogStatus(PrimaryCommand + " " + FirstParameter + " " + SecondParameter + " applied");
     }
 
-ExitCopyFile:
+// ExitCopyFile:
+
+    delete CF;
 
     WipeCommand();
 
@@ -6510,15 +6722,19 @@ void CLEditFrame::OpenFile()  // implemented in main.cpp
     if (FirstParameter == "")
     {
         wxLogStatus(PrimaryCommand + " " + FirstParameter + " file name to OPEN missing");
-        goto ExitOpenFile;
+        WipeCommand();
+        return; //goto ExitOpenFile;
     }
 
     InitScreen();
 
+    CLEditCF * CF = new CLEditCF;
+
     CurrentFile = FirstParameter;
-    CF.fileiname = FirstParameter;
+    CF->fileiname = FirstParameter;
+
 // import the file
-    CLEditCFrc = CF.openfile(CF.fileiname);
+    CLEditCFrc = CF->openfile(CF->fileiname);
 
     if  (CLEditCFrc != 0)
     {
@@ -6531,34 +6747,37 @@ void CLEditFrame::OpenFile()  // implemented in main.cpp
 
     InitWIF();
 
-    wfilecnt = CF.fileireccnt;
+    wfilecnt = CF->fileireccnt;
 
     if (wfilecnt > 23000)
     {
         FileSizeError = true;
         wxLogStatus(PrimaryCommand + " " + FirstParameter + " file too big ");
+        goto ExitOpenFile;
     }
-    else
+
+    haveaFile = true;
+
+    for (i = 0; i < CF->fileireccnt; i++)
     {
-        haveaFile = true;
-        for (i = 0; i < CF.fileireccnt; i++)
-        {
-            inputfile[i].IFlc   = "000000";
-            inputfile[i].IFCode   = CF.inputfile[i].IFCode;
-
-            winputfile[i].wIFlc   = "000000";
-            winputfile[i].wIFCode = CF.inputfile[i].IFCode;
-
-            GetEndl();
-        }
-        wxLogStatus(PrimaryCommand + " " + FirstParameter + " applied");
+        inputfile[i].IFlc     = "000000";
+        inputfile[i].IFCode   = CF->inputfile[i].IFCode;
+        winputfile[i].wIFlc   = "000000";
+        winputfile[i].wIFCode = CF->inputfile[i].IFCode;
+        GetEndl();
     }
 
     frstl = 1;
 
     LoadScreen();   //always from work input
 
+    PageofPage();
+
+    wxLogStatus(PrimaryCommand + " " + FirstParameter + " applied Page " + std::to_string(page) + " of " + std::to_string(ofpage));
+
 ExitOpenFile:
+
+    delete CF;
 
     WipeCommand();
 
@@ -6637,23 +6856,28 @@ void CLEditFrame::SaveFile()  // implemented in main.cpp
         TrimFile();
     }
 
+    CLEditCF * CF = new CLEditCF;
+
     for (i = 0; i < wfilecnt; i++)
     {
+        WorkStr = winputfile[i].wIFCode;
         SetEndl();
-        CF.inputfile[i].IFCode = winputfile[i].wIFCode;
+        CF->inputfile[i].IFCode = WorkStr;
     }
 
-    CF.fileoname = CurrentFile;
-    CLEditCFrc = CF.savefile(CF.fileoname);
-
+    CF->fileoname = CurrentFile;
+    CF->fileoreccnt = wfilecnt;
+    CLEditCFrc = CF->savefile(CF->fileoname);
+ 
+    delete CF;
+ 
     if  (CLEditCFrc != 0)
     {
         wxLogStatus(PrimaryCommand + " " + FirstParameter + " " + SecondParameter + " Save file Open error");
         goto ExitSaveFile;
     }
-
+ 
     LoadScreen();   //always from work input
-
     wxLogStatus(PrimaryCommand + " " + CurrentFile + " applied");
 
 ExitSaveFile:
@@ -6689,15 +6913,18 @@ void CLEditFrame::SaveAsFile()  // implemented in main.cpp
         TrimFile();
     }
 
+    CLEditCF * CF = new CLEditCF;
+
     for (i = 0; i < wfilecnt; i++)
     {
+        WorkStr = winputfile[i].wIFCode;
         SetEndl();
-        CF.inputfile[i].IFCode = winputfile[i].wIFCode;
+        CF->inputfile[i].IFCode = WorkStr;
     }
 
-    CF.fileoname = CurrentFile;
-    CF.fileoreccnt = wfilecnt;
-    CLEditCFrc = CF.savefile(CF.fileoname);
+    CF->fileoname = CurrentFile;
+    CF->fileoreccnt = wfilecnt;
+    CLEditCFrc = CF->savefile(CF->fileoname);
 
     if  (CLEditCFrc != 0)
     {
@@ -6766,6 +6993,7 @@ void CLEditFrame::ToStage()	// implemented in main.cpp
     DB.DataBase = FirstParameter;
     DB.TableName = SecondParameter;
 
+    DB.Initialize();
 // the next three lines are the equivalent of an "open"
 //create a driver object
     DB.Driver();
@@ -6792,8 +7020,9 @@ void CLEditFrame::ToStage()	// implemented in main.cpp
 
     for (i = 0; i < wfilecnt; i++)
     {
+        WorkStr = winputfile[i].wIFCode;
         SetEndl();
-        DB.inputfile[i].IFCode = winputfile[i].wIFCode;
+        DB.inputfile[i].IFCode = WorkStr;
     }
 
     DB.rowcnt = wfilecnt;
@@ -6837,6 +7066,7 @@ void CLEditFrame::FromStage()  // implemented in main.cpp
     DB.DataBase = FirstParameter;
     DB.TableName = SecondParameter;
 
+    DB.Initialize();
 // we are creating stuff with the "new" keyword here 
 // so we need to delete when not in use  
 // the next three lines are the equivalent of an "open"
@@ -7998,11 +8228,19 @@ How many different ways can you combine all those values? How many different day
 The point to be made here is that data requires structure. The whole idea is called data administration. It’s both a science, and an art. You need to decide, what data, what it will look like and how are you going to 'process' it. You also have to be disciplined. When you read that C++ is a strongly typed language, that’s type discipline. 
 Everyone born before the year 2000, and those after, experience the cost of poor data administration and some woefully poor data discipline. My professional career started in 1982, on cards. With only 80 bytes per card, how do you imagine they decided to define Dates? You guess it, they said to themselves, we don’t need the century, we’ll save two bytes! Besides, this program wont be running in 20 years, and I’ll be retired by then. Not to mention format, will it be yymmdd, mmddyy, ddmmyy or julian yyddd or dddyy. You save 1 byte!
 Were they ever wrong! Programs that I wrote at AT&T in the 90’s are still running 1000’s of times per day, even today. Today’s ‘modern’ languages have ‘date’ types and all sorts of functions to deal with them.
-In the beginning. I do like to talk about the past because it can explain the future. In the beginning, remember those punch cards. Data was on punch cards too. Each card could only hold 80 characters. These cards, when they were data, were referred to as ‘records’. So now your name and address ‘file’ needs structure. These structures know as ‘layouts’ need to be defined by you, and filled in character by character for consumption. Some languages like COBOL make that so easy for you. Not C++. CLEditCF will give you the frame work for even thinking about this mehtodology. 
-CLEditCF is what real file processing looks like. For fun, we’ll improve CLEdit by adding a create record function, later. In Data Processing terms, records within a file are consistent within a layout. Each file will have a different layout.  The language of file processing is like  Open, Read, Write, ReWrite, Delete, Close.  
-Databases. A database stores data in tables. Tables have a structure. Each ‘record’ in the table is called a row. A database management system DBMS can handle many databases each containing many tables. Also, the DBMS provides a ton of functions. There are books and books. The language of database is like USE, CREATE,SELECT,UDATE,DELETE,INSERT. And many more. We’ll touch on the basics. The language of all DBMS is SQL. 
-Ok. Back to reality. Hey Pierre, why did you write ‘using namespace std’ and then waste all those keystrokes typing std::string instead of just string? Because, if you add a new library, or someone  changes a library, affecting the ‘string’ type, my code will always work. Now and forever. 
-Reminder that CLEditCF is a class. It has public parts and private parts. Never us a class in your  project , unless, you have all the code to the class and everything inherited from those classes. If you can’t read the code, you have no idea that your program is doing. No idea! Period. All the libraries we’ve used are open source, the code is 100% available. 
+In the beginning. I do like to talk about the past because it can explain the future. In the beginning, remember those punch cards. Data was on punch cards too. Each card could only hold 80 characters. These cards, when they were data, were referred to as ‘records’. So now your name and address ‘file’ needs structure. These structures know as ‘layouts’ need to be defined by you, and filled in character by character for consumption. Some languages like COBOL make that so easy for you. Not C++. CLEditCF will give you the frame work for even thinking about this methodology. 
+CLEditCF is what real file processing looks like. For fun, we’ll improve CLEdit by adding a create record function, later. For now CLEditCF will simply consider records to be one field terminated by an 'end line'. In Data Processing terms, records within a file are consistent within a layout. Each file will have a different layout.  The language of file processing is like  Open, Read, Write, ReWrite, Delete, Close. 
+
+Some 'programmers' do nothing all day long except create ETL's. They write programs to Extract Data, Transform it and Load it into a file or more likely a table. All for consuption by a 'real' program that processes it. I'm sure I've insulted someone. Oh well. When I started there was no one to do all the ETL work for you. You did it yourself, and, you wrote the program too. Now a days, you probably won't even test your code. Some tester, will write scripts (more code) to automate the testing of your code. I always asked, 'who is testing the script?'. I got into a lot of trouble for asking that. anywho
+
+Databases. A database stores data in tables. Tables have a structure. Shocker. Each ‘record’ in the table is called a row. A database management system DBMS can handle many databases each containing many tables. Also, the DBMS provides a ton of functions. There are books and books. The language of database is like USE, CREATE,SELECT,UDATE,DELETE,INSERT. And many more. We’ll touch on the basics. The language of all DBMS is SQL. 
+
+Ok. Back to reality. Hey Pierre, why did you write ‘using namespace std’ and then waste all those keystrokes typing std::string instead of just string? Because, if you add a new library, or someone changes a library, affecting the ‘string’ type, my code will always work. Now and forever. 
+Reminder that CLEditCF is a class. It has public parts and private parts. Never us a class in your  project, unless, you have all the code to the class and everything inherited from those classes. If you can’t read the code, you have no idea that your program is doing. No idea! Period. All the libraries we’ve used are open source, the code is 100% available. 
+
+**File Processing**
+
+I wrote this program, long ago, as a console application. I've modified it over time.
 
 **file CLEditCF.h**  complete
 ```
@@ -8024,7 +8262,6 @@ class CLEditCF
         std::string fileiname;
         std::string fileoname;
 
-        int fileibytecnt;
         int fileireccnt;
         int fileoreccnt;
 
@@ -8032,36 +8269,30 @@ class CLEditCF
         {
             std::string IFCode; // the line of code
         };
-        InputFile inputfile[25000];  // 23,000 line is the biggest single block of
-//							 code I've ever seen aka "203"
+        InputFile inputfile[25000];  /* 23,000 line is the biggest single block 											of code I've ever seen aka "203" */
 
         int copyfile(std::string, std::string);
 
         int openfile(std::string);  // open file - load into InputFile structure
 
-        int savefile(std::string);  // save / save as file - from InputFile
-//						 structure
+        int savefile(std::string);  /* save, save as file - from InputFile
+                  					 structure */
 
     protected:
 
     private:
 
+        std::fstream LogFile;
+        std::fstream ErrFile;
         std::fstream filei;
-        char fileic;
-        int fileitellg;
-
-
         std::fstream fileo;
-        char fileoc;
+
+        int fileibytecnt;
+        int fileobytecnt;       
+        
+        int fileitellg;
         int fileoi;
         int fileotellg;
-        char fileir[201];
-
-        std::string mode;
-        std::string str;
-        char arr[201];
-        char tick;
-        char tack;
         int i;
         int j;
         int k;
@@ -8069,26 +8300,46 @@ class CLEditCF
         int Outreccnt;
         int start_s;
         int stop_s;
-        std::string msg;
         int abendi;
+
+        char fileic;
+        char fileoc;
+        char fileir[253];  // the largest record allowed for IBM TSO PDS BIM 
+        char arr[253];     // the largest record allowed for IBM TSO PDS BIM
+        char tick;
+        char tack;
+
+ //     std::string mode;
+        std::string str;
+        std::string msg;
+
         bool abend;
 
         void init();
+        void openlog();
+        void openerr();
+        void closelog();
+        void closeerr();
         void openfo();
         void openfi();
-        void closefi();
         void closefo();
-        void eop();
+        void closefi();
         void processfir();
+        void processfircopy();
         void readfir();
         void processfor();
+        void processforcopy();
         void writefor();
         void initfileir();
         void initsavefileir();
         void stringtochar();
+        void eop();
 
 };
 ```
+
+Here we go. File processing. Nothing is built for you. The class starts with the usuual constructor and destructor. You don't need to declare or implement them. I confess it's silly to do so if you're not even going to use them. meh
+
 **file CLEditCF.cpp** complete 
 
 ```
@@ -8096,22 +8347,29 @@ class CLEditCF
 using namespace std;
 CLEditCF::CLEditCF()
 {
-    //ctor
+    // constructor
 }
 
 CLEditCF::~CLEditCF()
 {
-    //dtor
+    // destructor
 }
+```
 
+The copy file action. I'm violating my own rules here, to prove a point. I added a variable called mode. The function processfor() is called from copyfile() and
+openfile(). The things needed by copyfile() and openfile() are almost the same so I cheated and made processfor() flexable, instead of creating an almost exact copy. I wanted you to see what that looks like, what the dangers are. What did I save really. I even created a mode, and 'enumeration', called 'save' that I don't even use. for shame! I'll fix all that. 
+
+```
 int CLEditCF::copyfile(std::string fileiname, std::string fileoname)
 {
-    mode = "copy";
-
-    start_s = clock();
 
     init();
 
+    if (abendi != 0)
+    {
+        goto copyexit;
+    }    
+    
     openfo();
 
     if (abendi != 0)
@@ -8133,31 +8391,32 @@ int CLEditCF::copyfile(std::string fileiname, std::string fileoname)
 
     while (fileitellg > 0)  // at end of file the read returns -1
     {
-        processfir();
+        processfircopy();
     }
 
-    closefi();
-
-    closefo();
+    LogFile << "copy file " << std::endl;
 
     eop();
-
-    stop_s = clock();
-    std::cout << "elapsed time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << std::endl;
 
 copyexit:
 
     return abendi;
 
 }
+```
 
+The open file action. In the copy action we're copying one file to another. The open action copies a file into a structure. Pretty much 90% identical unit of work. I coded the openfile() first, hence the copyfile() delema. 
+
+```
 int CLEditCF::openfile(std::string fileiname)
 {
-    mode = "open";
-
-    start_s = clock();
 
     init();
+
+    if (abendi != 0)
+    {
+        goto openexit;
+    }
 
     openfi();
 
@@ -8183,25 +8442,29 @@ int CLEditCF::openfile(std::string fileiname)
         processfir();
     }
 
-    closefi();
+    LogFile << "open file " << std::endl;
 
     eop();
-
-    stop_s = clock();
-    std::cout << "elapsed time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << std::endl;
 
 openexit:
 
     return abendi;
 
 }
+```
+
+The save file action. This action copies a structure to a file.
+
+```
 int CLEditCF::savefile(std::string fileoname)
 {
-    mode = "save";
-
-    start_s = clock();
 
     init();
+
+    if (abendi != 0)
+    {
+        goto saveexit;
+    }
 
     openfo();
 
@@ -8217,22 +8480,24 @@ int CLEditCF::savefile(std::string fileoname)
         initsavefileir();
     }
 
-    closefo();
+    LogFile << "save file " << std::endl;
 
     eop();
-
-    stop_s = clock();
-    std::cout << "elapsed time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << std::endl;
 
 saveexit:
 
     return abendi;
 
 }
+```
+
+We need to convert our code string, from the structure, to a char array. Fugly but C++ is funny. It won't let you load the file, byte by byte from a string.
+
+```
 void CLEditCF::stringtochar()
 {
 
-    for (l = 0; l < 201; l++)
+    for (l = 0; l < 253; l++)
     {
         arr[l] = '\0';     // set to null
     }
@@ -8241,20 +8506,50 @@ void CLEditCF::stringtochar()
 
     k = inputfile[i].IFCode.length();
 
+    fileobytecnt += k;
+
     for (l = 0; l < k; l++)
     {
         fileir[l] = arr[l];
     }
 
 }
+```
+ 
+This is nor initialize stuff we need to do before we run.
+ 
+``` 
 void CLEditCF::init()
 {
 
+    start_s = clock();
+
+    fileibytecnt = 0;
+    fileobytecnt = 0;
+//  fileireccnt  = 0;  // no
+//  fileoreccnt  = 0;  // no
+
+    openlog();
+
+    if (abendi != 0)
+    {
+        return;
+    }
+
+    openerr();
+
+    if (abendi != 0)
+    {
+        return;
+    }
+
+    LogFile << "init " << std::endl;
+
     std::time_t currentdatetime = std::time(nullptr);
 
-    std::cout << "Welcome " << std::ctime(&currentdatetime) << std::endl;
+    LogFile << "Welcome " << std::ctime(&currentdatetime) << std::endl;
 
-    for (l = 0; l < 201; l++)
+    for (l = 0; l < 253; l++)
     {
         arr[l] = '\0';     // set to null
     }
@@ -8262,7 +8557,11 @@ void CLEditCF::init()
     str = "";
 
 }
+```
 
+This is normal file open logic, using the open() of our file stream fileo, passing our file name and our option, 'out'. 
+
+```
 void CLEditCF::openfo()
 {
 
@@ -8272,15 +8571,20 @@ void CLEditCF::openfo()
     {
         msg = "TO file Open error";
         abendi = 3500;
+        ErrFile << msg << abendi << std::endl;
     }
 
 }
-/*
-We’re going to read, or input a file here “stg::ios::in” means input.  
+```
+
+**danger caution warning**
+We’re going to read, or input a file here “std::ios::in” means input. 
 I could write a whole book here. Computers are fast. Files are generally small. But file systems are funny. They catalog the file as soon as you touch it.
-What’s the problem? The problem is, suppose the file is large, and suppose that the file is being created, at the same time that you want to read it. You might not be looking at the whole file. Imagine if that file is being sent someplace via secure ftp. Secure FTP aka guaranteed delivery, will try to send the file in one go, but if it can’t it will keep trying until its successful. If you try to read this file, the system will let you, but you won’t get the whole file. And you won’t know it. 
-You cannot even begin to appreciate the problems that creates. The below is not the way to read a file. The correct way is to check to see if the file is available to update first. Why? Because the system knows if and when the file is complete and will only let you update it once that is true.             
-This is the wrong way
+What’s the problem? The problem is, suppose the file is large, and suppose that the file is being created, at the same time that you want to read it. You might not be looking at the whole file. Imagine if that file is being sent someplace via secure ftp. Secure FTP aka guaranteed delivery, will try to send the file in one go, but if it can’t it will keep trying until its successful. If you try to read this file, the system will let you, but you won’t get the whole file! And you won’t know it! 
+You cannot even begin to appreciate the problems that creates. The below is not the way to read a file. The correct way is to check to see if the file is available to update first. Why? Because the system knows if and when the file is complete and will only let you update it once that is true.
+This is the wrong way:
+
+```
 void CLEditCF::openfi()
 {
 
@@ -8290,13 +8594,16 @@ void CLEditCF::openfi()
     {
         msg = "FROM file Open error";
         abendi = 3501;
+        ErrFile << msg << abendi << std::endl;
     }
 
 }
-this is the right way */
-/*
-to test this, open the file with another editor first then try ‘open filename’ and you will get a ‘file unavailable’ message. Exactly what we want    
-*/
+```
+
+this is the right way:
+to test this, open the file with another editor first then try ‘open filename’ and you will get a ‘file unavailable’ message. Exactly what we want. We're using the 'app' option, so that C++ doesn't erase the file when we finally open it. We're allowing for 2 attempts. Perhaps, using a time frame would be smarter. Just trying to make a point. How long would you wait? 
+ 
+```
 void CLEditCF::openfi()
 {
 // keep trying to open the file for output, until you can
@@ -8317,10 +8624,11 @@ void CLEditCF::openfi()
     {
         msg = "FROM file unavailable";
         abendi = 3501;
+        ErrFile << msg << abendi << std::endl;
         return;
     }
 
-    filei.close();
+    closefi();
 
 // now you can open the file
     filei.open(fileiname, std::ios::in );
@@ -8329,34 +8637,70 @@ void CLEditCF::openfi()
     {
         msg = "FROM file Open error";
         abendi = 3502;
+        ErrFile << msg << abendi << std::endl;
         return;
     }
 
 }
+```
 
+Closing the input file. Nothing special here. Pierre, a function() for one line of code? Yes. I know. It looks rediculous. But here is the thing. 
+*This function is called by the destructor of basic_fstream when the stream object goes out of scope and is not usually invoked directly.*
+Interesting. I know if you don't close the file stream, you results willl not meet your expectations. The issue I have is, suppose you change from fstream to a better file system, and there are things that ccan go wrong with the close, like 'open' has a 'is_open()'. This is where that code would belong, so isn't it nice that a function() exists? I agree.
+
+```
 void CLEditCF::closefi()
 {
 
     filei.close();
 
 }
+```
 
+Closing the output file. Nothing special here.
+
+```
 void CLEditCF::closefo()
 {
 
     fileo.close();
 
 }
+```
 
+End of file processing. Stuff you want done after everytihng is complete. You can be as creative as you'd like here. Imagine in the real world, this program might run 1000's of times. We might want to track usage. Actually, true story. In my aerospace career there was a print function for Purchase Orders. It was expensive because the Purchase order were verbose and printed on triplicate paper. So what I did was tracked who printed what orders, and weather or not the order had actually changed. See where I'm headed? I sent a report to the purchase agents managers, a weekly list of who was re printing for no reason.
+The managers loved it, the agents wanted me dead! Best job I ever had.
+
+```
 void CLEditCF::eop()
 {
 
-    std::cout << "File In Bytes " << fileibytecnt << std::endl;
+    stop_s = clock();
 
-    std::cout << "File In Records " << fileireccnt << std::endl;
+    LogFile << "elapsed time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << std::endl;
+
+    LogFile << "File In Bytes " << fileibytecnt << std::endl;
+
+    LogFile << "File In Records " << fileireccnt << std::endl;
+
+    LogFile << "File Out Bytes " << fileobytecnt << std::endl;
+
+    LogFile << "File Out Records " << fileoreccnt << std::endl;
+
+    closefi();
+
+    closefo();
+
+    closelog();
+
+    closeerr();
 
 }
+```
 
+This is the input process for the open file action.
+
+```
 void CLEditCF::processfir()
 {
 
@@ -8374,7 +8718,33 @@ void CLEditCF::processfir()
     readfir();
 
 }
+```
 
+This is the input process for the copy file action
+
+```
+void CLEditCF::processfircopy()
+{
+
+    j++;
+
+    fileir[i] = fileic;
+
+    i++;
+
+    if  (fileic == '\n')
+    {
+       processforcopy();
+    }
+
+    readfir();
+
+}
+```
+
+This is it. Byte by byte. Many languages and subsystems do all this grunt work for you. The function tellg() returns the position of the character in the record.
+
+```
 void CLEditCF::readfir()
 {
 
@@ -8388,7 +8758,11 @@ void CLEditCF::readfir()
     }
 
 }
+```
 
+The wrong way, combining separate and distinct units of work, just because they both need initfileir(). In the copy, we just want to write the record fileir. In the open file action we wan to load the record fileir into a structure. then after each record is process call initfileir(). 
+
+```
 void CLEditCF::processfor()
 {
 
@@ -8409,7 +8783,41 @@ void CLEditCF::processfor()
     initfileir();
 
 }
+```
 
+The input process for the open file action. The right way.
+ 
+```
+void CLEditCF::processfor()
+{
+
+	fileireccnt++;
+
+    inputfile[Outreccnt].IFCode = fileir;
+
+    Outreccnt++;
+        
+    initfileir();
+
+}
+```
+
+The input process for the copy file action. The right way.
+
+```
+void CLEditCF::processforcopy()
+{
+
+    writefor();
+
+    initfileir();
+
+}
+```
+
+Stream the character array out.
+
+```
 void CLEditCF::writefor()
 {
 
@@ -8418,7 +8826,11 @@ void CLEditCF::writefor()
     fileireccnt++;
 
 }
+```
 
+Each record must be initialzed, because each string is a different length.
+
+```
 void CLEditCF::initfileir()
 {
 
@@ -8431,7 +8843,11 @@ void CLEditCF::initfileir()
     j = 0;
 
 }
+```
 
+Each record must be initialzed, for the save file action, because each string is a different length.
+
+```
 void CLEditCF::initsavefileir()
 {
 
@@ -8442,7 +8858,69 @@ void CLEditCF::initsavefileir()
 
 }
 ```
-A header for our database class. Nothing scary here. We’re going to use pointers, to dynamically instantiate objects, because, they are big, under the hood. Then ‘free’ them later, ‘delete’ them.       
+
+Open log file. If there is a problem we just use standard output.
+
+```
+void CLEditCF::openlog()
+{
+
+    LogFile.open("CLEditCFLogFile.txt", std::ios::out);
+
+    if  (!LogFile.is_open())
+    {
+        msg = "Log file Open error";
+        abendi = 3501;
+        std::cout << msg << abendi << std::endl;    // better than flying blind
+        return;
+    }
+}
+```
+
+Close log file.
+
+```
+void CLEditCF::closelog()
+{
+
+    LogFile.close();
+
+}
+```
+
+Open error file. If there is a problem we just use standard output. 
+
+```
+void CLEditCF::openerr()
+{
+    ErrFile.open("CLEditCFErrFile.txt", std::ios::out);
+
+    if  (!ErrFile.is_open())
+    {
+        msg = "Error file Open error";
+        abendi = 3502;
+        std::cout << msg << abendi << std::endl;   // better than flying blind
+        return;
+    }
+}
+```
+
+Close error file.
+
+```
+void CLEditCF::closeerr()
+{
+
+    ErrFile.close();
+
+}
+```
+
+
+
+
+**database**
+A header for our database class. Nothing scary here. We’re going to use pointers, to dynamically instantiate objects, because they are big under the hood. Then ‘free’ them later, ‘delete’ them.
 
 **file CLEditDB.h** complete
 
@@ -8497,21 +8975,22 @@ class CLEditDB
         {
             std::string IFCode; // the line of code
         };
-        InputFile inputfile[25000];  // 23,000 line is the biggest single block of
-//							 code I've ever seen aka "203"
+        InputFile inputfile[25000];  /* 23,000 line is the biggest single 
+        			Block of	 code I've ever seen aka "203" */
 
         sql::Driver * driver;
         sql::Connection * con;
         sql::Statement * stmt;
         sql::PreparedStatement * pstmt;
         sql::ResultSet * res;
-
+        
+        void Initialize();
         void InitInputFile();
         void Driver();
         void Connect();
-        void Free();
         void Statement();
-        int  Cursor();
+        int  Count();
+        void Cursor();
         void FromStage();
         void ToStage();
         void UseDb();
@@ -8520,6 +8999,7 @@ class CLEditDB
         void InsertRow();
         void FixQuote();
         void Error();
+        void Free();
 
     protected:
 
@@ -8531,6 +9011,8 @@ class CLEditDB
 };
 ```
 
+I have to admit that professionally, I made even the most powerful database management systems (DBMS), and their managers, wince! I pushed IBM DB2 to the limit. You can do really bad stuff in SQL. Working closely with a database administrator is vital to the survival of you and your application. SQL can do a lot but it too has limts. There are several DBMS tools that will guide you to the error of your ways. Remember, just because it works, doesn't mean it's good.
+
 **file CLEditDB.cpp** complete 
 
 ```
@@ -8538,21 +9020,33 @@ class CLEditDB
 using namespace std;
 CLEditDB::CLEditDB()
 {
+    //ctor
+}
+CLEditDB::~CLEditDB()
+{
+    //dtor
+}
+```
+
+This is the normal initialize.
+
+```
+void CLEditDB::Initialize()
+{
 
     LogFile.open("CLEditDBLogFile.txt", std::ios::out);
     ErrFile.open("CLEditDBErrFile.txt", std::ios::out);
 
-    LogFile << "Constructor " << std::endl;
+    LogFile << "Initialize " << std::endl;
 
     OnOne = true;
 
 }
-CLEditDB::~CLEditDB()
-{
+```
 
-    LogFile << "Destructor " << std::endl;
+This is where the fun starts. Step One: implement a Driver object. Love the try, catch ability. Use it everywhere you can.
 
-}
+```
 void CLEditDB::Driver()
 {
 
@@ -8571,6 +9065,11 @@ void CLEditDB::Driver()
     }
 
 }
+```
+
+Step Two: implement a Connection object.
+
+```
 void CLEditDB::Connect()
 {
 
@@ -8578,7 +9077,8 @@ void CLEditDB::Connect()
 
     try
     {
-        con = driver->connect("localhost", "CLEdit", "CLEdit");    //host,user,pass
+        con = driver->connect("localhost", "CLEdit", "CLEdit"); 
+//                             host,        user,     password
         con->setSchema(DataBase);
     }
     catch (sql::SQLException &e)
@@ -8590,6 +9090,12 @@ void CLEditDB::Connect()
     }
 
 }
+```
+
+Step Three: implement a Statement object. I'll talk more about this in a minute.
+
+
+```
 void CLEditDB::Statement()
 {
 
@@ -8608,7 +9114,15 @@ void CLEditDB::Statement()
     }
 
 }
-int CLEditDB::Cursor()
+```
+
+This is our first SQL statement. Before asking MySQL, the DBMS, to go romping through a table, we need to know if there is anything to look at right? A simple way to do that is to ask MySQL to count the rows. Rows in a table is like a structured record in a file. The SQL query as it's called is a string. We build the string up out of its parts. Notice, we declare 'total' inside the query. Since the database name and table names are dynmic, they are provided in pieces.
+The DBMS will populate the values as it encounters the variables. If the daqtabase and table names were 'hard coded' you could just say
+"SELECT COUNT(*) AS total FROM mydb.mytbl;" in one line of code. 
+The important part here is some queries return a result and some do not. Next, we need to use getInt() to get the result. The user manual is invaluable. I'll admit it's a little cludgy, but once you get the hange of it, you too can make MySQL wince. 
+
+```
+int CLEditDB::Count()
 {
 
     LogFile << "Count(*) " << std::endl;
@@ -8638,6 +9152,18 @@ int CLEditDB::Cursor()
         state = e.getSQLState();
         Error();
     }
+    
+	return rowcnt;
+
+}    
+```
+
+A cursor. Hun? A cursor is result set. In the prior SQL we asked for a count. A count is a single integer result. A cursor is a set of results. One or many. Of whatever you asked for. Suppose you have a table of addresses. Lot's of columns. But you're only interesting in two, City and State. Whe you ask for those two colums, you will get row(s) with only those two values. In this case we want all the columns, so we say '*'. Asterisk is pretty much the universal 'all' or any.
+An SQL query an be mind mumbingly complex. We have no such need. 
+
+```
+void CLEditDB::Cursor()
+{
 
     LogFile << "Cursor " << std::endl;
 
@@ -8658,10 +9184,13 @@ int CLEditDB::Cursor()
         state = e.getSQLState();
         Error();
     }
-
-    return rowcnt;
-
+    
 }
+```
+
+This is the standard array initialization of our target structure.
+
+```
 void CLEditDB::InitInputFile()
 {
 
@@ -8675,17 +9204,22 @@ void CLEditDB::InitInputFile()
     }
 
 }
+```
+
+The To Stage action. This action takes our stack of cards and each is INSERTed into the table. Recall that in the file functions, we don't create a file. A file is not an object. It's just text. A table is an object. You don't create an object with a simple open.
+
+```
 void CLEditDB::ToStage()
 {
 
     LogFile << "To Stage " << std::endl;
-
+// tell MySQL which database to use use 
     UseDb();
-
+// tell MySQL to delete the table we want  
     DropTable();
-
+// tell MySQL to create out table
     CreateTable();
-
+// insert each line of code into the table
     CodeId = 0;
     for (u = 0; u < rowcnt; u++)
     {
@@ -8693,6 +9227,11 @@ void CLEditDB::ToStage()
     }
 
 }
+```
+
+MYSQL supports many databases and many tables within each. The total number of databases is limited by the total number of directories in the file system. It's about 4 billion. Each database creates a directory. We need to tell MySQQL which directory to use. It's kind of us.
+
+```
 void CLEditDB::UseDb()
 {
 
@@ -8715,6 +9254,12 @@ void CLEditDB::UseDb()
     }
 
 }
+```
+
+Since we are going to obliterate the data in the table, we ask MySQL to do that.
+Note that this execute() does not return a result. It's wise to place the query in a try,catch block, wherever you can. SQL is fun. It's wordie.
+
+```
 void CLEditDB::DropTable()
 {
 
@@ -8736,6 +9281,11 @@ void CLEditDB::DropTable()
     }
 
 }
+```
+
+I think you can read what this says and means at this point. Isn't it funny how the type follows the name and in C++ the type is stated first? Also, important, wher you declare a string 'varchar' you have to give it a length. You see, this is a clear example of how different compilers work. Yes. SQL is compiled. Not only that but. This might hurt a bit. You know how I'm always saying C++ needs to know everything first. Obviously, before you read a file, you need to open it. Before you 'scroll' through a table, you need to define a cursor. You can put, physically, the open and read anywhere in your program. So long as you use the right sequence open, read, you're fine. Well well well. Don't try that with SQL. Our little database interface is separate from our application, so it doesn't matter. The CLEditDB is compiled separately, separating us from any C++ funny business. But suppose some of you decide 'I hate classes', 'I hate OOP' and you put all this code in one program? You are free to do that but be certain to locate your SQL phycically before its use! It will make your code harder to track beacuse you'll be scrolling up and down, but that's life! That's the only sour taste SQL put in my mouth. I used to just put all the SQL up front and get it out of the way.
+
+```
 void CLEditDB::CreateTable()
 {
 
@@ -8746,7 +9296,7 @@ void CLEditDB::CreateTable()
         Query = "";
         Query += "CREATE TABLE ";
         Query += TableName;
-        Query += " (idCLEdit INT, CLEditcode VARCHAR(255));";
+        Query += " (id INT, code VARCHAR(255));";
         stmt->execute(Query);
     }
     catch (sql::SQLException &e)
@@ -8758,6 +9308,11 @@ void CLEditDB::CreateTable()
     }
 
 }
+```
+
+The important part here is did you ask, Pierre, why didn't we use the query string? Because the INSERT uses an object 'sql'. We need to feed it the values individually so that they can be resolved by MySQL. 
+
+```
 void CLEditDB::InsertRow()
 {
 
@@ -8767,13 +9322,6 @@ void CLEditDB::InsertRow()
         OnOne = false;
     }
 
-// unfortunately MySQL cannot handle a single quote in a string intended to be
-// stored as a varchar
-// we need to look for single quotes and double them from ' to ''. two single
-// quotes for each one
-// MySql will drop the 'extra' single quote when it selects the value - that's nice
-// isn't it
-// we put this fix in this module because this is the module with the issue
     CodeStr = inputfile[u].IFCode;
     CodeStrl = CodeStr.length();
     CodeNew = "";
@@ -8805,6 +9353,12 @@ void CLEditDB::InsertRow()
     }
 
 }
+```
+
+Unfortunately MySQL cannot handle a single quote in a string intended to be
+stored as a varchar. We need to look for single quotes and double them from ' to ''. two single quotes for each one. MySql will drop the 'extra' single quote when it selects the value, that's nice isn't it. We put this fix in this module because this is the module with the issue. You would not, for example, put this fix into each and every program that inserts a row.
+
+```
 void CLEditDB::FixQuote()
 {
 
@@ -8822,6 +9376,11 @@ void CLEditDB::FixQuote()
     }
 
 }
+```
+
+The From Stage action. This action processes the cursor, the collection of rows in the result set and each row is loaded into our stack. You can see that each column is resolved one at a time, as required. We're loging each for visability and as proof that what we get from stage, appears on screen.
+
+```
 void CLEditDB::FromStage()
 {
 
@@ -8834,11 +9393,11 @@ void CLEditDB::FromStage()
         int i = 0;
         while (res->next())
         {
-            std::cout << "CLEdit ";
-            std::cout << " id "   << res->getInt("idCLEdit");
-            std::cout << " line " << res->getString("CLEditcode");
-            std::cout << endl;
-            inputfile[i].IFCode = res->getString("CLEditcode");
+            LogFile << "CLEdit ";
+            LogFile << " id "   << res->getInt("id");
+            LogFile << " line " << res->getString("code");
+            LogFile << std::endl;
+            inputfile[i].IFCode = res->getString("code");
             i++;
         }
     }
@@ -8851,6 +9410,11 @@ void CLEditDB::FromStage()
     }
 
 }
+```
+
+Here we free up the resources delared as 'new'. Do not neglect this step.
+
+```
 void CLEditDB::Free()
 {
 
@@ -8871,6 +9435,11 @@ void CLEditDB::Free()
         Error();
     }
 }
+```
+
+Here we're going to document what went wrong. We used to send this information as text messsages to the support team.
+
+```
 void CLEditDB::Error()
 {
 
@@ -8889,16 +9458,21 @@ void CLEditDB::Error()
 
 } 
 ```
+
 Wow. Did you see that! Ok. Time to unpack. Essentially, to get to a database you need the following. A driver, like a limo driver to get you to and from the data. A connection to a database and table. To place to create a statement. Execute the statement, then free up everything.
+
 There is also another new fun part. A 'try/catch' block. What? Yes. We know how important it is to maintain a connection. Like when you pick up the phone, you hear a dial tone. What the phone did is open a connection, and tell you via the dial tone that it was successful. A more modern example is your Bluetooth headphones. You press a button, you’ll hear ‘power on’. Then it searches for a connection, and when it finds one it says ‘Bluetooth connected’.
-Try / Catch blocks give us the opportunity to check to see if a resource is available and react accordingly, instead of crashing in the blind darkness. The beauty of a modern IDE is that as you hover over the object, it will tell you what types of exceptions might happen. So you can code separate solutions for each one. That’s cleaver. 
+
+Try / Catch blocks give us the opportunity to check to see if a resource is available and react accordingly, instead of crashing in the blind darkness. The beauty of a modern IDE is that as you hover over the object, it will tell you what types of exceptions might happen. So you can code separate solutions for each one. That’s very cleaver. 
+
+**appendix**
 
 **CLEdit** – incomplete tasks – exclude logic
 
 **REFERENCES / SAMPLES**
 
-Arguments, create a ‘console’ project called Arguthis or whatever you like
-Arguments, also know as parameters, provide the ability pass options to run a program. For example the “grep” program in Unix, a search tool, might be run like this example “grep -rnw -e ‘text’”. I see at least 4 arguments, maybe “-rnw” means three different things. No matter, you get the idea.        
+Arguments, create a ‘console’ project called Arguethis or whatever you like.
+Arguments, also know as parameters, provide the ability pass options to run a program. Remember that a program is just a function. The 'main' function. For example the “grep” program in Unix, a search tool, might be run like this example “grep -rnw -e ‘text’”. I see at least 4 arguments, maybe “-rnw” means three different things. No matter, you get the idea.        
 create **file main.cpp**
 
 ```
@@ -8931,7 +9505,27 @@ Hello world!
 1
 ```
 
-Let’s figure out what is going on here. A good guess is that the first argument is the name of the program. How do we prove that. Let’s take a peek at argv[0], the array to store the arguments. 
+Let’s figure out what is going on here. A good guess is that the first argument is the name of the program. How do we prove that. Let’s take a peek at argv[0], the array to store the arguments. argv is a variable size array limited by argc. I woul have called argc 'argi' but that is me.
+You can do this if you want:
+
+```
+int main (int myint, char *myarg[])
+{
+    cout << "Hello world!" << endl;
+    cout << " why argue " << endl;
+    cout << myint << endl;
+    int i = myint;
+    for (i = 0; i < myint; i++)
+    {
+        cout << myarg[i] << endl;
+    }
+
+    return 0;
+}
+```
+
+C++ is funny.
+What does the grunt work of populating the array and setting the value for argc? The compiler! 
 
 ```
 #include <iostream>
@@ -8957,7 +9551,7 @@ Hello world!
 1
 ./Arguethis
 	
-Ok. Wow, I didn’t expect that, but I can deal. Let’s keep looking with more logic.  
+Ok. Wow, I didn’t expect that, but I can deal. Let’s keep looking with more logic. 
 
 
 ```
@@ -8977,6 +9571,7 @@ int main (int argc, char *argv[])
     return 0;
 }
 ```
+
 And we run it a couple of times, one argument. 
 ```
 $ ./Arguethis xxx
@@ -8996,7 +9591,9 @@ Hello world!
 xxx
 yyy
 ```
+
 And we run it a couple of times, three arguments. 
+
 ```
 $ ./Arguethis xxx yyy zzz
 Hello world!
@@ -9007,6 +9604,7 @@ xxx
 yyy
 zzz
 ```
+
 Alright. I can work with this. I could modify my copy file program to accept the from file name and the to file name at the time of execution.
 Variables create a ‘console’ project called Vegetables or whatever you like
 create **file Timer.h**
@@ -9037,144 +9635,210 @@ class Timer
 
 create **file arrays.h**
 
+Arrays
+Arrays are collections of values that are referred to using a number, an integer starting with 0 aka an index
+normally the first value would be 1 but in C++ the reference is to the beginning address of the first value
+with all the other fancy obfuscation the compiler performs you'd think that would be not biggie but meh
+a "so called" one dimensional array
+define 5 integer things
 ```
-//     Arrays
-// Arrays are collections of values that are referred to using a number, an integer starting with 0 aka an index
-// normally the first value would be 1 but in C++ the reference is to the beginning address of the first value
-// with all the other fancy obfuscation the compiler performs you'd think that would be not biggie but meh
-//
-// a "so called" one dimensional array
-
-// define 5 integer things
 int intArrayThingx[5];
-// x  is to be used as an index into the first dimension of the array
-int x;
-// a "so called" two dimensional array
-// an 'array' of 5 x 5 integers
-// is the exact same thing as [25] - but referenced differently
-int intArrayThingxy[5][5];
-// y  is to be used as an index into the second dimension of the array
-int y;
-// a "so called" three dimensional array
-// an 'array' of 5 x 5 x 5 integers
-// is the exact same thing as [125] - but referenced differently
-int intArrayThingxyz[5][5][5];
-// z  is to be used as an index into the third dimension of the array
-int z;
-// beyond 3 dimensions I have never seen a use for in 40+ years
 ```
+
+ x  could be used as an index into the first dimension of the array
+
+```
+int x;
+intArrayThingx[x] = 1;
+```
+
+a "so called" two dimensional array
+an 'array' of 5 x 5 integers
+is the exact same thing as [25] - but referenced effectively
+```
+int intArrayThingxy[5][5];
+```
+
+y  is to be used as an index into the second dimension of the array
+
+```
+int y;
+int intArrayThingxy[x][y] = 2;
+```
+
+a "so called" three dimensional array
+an 'array' of 5 x 5 x 5 integers
+is the exact same thing as [125] - but referenced effectively
+
+```
+int intArrayThingxyz[5][5][5];
+```
+
+z  is to be used as an index into the third dimension of the array
+
+```
+int z;
+int intArrayThingxyz[x][y][z] = 3;
+```
+
+beyond 3 dimensions I have never seen a use for in 40+ years. You go right ahead.
+
+**class**
 create **file classes.h**
 
+Class use declaration
+
 ```
-// Class declaration - Clunker classes that are being used by Clunker
-Timer * timerH = new Timer;   // dynamic call
+Timer * timerH = new Timer;   // dynamic call 'heap' memory
 Timer timer;                  // static call
-// Note: if you're starting to think that declaring
-// int i;
-// is a static declare if variable i of int class - you're right!
-// in C++ everything is a class!
 ```
 
+Note: if you're starting to think that declaring 'int i;'
+is a static declare if variable 'i' of 'int' class, you're right!
+in C++ *everything* is a class!
+
+
+**constants**
 create **file constants.h**
 
+Prefixes
+'const' prefix means CONSTANT the value of a 'const' variable cannot change 
+a const variable must be implemented when it is declared. I didn't declare 'MinusOne' as const because I don't roll like that. You can do as you wish.
+
 ```
-//     Prefixes
-// const prefix means CONSTANT - value of a 'const'  cannot change
 const int constintThing = 1;
 ```
 
+**functions()**
 create **file functions.h**
 
-```
-//     Functions - flow control of the "main" function - what does it do
-// provide initial values to variables
-// NOTE: since all the variables are GLOBAL in scope, all logic within these functions affects the actual values of the variables
-void InitializeVariables();
-// expose initial values of variables and the size of each
-void SizeofVariables();
-// provide initial values to pointers
-void InitializePointers();
-// expose addresses of pointers, initial values and the size of each
-void SizeofPointers();
-// expose values pointed to ->
-void ValuesofPointers();
-// expose integer values of pointers ->
-void IntegerValuesofPointers();
-// provide initial values to arrays
-void InitializeArrays();
-// expose values within arrays
-void ValuesofArrays();
-// provide values to structures - bad way
-void InitializeStructuresX();
-// provide values to structures - good way
-void InitializeStructures();
-// expose values within structures
-void ValuesofStructues();
-// Delete HEAP
-void DeleteHeap();
-//
-//     Functions - with an input value - parameter
-//     Functions - with input values - parameters
-//     Functions - with a return value
-//     Functions - with a return value and input values - parameters
-//     Functions - with return values
-//     Functions - with return values and an input value
-//     Functions - with return values and input values - parameters
-//
-//     Classes & Methods
-// Threads
-// std::this_thread::sleep_for(1s);
-```
-create **file heap.h**
+Functions define flow control of the "main" function.
+
+provide initial values to variables
+NOTE: since all the variables are GLOBAL in scope, all logic within these functions affects the actual values of the variables
 
 ```
-// Heap memory - must delete after use
-// "new" returns a pointer to memory
+void InitializeVariables();
+```
+expose initial values of variables and the size of each
+```
+void SizeofVariables();
+```
+provide initial values to pointers
+```
+void InitializePointers();
+```
+expose addresses of pointers, initial values and the size of each
+```
+void SizeofPointers();
+```
+expose values pointed to ->
+```
+void ValuesofPointers();
+```
+expose integer values of pointers ->
+```
+void IntegerValuesofPointers();
+```
+provide initial values to arrays
+```
+void InitializeArrays();
+```
+expose values within arrays
+```
+void ValuesofArrays();
+```
+provide values to structures - bad way
+```
+void InitializeStructuresX();
+```
+provide values to structures - good way
+```
+void InitializeStructures();
+```
+expose values within structures
+```
+void ValuesofStructues();
+```
+Delete HEAP
+```
+void DeleteHeap();
+```
+
+Functions with an input value, parameter
+Functions with input values, parameters
+Functions with a return value
+Functions with a return value and input values, parameters
+Functions with return values
+Functions with return values and an input value
+Functions with return values and input values, parameters
+
+Classes & Methods
+Threads
+std::this_thread::sleep_for(1s);
+
+**heap**
+create **file heap.h**
+
+Heap memory - must delete after use
+"new" returns a pointer to memory
+
+Character types
+```
 char * charThingH = new char;
-/*
 char16_t char16tThing;  // to be demystified
 char32_t char32tThing;  // to be demystified
 wchar_t wchartThing;    // to be demystified
 unsigned char unsignedcharThing;
 signed char signedcharThing;
-// Integer Types (signed)
+```
+Integer Types (signed)
+```
 short int shortintThing;
 int intThing;
 long int longintThing;
 long long int longlongintThing;
-// Integer Types (unsigned)
+```
+Integer Types (unsigned)
+```
 unsigned short int unsignedshortintThing;
 unsigned int unsignedintThing;
 unsigned long int unsignedlongintThing;
 unsigned long long int unsignedlonglongintThing;
-// Floating-point types, fractions
+```
+Floating-point types, fractions
+```
 float floatThing;
 double doubleThing;
 long double longdoubleThing;
-// Boolean type
+```
+Boolean type
+```
 bool boolThing;
-// Void type
-// void
-// Null pointer
-// decltype(nullptr)
-// string type
+```
+Void type
+void
+Null pointer
+decltype(nullptr)
+string type
+```
 std::string stringThing;
-*/
 ```
 
+**Clunker** complete C++ stuff
 create **file main.h**
 
+Clunker is C++ exposed - raw!
+Pillars of Programming
+Sequence  - what is the logical order of processes
+Condition - what are the conditions under which to process
+Iteration - what are the processes to be repeated
+
+declarations go in .h files (or in .cpp files if required)
+implementations go in .cpp files
+libraries (logic) used in main, defined outside of main
+C library
 ```
-// Clunker is C++ exposed - raw!
-//     Pillars of Programming
-// Sequence  - what is the logical order of processes
-// Condition - what are the conditions under which to process
-// Iteration - what are the processes to be repeated
-//
-// declarations go in .h files (or in .cpp files)
-// definitions go in .cpp files
-// libraries (logic) used in main, defined outside of main
-// C library
 #include <cassert>   //	C Diagnostics Library
 #include <cctype>    //	Character handling functions
 #include <cerrno>    //	C Errors
@@ -9199,39 +9863,45 @@ create **file main.h**
 #include <cuchar>    //	Unicode characters
 #include <cwchar>    //	Wide characters
 #include <cwctype>   //	Wide character type
-// Containers
-#include <array>	     //Array
-#include <bitset>	     //Bitset
-#include <deque>	     //Deque 
-#include <forward_list>	 //Forward list
-#include <list>	         //List
-#include <map>	         //Map
-#include <queue>	     //Queue
-#include <set>	         //Set
-#include <stack>	     //Stack
+```
+Containers
+```
+#include <array>	     	//Array
+#include <bitset>	    //Bitset
+#include <deque>	     	//Deque 
+#include <forward_list>	//Forward list
+#include <list>	        //List
+#include <map>	        //Map
+#include <queue>	     	//Queue
+#include <set>	        //Set
+#include <stack>	     	//Stack
 #include <unordered_map> //Unordered map
 #include <unordered_set> //Unordered set
-#include <vector>	     //Vector 
-//Input/Output Stream Library
+#include <vector>	    //Vector 
+```
+Input/Output Stream Library
+```
 #include <ios>
 #include <istream>
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
-//Atomics and threading library
+```
+Atomics and threading library
+```
 #include <atomic>	            //Atomic
-#include <condition_variable>	//Condition variable
+#include <condition_variable>	    //Condition variable
 #include <future>	            //Future
-#include <mutex>	            //Mutex
+#include <mutex>	                //Mutex
 #include <thread>	            //Thread
-
-//Miscellaneous headers
-#include <algorithm>         //Standard Template Library
+```
+Miscellaneous headers
+```
+#include <algorithm>          //Standard Template Library
 #include <chrono>	         //Time library
 #include <codecvt>	         //Unicode conversion facets
 #include <complex>	         //Complex numbers library
-#include <exception>	     //Standard exceptions
+#include <exception>	         //Standard exceptions
 #include <functional>	     //Function objects
 #include <initializer_list>	 //Initializer list
 #include <iterator>	         //Iterator definitions
@@ -9241,187 +9911,234 @@ create **file main.h**
 #include <new>	             //Dynamic memory
 #include <numeric>	         //Generalized numeric operations
 #include <random>	         //Random
-#include <ratio>	         //Ratio header
-#include <regex>	         //Regular Expressions
-#include <stdexcept>	     //Exception classes
-#include <string>	         //Strings
+#include <ratio>	             //Ratio header
+#include <regex>	         	//Regular Expressions
+#include <stdexcept>	        //Exception classes
+#include <string>	        //Strings
 #include <system_error>      //System errors
-#include <tuple>	         //Tuple library
-#include <typeindex>	     //Type index
+#include <tuple>	         	//Tuple library
+#include <typeindex>	     	//Type index
 #include <typeinfo>	         //Type information
 #include <type_traits>	     //type_traits
 #include <utility>	         //Utility components
 #include <valarray>	         //Library for arrays of numeric values
-
-// Exterior Classes
 ```
+
+**pointers** 
 create **file pointers.h**
 
-```
+Pointers are numeric addresses in memory, 8 bytes
+they can point to data or functions() 
+'*' means pointer
+'&' means address of
+'=' means assign a value from a right 'rvalue' to a left 'lvalue'
 
-//     Pointers - addresses in memory - 8 byte !
-// Character Types
-char* charThingptr;             // * means pointer, & means address of, = means assign a value from right rvalue to left lvalue
+Character Types
+```
+char* charThingptr;             
 char16_t * char16tThingptr;
 char32_t * char32tThingptr;
 wchar_t * wchartThingptr;
 unsigned char * unsignedcharThingptr;
 signed char * signedcharThingptr;
-
-// Integer Types (signed)
+```
+Integer Types (signed)
+```
 short int * shortintThingptr;
 int * intThingptr;
 long int * longintThingptr;
 long long int * longlongintThingptr;
-
-// Integer Types (unsigned)
+```
+Integer Types (unsigned)
+```
 unsigned short int * unsignedshortintThingptr;
 unsigned int * unsignedintThingptr;
 unsigned long int * unsignedlongintThingptr;
 unsigned long long int * unsignedlonglongintThingptr;
-
-// Floating-point types
+```
+Floating-point types
+```
 float * floatThingptr;
 double * doubleThingptr;
 long double * longdoubleThingptr;
-
-// Boolean type
+```
+Boolean type
+```
 bool * boolThingptr;
-
-// string type
+```
+string type
+```
 std::string * stringThingptr;
 ```
+
 create **file preprocessor.h** 
 
+Preprocessor directives
+there a many, I've never used any except #include
+#define means prior to compiling, replace each instance of "NADA" with "0.0"
 ```
-//  Preprocessor directives
-// this means - prior to compiling, replace each instance of "NADA" with "0.0"
 #define NADA 0.0
 ```
 
+**references**
 create **file references.h**
 
+References - must be assigned at definition
+a reference is "a new name for an existing object" I don't get it. 
+Character Types
 ```
-//     References - must be assigned at definition
-// Character Types
-char & charThingref = charThing;             // & means reference; must define what it refernces
-//char16_t & char16tThingref = char16tThing;
-//char32_t & char32tThingref = char32tThing;
-//wchar_t & wchartThingref = wchartThing;
+char & charThingref = charThing;             
+char16_t & char16tThingref = char16tThing;
+char32_t & char32tThingref = char32tThing;
+wchar_t & wchartThingref = wchartThing;
 unsigned char & unsignedcharThingref = unsignedcharThing;
 signed char & signedcharThingref = signedcharThing;
-
-// Integer Types (signed)
+```
+Integer Types (signed)
+```
 short int & shortintThingref = shortintThing;
 int & intThingref = intThing;
 long int & longintThingref = longintThing;
 long long int & longlongintThingref = longlongintThing;
-
-// Integer Types (unsigned)
+```
+Integer Types (unsigned)
+```
 unsigned short int & unsignedshortintThingref = unsignedshortintThing;
 unsigned int & unsignedintThingref = unsignedintThing;
 unsigned long int & unsignedlongintThingref = unsignedlongintThing;
 unsigned long long int & unsignedlonglongintThingref = unsignedlonglongintThing;
-
-// Floating-point types
+```
+Floating-point types
+```
 float & floatThingref = floatThing;
 double & doubleThingref = doubleThing;
 long double & longdoubleThingref = longdoubleThing;
-
-// Boolean type
+```
+Boolean type
+```
 bool & boolThingref = boolThing;
-
-// string type
+```
+string type
+```
 std::string & stringThingref = stringThing;
 ```
+
+**structures**
 create **file structures.h**
 
+don't try this in C#
+presented is a much more realistic practicle and non trivial example of an array
+99.99% of the time the requirement is to track, manipulate, gather and report on a collection of things
+a structure is a data container - everything is public
+C++ is funny. A structure can contain functions() but leave that for classes
+it's clearer to use structures as data, since classes can contain structures
+here is a structure of two data types
+it could have as many types in any number
 ```
-// don't try this in C#
-// presented is a much more realistic practicle and non trivial example of an array
-// 99.99% of the time the requirement is to track, manipulate, gather and report on a collection of things
-// a structure is a data container - everything is public
-// a structure 'can' contain 'methods' (functions) - but - leave that for classes
-// since an 'object' defines data and declares actions that can be performed on the data called methods, leave that for classes
-// it's clearer to use structures as data, since classes can contain structures
-// here is a structure of two data types, it could have as many types in any number
-struct xtimeframe        // this is now a user defined type
+struct xtimeframe	// this is now a user defined type
 {
-    int xtime;           // some unit of something
-    char xframe;         // a value of that something
+    int xtime;       // some unit of something
+    char xframe;     // a value of that something
 };
-// now we have 5 of them
+```
+now we have 500 of them
+```
 xtimeframe x_array[500];
+```
 
+```
 struct yevents
 {
-    int id;                   // here we have a identifier for the 5 items
-    xtimeframe xy_array[500];   // here were declaring an array of arrays - just wait
+    int id;                     // here we have a identifier for the 5 items
+    xtimeframe xy_array[500];   // here were declaring an array of arrays
 };
-// now we have an array 5 id/arrays
+```
+now we have an array 500 id/arrays
+```
 yevents yevents_array[500];
+```
 
+```
 struct zdetail
 {
-    int post;                 // another thing to keep track of - could be many things and different types of things
+    int post;                 // identifier  
     yevents xyz_array[500];
 };
+```
+so here we have an array of arrays of arrays with little extras for fun
+```
+zdetail zevents_array[500];     
+```
 
-zdetail zevents_array[500];     // so here we have an array of arrays of arrays with little extras to go along
-```
+**variables**
 create **file variables.h**
+
+Variables since these are all outside of 'main' these are GLOBAL Scope 
+within Stack memory
+variables aka identifiers can be named almost anything
+but not words reserved to C++. the compiler will set you straight
+just as everything in Unix is a file, everything in C++ has a 'type'.
+A type defines what a thing is and what you can do with it.
+the compiler will set you straight
+C++ is most easily read from right to left between semi colons
+Character Types
+the crafty C++ compiler 'does stuff' - all the time
+read the below line as 'charThing is of char type'
+or more accurately 'charThing is of char class'
 ```
-//     Variables - since these are all 'outside' of "main" - these are GLOBAL Scope - within Stack memory
-// variables aka identifiers can be named almost anything - but not words reserved to C++. the compiler will set you straight!
-// just as everything in Unix is a file, everything in C++ has a "type". A type defines what a thing is and what you can do with it. the compiler will set you straight!
-// NOTE: C++ is most easily read from right to left between semi colons - try it
-// Character Types
-// the crafty C++ compiler 'does stuff' - all the time
-// read the below line as "charThing is of char type", or more accurately "charThing is of char class"
 char charThing;
 char16_t char16tThing;  // to be demystified
 char32_t char32tThing;  // to be demystified
 wchar_t wchartThing;    // to be demystified
 unsigned char unsignedcharThing;
 signed char signedcharThing;
-
-// Integer Types (signed)
+```
+Integer Types (signed)
+```
 short int shortintThing;
 int intThing;
 long int longintThing;
 long long int longlongintThing;
-
-// Integer Types (unsigned)
+```
+Integer Types (unsigned)
+```
 unsigned short int unsignedshortintThing;
 unsigned int unsignedintThing;
 unsigned long int unsignedlongintThing;
 unsigned long long int unsignedlonglongintThing;
-
-// Floating-point types, fractions
+```
+Floating-point types, fractions
+```
 float floatThing;
 double doubleThing;
 long double longdoubleThing;
-
-// Boolean type
+```
+Boolean type
+```
 bool boolThing;
-// Void type
-// void
-// Null pointer
-// decltype(nullptr)
+```
+Void type
+void
+Null pointer
+decltype(nullptr)
 
 // string type
+```
 std::string stringThing;
+```
+prefixes
+const  // to be demystified
+static // to be demystified
 
-// prefixes
-// const  // to be demystified
-// static // to be demystified
-
-// date / time
+date / time
+```
 int start_s;
 int stop_s;
+```
 
-create file Timer.cpp
-
+**Timer class**
+**create file Timer.cpp**
+```
 #include "Timer.h"
 // constructor
 Timer::Timer()
@@ -9447,76 +10164,42 @@ void Timer::dummy()
     std::cout << "Timer - dummy";
 
 }
-
 ```
+
 create **file main.cpp**
 
 ```
-// Clunker is C++ exposed - raw!
 #include "main.h"
-// Preprocessor directives
 #include "preprocessor.h"
-// Variables - since these are all 'outside' of "main" - these are GLOBAL Scope
 #include "variables.h"
-// Dynamic allocation
 #include "heap.h"
-// Pointers
 #include "pointers.h"
-// References - "another word for" a variable or 'identifier'
 #include "references.h"
-//    Collections
-// Arrays
 #include "arrays.h"
-// Structures
 #include "structures.h"
-// Class Definitions - defined classes of main
 #include "Timer.h"
-//     Functions - flow control of the "main" function - what does it do
 #include "functions.h"
-// Class declaration - Clunker classes that are being used by Clunker
 #include "classes.h"
-// External classes  - External Classes that are being used by Clunker
 #include "Xclasses.h"
-
-
-// this is where the program starts
 int main()
 {
     
     std::cout << "Clunker is C++ exposed - raw!" << std::endl;
 
-// a static call to the dummy method of Timer
-    timer.dummy();
-
-// a dynamic call call to the dummy method of Timer
+    timer.dummy();    
     timerH->dummy();
-
-// these functions are performed in Sequence
-// provide initial values to variables
-    InitializeVariables();
-// expose initial values of variables and the size of each
-    SizeofVariables();
-// provide initial values to pointers
-    InitializePointers();
-// expose addresses of pointers, initial values and the size of each
+    InitializeVariables();   
+    SizeofVariables();    
+    InitializePointers();    
     SizeofPointers();
-// expose values pointed to ->
     ValuesofPointers();
-// expose integer values of pointers ->
     IntegerValuesofPointers();
-// provide initial values to arrays
     InitializeArrays();
-// expose values within arrays
     ValuesofArrays();
-// provide values to structures - bad way
     InitializeStructuresX();
-// provide values to structures - good way
     InitializeStructures();
-// expose values within structures
     ValuesofStructues();
-// Delete HEAP
     DeleteHeap();
-
 
     std::cout << "press enter to continue" << std::endl;
     std::cin.get();
@@ -9524,7 +10207,9 @@ int main()
     return 0;
 
 }
-// provide initial values to variables
+```
+provide initial values to variables
+```
 void InitializeVariables()
 {
    std::cout << "Initialize Variables " << std::endl;
@@ -9567,7 +10252,9 @@ void InitializeVariables()
  	system("clear");
 
 }
-// expose initial values of variables and the size of each
+```
+expose initial values of variables and the size of each
+```
 void SizeofVariables()
 {
        std::cout << "Size of Variables " << std::endl;
@@ -9620,7 +10307,9 @@ void SizeofVariables()
     std::cin.get();
   	system("clear");
 }
-// provide initial values to pointers
+```
+provide initial values to pointers
+```
 void InitializePointers()
 {
    std::cout << "Initialize Pointers " << std::endl;
@@ -9659,7 +10348,9 @@ void InitializePointers()
     std::cin.get();
 	system("clear");
 }
-// expose addresses of pointers, initial values and the size of each
+```
+expose addresses of pointers, initial values and the size of each
+```
 void SizeofPointers()
 {
    std::cout << "Size of Pointers " << std::endl;
@@ -9699,7 +10390,9 @@ void SizeofPointers()
     std::cin.get();
 	system("clear");
 }
-// expose values pointed to ->
+```
+expose values pointed to ->
+```
 void ValuesofPointers()
 {
    std::cout << "Values of Pointers " << std::endl;
@@ -9739,7 +10432,9 @@ void ValuesofPointers()
     std::cin.get();
 	system("clear");
 }
-// expose integer values of pointers ->
+```
+expose integer values of pointers ->
+```
 void IntegerValuesofPointers()
 {
 
@@ -9779,7 +10474,9 @@ void IntegerValuesofPointers()
     std::cin.get();
 	system("clear");
 }
-// provide initial values to arrays
+```
+provide initial values to arrays
+```
 void InitializeArrays()
 {
 
@@ -9813,7 +10510,9 @@ void InitializeArrays()
     std::cin.get();
 	system("clear");
 }
-// expose values within arrays
+```
+expose values within arrays
+```
 void ValuesofArrays()
 {
     std::cout << "Values of Arrays " << std::endl;
@@ -9854,7 +10553,9 @@ void ValuesofArrays()
     std::cin.get();
 	system("clear");
 }
-// provide values to structures - bad way
+```
+provide values to structures - bad way
+```
 void InitializeStructuresX()
 {
     std::cout << "Initialize Structures - bad " << std::endl;
@@ -9898,7 +10599,9 @@ void InitializeStructuresX()
     std::cin.get();
 	system("clear");
 }
-// provide values to structures - good way
+```
+provide values to structures - good way
+```
 void InitializeStructures()
 {
     std::cout << "Initialize Structures - good " << std::endl;
@@ -10014,7 +10717,9 @@ void ValuesofStructues()
     std::cin.get();
 	system("clear");
 }
-// Delete HEAP
+```
+Delete HEAP
+```
 void DeleteHeap()
 {
     std::cout << "Delete Heap " << std::endl;
@@ -10028,6 +10733,7 @@ void DeleteHeap()
 }
 ```
 
+Here are some mental exercises.
 
 **References and Pointers**
 
@@ -10035,53 +10741,59 @@ file **refptr.cpp**
 
 ```
 #include <iostream>   // standard console input/output
-
 // global variables
 int tack;              // 'tack' is a variable of integer type
+int * ptr = nullptr;   /* 'ptr' a pointer "*" of integer type; it is a number,
+						 the address to the beginning of a location in memory*/
+int & tick = tack;     /* 'tack' a reference "&" of integer type; it is 'another
+	                      name for' a variable, it's a alias */
 
-int * ptr = nullptr;   // 'ptr' a pointer "*" of integer type; it is a number, the
-// address to the beginning of a location in memory
+/* at this point you have a choice
+   either declae and implement the function() here before 'main'
+   so the compiler see's them 
+   or declare the function() here 
+   and implemente them after 'main' in the actual physical code text 
+   We'll just declare here and implement later */
+   
+void Incremental(int);  /* using a variable, modifying the value locally
+						  not globally */
+						  
+int  Increment(int);    /* using a variable, modifying the value
+ 						and returning the value */
+ 						
+/*
+    although C++ will allow you to have the same name for function() with 
+    different parameters, it can only handle so much an int, an int pointer or 	  	an int reference are all still int 
+ 	   void Incremental(int) - allowed
+  	   void Incremental(char) - allowed 
+*/
 
-int & tick = tack;     // 'tack' a reference "&" of integer type; it is 'another
-// name for' a variable - it's a alias
-
-// at this point you have a choice
-// either define the function/methods here before 'main' ( so the compiler see's
-// them ) or
-// declare the function/methods here and define them after 'main' in the actual
-// physical code text
-void Incremental(int);     // using a variable, modifying the value locally – not
-// globally
-int  Increment(int);       // using a variable, modifying the value and returning 
-// the value
-// although C/C++ will allow you to have the same name for function/method with 
-// different parameters, it can only handle so much
-// an int, an int pointer or an int reference - are all still int
-// void Incremental(int) - allowed
-// void Incremental(char) - allowed
 void Incrementptr(int *);  // using a pointer, modifying the value pointed to
 void Incrementref(int &);  // using a reference, modifying the value referred to
 
 int main()
 {
     tack = 5;
-    ptr = & tack; // assign memory address of "&" tack to the pointer
+// assign memory address of "&" tack to the pointer
+    ptr = & tack; 
 // tack = 5
-    Incremental(tack); // using a variable, modifying the value locally – not
-// globally
+// using a variable, modifying the value locally, not globally
+    Incremental(tack); 
 // tack is still 5
-    tack = Increment(tack);  // passing a variable, modifying the value and
-// returning the value, then assigning it back ( dumb )
+/*
+	 passing a variable, modifying the value and returning the value, 			 		 then assigning it back ( dumb ) 
+*/
+    tack = Increment(tack); 
 // tack = 6
-    Incrementptr(ptr);   // passing a pointer, modifying the value pointed to ( ptr
-// or &tack )
+// passing a pointer, modifying the value pointed to ptr or &tack 
+    Incrementptr(ptr);
 // tack = 7
-    tack = Increment(tack);     // passing a variable, modifying the value and
-// returning the value, then assigning it back ( dumb )
+    tack = Increment(tack);     
 // tack = 8
-    Incrementref(tick);    // passing a reference, modifying the value referred to
+// passing a reference, modifying the value referred to
+    Incrementref(tick);    
 // tack = 9
-    tack = Increment(tack);       // passing a variable, modifying the value and returning the value, then assigning it back ( dumb )
+    tack = Increment(tack);       
 // tack = 10
     std::cout << "                   the value of tack " << tack << std::endl;  
 // identified by variable name
@@ -10096,24 +10808,12 @@ int main()
     return 0;
 
 }
-// this is what you would like to do - since 'tack' is global, you'd think that
-// doing something to 'tack' would work
-// but it wont...because of the way the compiler works, compared to Cobol for
-// example
-// in Cobol, everything is global, and, the compile looks at everything and takes 
-// notes along the way
-// if at the end something is not defined, only then does it issue an error
-// hence, 'paragraphs', the name for functions/methods in Cobol don't need
-// parameters or return values because everything is global
-// the C/C++ compiler is top down, and the manner of defining functions/methods - 
-// forces you to declare or define things in advance
-// this results in the creation of a new variable of local scope
-// void Incremental(int tack)    // using a variable, modifying the value locally -
-// not globally
-{             // here 'tack' is actually a new integer with the same name – allowed
-//  since it is 'scoped' locally to the function/method
-// you can code whatever you'd like in this block - but - it's effects are local to
-//  this function/method
+```
+This is what you would like to do since 'tack' is global, you'd think that
+doing something to 'tack' would work. But it wont because of the way the compiler works, compared to Cobol for example. In Cobol, everything is global, and, the compiler looks at everything and takes notes along the way. If at the end something is not defined, only then does it issue an error. Hence, paragraphs, the name for functions() in Cobol, don't need parameters or return values because everything is global. The C++ compiler is top down, and the manner of defining functions() forces you to declare or define things in advance. This results in the creation of a new variable of local scope. Here 'tack' is actually a new integer with the same name. This is allowed since it is scoped locally to the function. You can code whatever you'd like in this block  but it's effects are local to this function. 
+``` 
+void Incremental(int tack) 
+{
 
     std::cout << tack << std::endl;    //tack is local
 
@@ -10122,13 +10822,13 @@ int main()
     ++tack;
 
 }
-// because or the rules for defining a function/method - this is am option you
-// have, return a value and assigning it back
-int Increment(int tack)    // accepting an integer and returning an integer
+```
+Because or the rules for defining a function(), this is an option you have, return a value and assigning it back
+accepting an integer and returning an integer
+because this function() returns a value, it just looks like it's updating a global variable, but it is not.
+```
+int Increment(int tack)    
 {
-
-// because this function/method returns a value - it just 'looks' like it's
-// updating a global variable - but it is not
 
     std::cout << tack << std::endl;    // tack is local
 
@@ -10136,33 +10836,33 @@ int Increment(int tack)    // accepting an integer and returning an integer
 
     return tack;
 }
-// So...here is option two; use a pointer
-void Incrementptr(int * ptr)  // accepting a pointer and modifying the value
-// pointed to - the global pointer 'ptr' is assigned to the local pointer 'ptr'
+```
+So here is option two, use a pointer. Accepting a pointer and modifying the value pointed to. The global pointer 'ptr' is assigned to the local pointer 'ptr'. Here is a new pointer, local to the function().
+```
+void Incrementptr(int * ptr)  
 {
-//  here is a new pointer - local to the function/method - no choice here
-    std::cout << "value pointed to " << * ptr << std::endl;   // de-reference
-// pointer to 'tack' is the value of 'tack'
-
-    int local = * ptr;     // silly assignment - but- this demonstrates you can do
+// de-reference pointer to 'tack' is the value of 'tack'
+    std::cout << "value pointed to " << * ptr << std::endl;   
+// silly assignment - but- this demonstrates you can do
+    int local = * ptr;     
 // stuff to 'local' starting from the current value of 'tack'
-
-    std::cout << "local value from ptr " << local << std::endl;   // de-reference
-// pointer to tack
-
-    // ptr++;  this would increase the value of the pointer!!! - boom
-    (* ptr) ++;   // de-reference ( refer to the value pointed to) then increment
-// the value
+// de-reference pointer to tack
+    std::cout << "local value from ptr " << local << std::endl;   
+// ptr++;  this would increase the value of the pointer!!! boom
+// de-reference, refer to the value pointed to, then increment the value
+    (* ptr) ++;   
 
 }
-// So...this leaves you with option three; use a reference
-void Incrementref(int & tick)  // accepting a reference and modifying the value
-// referred to
+```
+So this leaves you with option three, use a reference
+accepting a reference and modifying the value referred to
+```
+void Incrementref(int & tick) 
 {
-//      here 'tick'  is not new and not local - because 'tick' is a global
-
-// reference this tells the compiler what you want
-//      you want to do stuff to 'tack'. period. but because of the compiler, you need to use a reference
+/* here 'tick' is not new and not local - because 'tick' is a global
+   reference this tells the compiler what you want
+   you want to do stuff to 'tack'. period.
+   but because of the compiler, you need to use a reference */*
 
     std::cout << tick << std::endl;       // the word 'tick' "means" 'tack'
 

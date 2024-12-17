@@ -90,7 +90,7 @@ Another thing that's glaring is the lack of file processing knowledge. The Refer
 
 Let's pull the vail off presentation. In my life I never used a Graphical User Interface aka 'GUI'. All I ever did was manipulate characters so a Character User Interface or 'CUI' was more than adequate. So what's a GUI for? Well it's for graphics, presenting pictures, images. Adjusting 'dials'. Ya, ok. We wont need any of that. 
 
-The biggest 'miss' in References and Tutorials is the 'Why' of everything. I believe that time will be better spent learning why to use a feature. After that "syntax is syntax" right? Well, with C++ you'll spend lot's of time figuring out syntax. It's it's own little monster. There are no doubt volumes written about C++ syntax, and why it's structured as such. I often times don’t get it myself. 
+The biggest 'miss' in References and Tutorials is the 'Why' of everything. I believe that time will be better spent learning why to use a feature. After that "syntax is syntax" right? Well, with C++ you'll spend lot's of time figuring out syntax. It is a little monster. There are no doubt volumes written about C++ syntax, and why it's structured as such. I often times don’t get it myself. 
 
 If you are coming to this as a complete novice, that's perfect. If you’re already an expert, I promise you will learn something. Let's begin, shall we. 
 
@@ -101,9 +101,9 @@ If you do something once, you certainly don't need a computer. You might not eve
 
 We need a tool, a machine, to do the work for us. We need to have a way to tell the computer what we want done. There are thousands of computer languages, new ones come along almost daily. Many exist to facilitate a specific type of work. I could go on and on here, but I wont. Let's use C++ as our language of choice. 
 
-So what we are doing is converting a logical unit of work, into instructions that comply with C++, so that we can go on with our busy lives. In my opinion the best way to learn is to code with a goal in mind. In this case, we're going to build an Editor. I learned to use two editors just for this book.
+So what we are doing is converting a logical unit of work, stuff to do, into instructions that comply with C++, so that we can go on with our busy lives. In my opinion the best way to learn is to code with a goal in mind. In this case, we're going to build an Editor. I learned to use two editors just for this book.
 	
-I do everything on the Unix operating system, Linux Mint in fact. In Unix 'everything is a file'. Unix is a specialized program called an operating system and it is written in, drum roll please, C. Written you say? Yes.
+I do everything on the Unix operating system, Linux Mint in fact. Mint is easy to use, has a nice window's like interface and is free! At istrowatch.org you can find tons of free software. In Unix 'everything is a file'. Unix is a specialized program called an operating system and it is written in, drum roll please, C. Written you say? Yes.
 	
 **A program is nothing more than plain text in a file.**
 	
@@ -111,11 +111,11 @@ Let me repeat that. A ‘program’ is a simple text file with instructions. The
 
 I created a folder called Thing. I used a simple text editor and created a file called Thing.cpp.
 
-The most basic C++ program starts with something called a 'main' function. This is where the program starts. Each instruction is executed in order, the next one after the completion of the prior one. Do this, then do that and so on, top down. I like to call that 'do stuff'.  
+The most basic C++ program starts with something called a 'main' function. This is where the program starts. Each instruction is executed in order, the next one after the completion of the prior one. Do this, then do that and so on, top down. I like to call that 'do stuff'. The program is normally a collection of things to do. These things to do are normally combined into groups of instructions called functions. 
 
-Think of a function as a particular piece of work. The entire program is a collection of these functions. A function does something, to something and ideally returns something to tell you that all went well. The most importent part of any program is feedback. Don't fly blind. Your program should do what you want it to do, but, how do you know that? How long did it take too run? How any resources did it take? What issues were encountered? Did it fail? Why?  
+Think of a function as a particular piece of work. The entire program is a collection of these functions. A function does something, to something and ideally returns something to tell you that all went well. The most importent part of any program is feedback. Don't fly blind. Your program should do what you want it to do, but, how do you know that? How long did it take too run? How many resources did it take? What issues were encountered? Did it fail? Why?  
 
-C++ is case sensitive meaning "This" and "this" are not the same! Useful but can be troublesome. It’s a fantastic idea to document your code with comments. This will remind you of what you were trying to accomplish and express that idea to other people who will read your code. C++ is all about code reuse. Why reinvent the wheel?   C++ ‘comments’ begin with ‘//’ and continue to the end of the line.  Like so:
+C++ instructions, in pain text, are case sensitive. Meaning "This" and "this" are not the same! Useful but can be troublesome. It’s a fantastic idea to document your code with comments. This will remind you of what you were trying to accomplish and express that idea to other people who will read your code. C++ is all about code reuse. Why reinvent the wheel? C++ ‘comments’ begin with ‘//’ and continue to the end of the line. A comment does not execute, it's not an instruction. It's a note to self. It starts with '//', like so.
 ```
 // this is a comment
 ```
@@ -130,8 +130,9 @@ One last word on comments. As a matter of practice I start every program with co
 
 At my first gig, they realized that we were off course and set us straight. We were taken, one by one and placed into a room, for let’s say, for reeducation! We were trained to do things the same way. In the end, if you looked at a piece of code, you could tell what it was for and how it worked. No fear of making changes. You could not tell who wrote it. Perfect. Unfortunately, of all the places I’ve worked, that was the only job that did that. The good news is that everywhere I worked, if there was an issue in the code, the managers could look at the code and say to me 'it wasn’t you'. True, I do things in a very particular way, but not my way.                   
  
-Thing. The smallest program in C++. I called it Thing, you can call your program anything you’d like. C++ is funny, you can call the file 'abc.cpp' and the program 'xyz'. It’s all up to you. Most of the time, the file that contains the ‘main’ function will be called ‘main.cpp’ . With more comments than code. This will change. 
+Thing. The smallest program in C++. I called it Thing, you can call your program anything you’d like. C++ is funny, you can call the file 'abc.cpp' and the program 'xyz'. It’s all up to you. In simple trivial cases the file that contains the ‘main’ function will be called ‘main.cpp’. With more comments than code. This will change. Tracking which 'main' is which, gets difficult when you have 100's of them.
 
+**Thing.cpp**
 ```
 // a function "()" called main, 
 // takes  no parameters 
@@ -144,12 +145,15 @@ int main ()
 // the end of a block of code "}"  
 }            
 ```
-The ‘main’ function always returns an integer, a number. If something is wrong, you could return let’s say ‘1’ to let you know that. I called this file Thing.cpp, and "compiled it" with the Unix command in a Terminal: (don't type the'$')  
+What does this say. What does it mean. What does it do. 
+The program Thing is 'implemented', coded as a function. It only has one function. The code that belongs to the function is enclosed in brackets '{}'. In fact, if you use any common coding tool, as soon as you type 'fun()' the brakets will pop up. I find that annoying. The word 'int' is a declaration of a 'return' value. You recieve it. In this instance an integer. An integer is a number. We don't need to give it a name. The brakets '()' after the name of the function is where you would declare values to be sent to, or used in the function. They are called 'parameters'. The return, a C++ 'keyword', instrucion sends a value back to whatever called the function. In this case, you. It must return an integet. In this example it returns a zero. It cannot return "ok", because "ok" is not an integer. When you 'run' a program, it excecutes the instructions. This is also referred to as 'calling' a funuction. C++ is very structured, yet sometimes terse. 
+
+The ‘main’ function() always returns an integer, a number. If something is wrong, you could return let’s say ‘1’ to let you know that. I called this file Thing.cpp, and "compiled it" with the Unix command in a Terminal: (don't type the'$') The 'executable' program name will be called Thing.
 ```
 $g++ -o Thing Thing.cpp
 ```
 
-All this command says is run program 'g++', the compiler, create an executable “-o”, called “Thing” from the code in file Thing.cpp. A compiler is a program. It converts your ‘Thing.cpp’ file into an executable ‘Thing’ file. There are many compiler options. Look them up and play around. An executable is a file in binary. It contains all the zeros and ones that the CPU understands to do this and that.
+All this command says is run program 'g++', the compiler, create an executable “-o”, called “Thing” from the code in file Thing.cpp. A compiler is a program. It converts your ‘Thing.cpp’ file into an executable ‘Thing’ file. There are many compiler options. Look them up and play around. An executable is a file in binary. It contains all the zeros and ones that the CPU understands to do this and that for a given platform.
  
 You run the ‘Thing’ program by the Unix command './' followed by what you want to run:
 
@@ -167,7 +171,7 @@ pierre@pierre-OptiPlex-9020:~/Thing$
  
 And, as expected, nothing happens! Perfect. Unix is terse. ./Thing means run the main().     
 
-So far we’ve learned that numbers are called ‘int’ in C++.  An ‘int’ is a type, a type of thing. Whole numbers, greater than 0. Everything must have a type, numbers, letters, fractions etc. C++ eats types for breakfast. There are several type of numbers! 
+So far we’ve learned that numbers are called ‘int’ in C++.  An ‘int’ is a type, a type of thing. Whole numbers. Everything must have a type, numbers, letters, fractions etc. C++ eats types for breakfast. There are several type of numbers! I've only used int and float. Floats are for decimal numbers like 1.5. The C++ reference defines the sizes and limits of values so declared. For example the range of values for an int is −2,147,483,648 to 2,147,483,647. 
 
 ```
 // signed +/-
@@ -184,17 +188,27 @@ Wait.
 
 What’s a ‘console’?
 
-A console is the computer screen. When I started programming, there was no ‘screen’. The only input was ‘punch cards’ with holes in them that were fed into a ‘reader’ and the only output was to a printer. No files, No libraries. No nothing. Then came a ‘screen’, aka the Console. What you typed on the keyboard, appeared on the screen. Then, after you pressed ENTER, there would be output to the screen. A loop. A send / receive loop.  
+A console is the computer screen. The CUI. When I started programming, there was no ‘screen’. The only input was ‘punch cards’ with holes in them that were fed into a ‘reader’ and the only output was to a printer. No files, No libraries. No nothing. Then came a ‘screen’, aka the Console. What you typed on the keyboard, appeared on the screen. Then, after you pressed ENTER, there would be output to the screen. A loop. A send / receive loop. 
 
-You’re probably looking at a screen right now, but it not just characters, it’s pictures, it’s graphical. Hint. Each and every rectangle or square you can see is a program. And each and everyone of these programs has the potential to respond to all your inputs. Keyboard, mouse and so on. These inputs are called ‘events’. For example, mouse over, left click, key down, key press and on and on. But we’ll just stick to the basics for now. Let's make the word "Clunker" appear on the console.          
+You’re probably looking at a screen right now, but it not just characters, it’s pictures, it’s graphical. Hint. Each and every rectangle or square you can see is a program. And each and everyone of these programs has the potential to respond to all your inputs. Keyboard, mouse and so on. These inputs are called ‘events’. For example, mouse over, left click, key down, key press and on and on. But we’ll just stick to the basics for now. Let's make the word "Clunker" appear on the console. 
 
-For that to happen, we're going to borrow some code. We could just code it all ourselves, but, why would you. The standard C++ library, is packed full of programs that can already handle tons of things you will want to do. Let's face it, it's 2024, all this stuff has already been done! So how do we borrow code? We tell the compiler to borrow it. We code that with "<>" and put what we want to borrow from in between like this ‘include’ directive, in our Thing.cpp file. 
+For that to happen, we're going to borrow some code. We could just code it all ourselves, but, why would you. The standard C++ library, is packed full of programs that can already handle tons of things you will want to do. Let's face it, it's 2024, all this stuff has already been done! 
+
+When I started in 1982, I quickly realized that, in a CUI, there were 4 types of
+things you could put on a screen. Labels of fields. Numeric fields and alphanumeric 'text' fields. The fields were either modifiable by the user, you type stuff in the field, or you just read a value off the screen like the date.
+The code necessary to accomplish that is simple. So I wrote a program that 'reads' a picture amd writes the code to make that happen on a screen. The picture was defined using 3 different letters, you could pic whatever 3 you wanted. You painted the picture, for example using '@' for alpha characters, '#' for numbers and '^' for 'read only'. Everything else was a label. So you might have a line that looks this;
+
+Enter your first name @@@@@@@@@@@@ and last name @@@@@@@@@@@@ and age ##
+
+The pictures served as documentation, and I never wrote a line of code to present a screen again. Eventually, I wrote a program to read the picture and generate the code to handle the screen, process the user response and send back a response. I have a disdane for coding the mundane. I got very fast at doing what I do. It got me into plenty of trouble.
+
+So how do we borrow code? We tell the compiler to borrow it. We code that with "<>" and put what we want to borrow from in between like this ‘#include’. Include is a pre compiler directive. We're telling C++ to do somthing, before, it compiles. In our Thing.cpp file. 
 
 ```
 #include <iostream> 
 ```
 
-The ‘#include’ is a compiler directive to, uh, include a library. Library iostream contains functions that perform basic input and output.  It’s important to keep in mind that C++ needs to know what’s coming, in advance. So now our program looks like  this:
+The ‘#include’ is a compiler directive to, uh, include a library. Library iostream contains functions that perform basic input and output.  It’s important to keep in mind that C++ needs to know what’s coming, in advance. So now our program looks like this:
 
 ```
 #include <iostream>
@@ -204,8 +218,7 @@ int main()
 }
 ```
 
-Cplusplus.com shows that iostream has 8 objects in it;  cin, cout, cerr, clog, wcin, wcout, wcerr, wclog. Let’s put in the code to output the word "Clunker", using the ‘cout’ function like this; 
-
+Cplusplus.com shows that iostream has 8 objects in it;  cin, cout, cerr, clog, wcin, wcout, wcerr, wclog. Let’s put in the code to output the word "Clunker", using the ‘cout’ function like this:
 
 ```
 #include <iostream>
@@ -258,7 +271,7 @@ $ ./Thing
 Clunker$ 
 ```
 
-You see that? Pretty ugly. We got the word Clunker to come out and the terminal response $ was right after. It would be nicer to skip to a new line wouldn’t it? Let’s do that in C++. C++ is funny so there are a couple of ways to do that. One is to use an ‘escape’ character, of which there are many. In this instance a ‘\n’ like this :
+You see that? Pretty ugly. We got the word Clunker to come out and the terminal response $ was right after. It would be nicer to skip to a new line wouldn’t it? Let’s do that in C++. C++ is funny so there are a couple of ways to do that. One is to use an ‘escape’ character, of which there are many. In this instance a ‘\n’ like this:
 
 ```
 #include <iostream>
@@ -280,7 +293,7 @@ Clunker
 $ 
 ```
  
-Isn’t that nice. The word Clunker on a separate line. Woo Hoo! I do not like 'escape sequences'. English is not my mother tounge, so when I see something\n my brain goes tilt.A better way is to use a function that does that for you, like this:
+Isn’t that nice. The word Clunker on a separate line. Woo Hoo! I do not like 'escape sequences'. English is not my mother tounge, so when I see something\n my brain goes tilt. A better way is to use a function that does that for you, like this:
 
 ```
 #include <iostream>
@@ -346,7 +359,13 @@ int main()
 }
 ```
 
-You are starting to get ideas I’ll bet. This is really good. You’ll probably run off and start writing programs. I’ve done my job. std::cin.get() is a function invoked by calling it’s name, properly. In this case the 'get()' function within 'cin'. So now we know how to invoke, execute,call a function. I usually go with the shade tree mechanic expression, 'run it'.    
+You are starting to get ideas I’ll bet. This is really good. You’ll probably run off and start writing programs. 
+
+I’ve done my job. 
+
+std::cin.get() is a function invoked by calling it’s name, properly. In this case the 'get()' function within 'cin'. 
+Did you see "cin dot get" syntax? Hold that thought. 
+So now we know how to invoke, execute, call a function. I usually go with the shade tree mechanic expression, 'run it'. 
 
 ##**Variables,Data,Types**##
 
@@ -2834,7 +2853,7 @@ wxLogStatus(PrimaryCommand + " " + FirstParameter + " applied Page " + std::to_s
 Lesson learned. Note we can call our ToString() to_string, C++ will not care. I modified the lower part of OpenFile() to look like this, cleaner.
 
 ```
-    wfilecnt = CF.fileireccnt;
+    wfilecnt = CF.reccnt;
 
     if (wfilecnt > 23000)
     {
@@ -2845,7 +2864,7 @@ Lesson learned. Note we can call our ToString() to_string, C++ will not care. I 
 
     haveaFile = true;
 
-    for (i = 0; i < CF.fileireccnt; i++)
+    for (i = 0; i < CF.reccnt; i++)
     {
         inputfile[i].IFlc     = "000000";
         inputfile[i].IFCode   = CF.inputfile[i].IFCode;
@@ -5805,7 +5824,7 @@ Add to objects.h – we’ll implement the class later. What “CLEditCF CF;” 
 ```
 	// file processing
 	// this is an instance of a class to process a file
-		CLEditCF CF;
+		CLEditCF CF;   // change to CLEditCF * CF; 
 ```
 Here we just declared a dynammic instance of a class. C++ is funny.
 We could have declared CLEditCF * CF; in objects.h. 
@@ -5942,13 +5961,170 @@ My test script is 'opem filename' followed immediately by 'saveas newname'
 Using a Unix command in a terminal, diff filename newname 
 there are odd differences!
 need to fix!
-**here**
+I changed this open 
+```
+LogFile.open("CLEditCFLogFile.txt", ios_base::out | ios_base::app);
+```
+
+It's actually what I always wanted, append to the logfile. Now I can see what happened without have to look each time I press apply.
+
+Now I need to figure out what is happening to my bytes!
+Open test.cpp
 
 ```
-the end
+void CLEditFrame::CaptureFF()
+{
+
+    LogFile << "Capture FF " << std::endl;
+
+    res = winputfile[i].wIFCode.find(FirstParameter, pos);
+
+    if (res == MinusOne)
+    {
+        return;
+    }
+
+    FF[f].index = i;
+    FF[f].pos = res;
+    FindCnt++;
+    f++;
+    pos = res + FindStrl + 1;
+
+}
+void CLEditFrame::FindNext()
+{
+
+    LogFile << "Find Next" << std::endl;
+// default for no next
+    frstl = FF[0].index + 1;    //off by one eh
+    prevf = FF[0].index;
+    for (f = 0; f < FindCnt; f++)
+    {
+        if (FF[f].index > prevf)    // look for the index in the after the prior one
+        {
+            frstl = FF[f].index + 1;    //off by one eh
+            prevf = FF[f].index;
+            return;
+        }
+    }
+
+}
 ```
 
+then Saveas test.txt
 
+```
+void CLEditFrame::CaptureFF()
+{      LogFile << "Capture FF " << std::endl;
+     res = winputfile[i].wIFCode.find(FirstParameter, pos);
+     if (res == MinusOne)
+    {
+        return;
+    }
+     FF[f].index = i;
+    FF[f].pos = res;
+    FindCnt++;
+    f++;
+    pos = res + FindStrl + 1;
+ } void CLEditFrame::FindNext()
+{      LogFile << "Find Next" << std::endl;
+// default for no next
+    frstl = FF[0].index + 1;    //off by one eh
+    prevf = FF[0].index;
+     for (f = 0; f < FindCnt; f++)
+    {
+        if (FF[f].index > prevf)    // look for the index in the after the prior one
+        {
+            frstl = FF[f].index + 1;    //off by one eh
+            prevf = FF[f].index;
+            return;
+        }
+    }
+ } 
+```
+
+yikes! what happened to the white space? more de bug time...
+I need to see what CF sees when it sees a blank line
+ah ha! this code in SetEndl()
+```
+    for (pos = (WorkStrl - 1); pos > 0; pos--)
+```
+
+wont work when the line is blank, in other words, it just contains an end line
+we take the end line out when we read the file, and all we end up with is a one
+byte string. We need to prefix our SetEndl 'for' code with 
+
+```
+    if (WorkStrl == 1)
+    {
+        WorkStr[0] = '\n';
+        return;
+    }
+```
+
+and change this condition
+
+```
+    for (pos = (WorkStrl - 1); pos > -1; pos--)
+```
+
+I got it! 
+
+```
+Welcome Sun Dec 15 10:03:31 2024
+
+open file 
+elapsed time: 5.635
+File In Bytes 723
+File In Records 38
+File Out Bytes 0
+File Out Records 0
+init 
+Welcome Sun Dec 15 10:03:41 2024
+
+save file 
+elapsed time: 0.408
+File In Bytes 0
+File In Records 0
+File Out Bytes 723
+File Out Records 38
+```
+
+run the 'diff' program in a terminal to be 100% certain
+
+```
+pierre@pierre-OptiPlex-9020:~/CLEdit$ diff test.cpp test.txt
+pierre@pierre-OptiPlex-9020:~/CLEdit$ 
+```
+ok - one more time with feeling 
+
+```
+init 
+Welcome Sun Dec 15 10:41:46 2024
+
+open file 
+elapsed time: 203.615
+File In Bytes 99969
+File In Records 4561
+File Out Bytes 0
+File Out Records 0
+init 
+Welcome Sun Dec 15 10:41:54 2024
+
+save file 
+elapsed time: 17.422
+File In Bytes 0
+File In Records 0
+File Out Bytes 99969
+File Out Records 4561
+```
+
+```
+pierre@pierre-OptiPlex-9020:~/CLEdit$ diff test.cpp test.txt
+pierre@pierre-OptiPlex-9020:~/CLEdit$ 
+```
+
+Done! byte by byte match. no missing pennies 
 
 Add to variables.h
 ```
@@ -5973,7 +6149,7 @@ void CLEditFrame::CreateFile()   // implemented in Main.cpp
     }
     
     CF->fileoname = CurrentFile;
-    CF->fileoreccnt = CCrows;
+    CF->reccnt = CCrows;
     CLEditCFrc = CF->savefile(CF->fileoname);
     
     if  (CLEditCFrc != 0)
@@ -6012,8 +6188,7 @@ class CLEditCF
         std::string fileiname;
         std::string fileoname;
 
-        int fileireccnt;
-        int fileoreccnt;
+		int reccnt;
 
         struct InputFile
         {
@@ -6747,7 +6922,7 @@ void CLEditFrame::OpenFile()  // implemented in main.cpp
 
     InitWIF();
 
-    wfilecnt = CF->fileireccnt;
+    wfilecnt = CF->reccnt;
 
     if (wfilecnt > 23000)
     {
@@ -6758,7 +6933,7 @@ void CLEditFrame::OpenFile()  // implemented in main.cpp
 
     haveaFile = true;
 
-    for (i = 0; i < CF->fileireccnt; i++)
+    for (i = 0; i < CF->reccnt; i++)
     {
         inputfile[i].IFlc     = "000000";
         inputfile[i].IFCode   = CF->inputfile[i].IFCode;
@@ -6866,7 +7041,7 @@ void CLEditFrame::SaveFile()  // implemented in main.cpp
     }
 
     CF->fileoname = CurrentFile;
-    CF->fileoreccnt = wfilecnt;
+    CF->reccnt = wfilecnt;
     CLEditCFrc = CF->savefile(CF->fileoname);
  
     delete CF;
@@ -6923,7 +7098,7 @@ void CLEditFrame::SaveAsFile()  // implemented in main.cpp
     }
 
     CF->fileoname = CurrentFile;
-    CF->fileoreccnt = wfilecnt;
+    CF->reccnt = wfilecnt;
     CLEditCFrc = CF->savefile(CF->fileoname);
 
     if  (CLEditCFrc != 0)
@@ -8238,9 +8413,9 @@ Databases. A database stores data in tables. Tables have a structure. Shocker. E
 Ok. Back to reality. Hey Pierre, why did you write ‘using namespace std’ and then waste all those keystrokes typing std::string instead of just string? Because, if you add a new library, or someone changes a library, affecting the ‘string’ type, my code will always work. Now and forever. 
 Reminder that CLEditCF is a class. It has public parts and private parts. Never us a class in your  project, unless, you have all the code to the class and everything inherited from those classes. If you can’t read the code, you have no idea that your program is doing. No idea! Period. All the libraries we’ve used are open source, the code is 100% available. 
 
-**File Processing**
+***File Processing***
 
-I wrote this program, long ago, as a console application. I've modified it over time.
+I wrote this program, long ago, as a console application. I've modified it over time. Continuous improvement.
 
 **file CLEditCF.h**  complete
 ```
@@ -8262,8 +8437,7 @@ class CLEditCF
         std::string fileiname;
         std::string fileoname;
 
-        int fileireccnt;
-        int fileoreccnt;
+		int reccnt;
 
         struct InputFile
         {
@@ -8287,8 +8461,10 @@ class CLEditCF
         std::fstream filei;
         std::fstream fileo;
 
+        int fileireccnt;
         int fileibytecnt;
-        int fileobytecnt;       
+        int fileoreccnt;
+        int fileobytecnt;    
         
         int fileitellg;
         int fileoi;
@@ -8316,18 +8492,20 @@ class CLEditCF
         bool abend;
 
         void init();
-        void openlog();
-        void openerr();
-        void closelog();
-        void closeerr();
+        void OpenLog();
+        void OpenErr();
+        void CloseLog();
+        void CloseErr();
         void openfo();
         void openfi();
         void closefo();
         void closefi();
-        void processfir();
+//      File Input Record  
+        void processfiropen();
         void processfircopy();
         void readfir();
-        void processfor();
+//      File Output Record  
+        void processforopen();
         void processforcopy();
         void writefor();
         void initfileir();
@@ -8433,17 +8611,20 @@ int CLEditCF::openfile(std::string fileiname)
 
     i = 0;  //used to track position
     j = 0;  //used for logical record length
+    fileireccnt = 0;
     Outreccnt = 0;
 
     readfir();
 
     while (fileitellg > 0)  // at end of file the read returns -1
     {
-        processfir();
+        processfiropen();
     }
 
     LogFile << "open file " << std::endl;
 
+	reccnt = fileireccnt;
+	
     eop();
 
 openexit:
@@ -8473,7 +8654,7 @@ int CLEditCF::savefile(std::string fileoname)
         goto saveexit;
     }
 
-    for (i = 0; i < fileoreccnt; i++)
+    for (i = 0; i < reccnt; i++)
     {
         stringtochar();
         writefor();
@@ -8529,14 +8710,14 @@ void CLEditCF::init()
 //  fileireccnt  = 0;  // no
 //  fileoreccnt  = 0;  // no
 
-    openlog();
+    OpenLog();
 
     if (abendi != 0)
     {
         return;
     }
 
-    openerr();
+    OpenErr();
 
     if (abendi != 0)
     {
@@ -8691,9 +8872,9 @@ void CLEditCF::eop()
 
     closefo();
 
-    closelog();
+    CloseLog();
 
-    closeerr();
+    CloseErr();
 
 }
 ```
@@ -8701,7 +8882,7 @@ void CLEditCF::eop()
 This is the input process for the open file action.
 
 ```
-void CLEditCF::processfir()
+void CLEditCF::processfiropen()
 {
 
     j++;
@@ -8712,7 +8893,8 @@ void CLEditCF::processfir()
 
     if  (fileic == '\n')
     {
-       processfor();
+		fileireccnt++;    		
+		processforopen();
     }
 
     readfir();
@@ -8734,7 +8916,8 @@ void CLEditCF::processfircopy()
 
     if  (fileic == '\n')
     {
-       processforcopy();
+    		fileireccnt++;
+		processforcopy();
     }
 
     readfir();
@@ -8788,14 +8971,12 @@ void CLEditCF::processfor()
 The input process for the open file action. The right way.
  
 ```
-void CLEditCF::processfor()
+void CLEditCF::processforopen()
 {
-
-	fileireccnt++;
 
     inputfile[Outreccnt].IFCode = fileir;
 
-    Outreccnt++;
+    Outreccnt++;		// an index
         
     initfileir();
 
@@ -8823,7 +9004,7 @@ void CLEditCF::writefor()
 
     fileo << fileir;
 
-    fileireccnt++;
+    fileoreccnt++;
 
 }
 ```
@@ -8862,7 +9043,7 @@ void CLEditCF::initsavefileir()
 Open log file. If there is a problem we just use standard output.
 
 ```
-void CLEditCF::openlog()
+void CLEditCF::OpenLog()
 {
 
     LogFile.open("CLEditCFLogFile.txt", std::ios::out);
@@ -8880,7 +9061,7 @@ void CLEditCF::openlog()
 Close log file.
 
 ```
-void CLEditCF::closelog()
+void CLEditCF::CloseLog()
 {
 
     LogFile.close();
@@ -8891,7 +9072,7 @@ void CLEditCF::closelog()
 Open error file. If there is a problem we just use standard output. 
 
 ```
-void CLEditCF::openerr()
+void CLEditCF::OpenErr()
 {
     ErrFile.open("CLEditCFErrFile.txt", std::ios::out);
 
@@ -8908,7 +9089,7 @@ void CLEditCF::openerr()
 Close error file.
 
 ```
-void CLEditCF::closeerr()
+void CLEditCF::CloseErr()
 {
 
     ErrFile.close();
@@ -8917,10 +9098,9 @@ void CLEditCF::closeerr()
 ```
 
 
-
-
-**database**
+###***DataBase***
 A header for our database class. Nothing scary here. We’re going to use pointers, to dynamically instantiate objects, because they are big under the hood. Then ‘free’ them later, ‘delete’ them.
+
 
 **file CLEditDB.h** complete
 
@@ -8951,62 +9131,73 @@ class CLEditDB
         CLEditDB();
         virtual ~CLEditDB();
 
-        int errorcode = 0;
-        int rowcnt = 0;
-        int abendi;
-        int u;
-        int i;
-        int n;
-        bool OnOne;
-
-        std::string what = "";
-        std::string state = "";
-
         std::string DataBase;
         std::string TableName;
-        std::string Query;
-        std::string CodeStr;
-        int         CodeStrl;
-        std::string CodeNew;
-        int         CodeId;
-        stringstream sql;
+
+        int rowcnt;
 
         struct InputFile
         {
             std::string IFCode; // the line of code
         };
-        InputFile inputfile[25000];  /* 23,000 line is the biggest single 
-        			Block of	 code I've ever seen aka "203" */
-
-        sql::Driver * driver;
-        sql::Connection * con;
-        sql::Statement * stmt;
-        sql::PreparedStatement * pstmt;
-        sql::ResultSet * res;
+        InputFile inputfile[25000];  
         
         void Initialize();
-        void InitInputFile();
         void Driver();
         void Connect();
         void Statement();
-        int  Count();
+
         void Cursor();
         void FromStage();
+        int  Count();
         void ToStage();
-        void UseDb();
-        void DropTable();
-        void CreateTable();
-        void InsertRow();
-        void FixQuote();
-        void Error();
+
         void Free();
 
     protected:
 
     private:
 
+        sql::Driver * driver;
+        sql::Connection * con;
+        sql::Statement * stmt;
+        sql::PreparedStatement * pstmt;
+        sql::ResultSet * res;
+
+        int errorcode;
+        int u;
+        int i;
+        int n;
+        bool OnOne;
+
+        std::string what;
+        std::string state;
+
+        std::string Query;
+        std::string CodeStr;
+        int         CodeStrl;
+        std::string CodeNew;
+        int         CodeId;
+       	stringstream sql;
+
+
         std::fstream LogFile;
         std::fstream ErrFile;
+
+        int abendi;
+        std::string msg;
+
+        void InitInputFile();
+        void UseDb();
+        void DropTable();
+        void CreateTable();
+        void InsertRow();
+        void FixQuote();
+        void Error();
+        void OpenLog();
+        void CloseLog();
+        void OpenErr();
+        void CloseErr();
 
 };
 ```
@@ -9028,14 +9219,15 @@ CLEditDB::~CLEditDB()
 }
 ```
 
-This is the normal initialize.
+This is the normal initialize. Open the Log and Error files.
 
 ```
 void CLEditDB::Initialize()
 {
 
-    LogFile.open("CLEditDBLogFile.txt", std::ios::out);
-    ErrFile.open("CLEditDBErrFile.txt", std::ios::out);
+    OpenLog();
+
+    OpenErr();
 
     LogFile << "Initialize " << std::endl;
 
@@ -9434,6 +9626,11 @@ void CLEditDB::Free()
         state = e.getSQLState();
         Error();
     }
+    
+    CloseLog();
+
+    CloseErr();
+    
 }
 ```
 
@@ -9459,13 +9656,978 @@ void CLEditDB::Error()
 } 
 ```
 
-Wow. Did you see that! Ok. Time to unpack. Essentially, to get to a database you need the following. A driver, like a limo driver to get you to and from the data. A connection to a database and table. To place to create a statement. Execute the statement, then free up everything.
+```
+void CLEditDB::OpenLog()
+{
+
+    LogFile.open("CLEditDBLogFile.txt", ios_base::out | ios_base::app);
+
+    if  (!LogFile.is_open())
+    {
+        msg = "Log file Open error";
+        abendi = 3501;
+        std::cout << msg << abendi << std::endl;    // better than flying blind
+        return;
+    }
+
+}
+```
+
+
+```
+void CLEditDB::CloseLog()
+{
+
+    LogFile.close();
+
+}
+```
+
+```
+void CLEditDB::OpenErr()
+{
+    ErrFile.open("CLEditDBErrFile.txt", std::ios::out);
+
+    if  (!ErrFile.is_open())
+    {
+        msg = "Error file Open error";
+        abendi = 3502;
+        std::cout << msg << abendi << std::endl;   // better than flying blind
+        return;
+    }
+}
+```
+
+```
+void CLEditDB::CloseErr()
+{
+
+    ErrFile.close();
+
+}
+```
+
+Wow. Did you see that! Ok. Time to unpack. Essentially, to get to a database you need the following. A driver, like a limo driver to get you to and from the data. A connection to a database and table, the roadway. A place to create a statement. Execute the statement, then free up everything.
 
 There is also another new fun part. A 'try/catch' block. What? Yes. We know how important it is to maintain a connection. Like when you pick up the phone, you hear a dial tone. What the phone did is open a connection, and tell you via the dial tone that it was successful. A more modern example is your Bluetooth headphones. You press a button, you’ll hear ‘power on’. Then it searches for a connection, and when it finds one it says ‘Bluetooth connected’.
 
 Try / Catch blocks give us the opportunity to check to see if a resource is available and react accordingly, instead of crashing in the blind darkness. The beauty of a modern IDE is that as you hover over the object, it will tell you what types of exceptions might happen. So you can code separate solutions for each one. That’s very cleaver. 
 
-**appendix**
+Ok. What I don't like about this little project. CLEditCF and CLEditDB were originally console applications. And it shows. We changed CF to a dynamic call by using new in its declaration. This is ok because I wanted to show a difference to help you figure out what is what when you encounter something like:
+```
+    Command->SetMaxLength(200);
+```
+There is something about FromStage(), ToStage() and CreateTable() that I don't like. Both of them exhibit the same starting behavior: 
+
+From Stage
+
+    DB.Initialize();
+    DB.Driver();
+    DB.Connect();
+    DB.Statement();
+    
+    DB.Cursor();
+    DB.FromStage();
+
+    DB.Free();
+
+To Stage: stage from the stack of cards 
+
+    DB.Initialize();
+    DB.Driver();
+    DB.Connect();
+    DB.Statement();
+    
+    DB.ToStage();
+
+    DB.Free();
+
+Create Table: stage from a block copy of cards
+
+    DB.Initialize();
+    DB.Driver();
+    DB.Connect();
+    DB.Statement();
+
+    DB.ToStage();
+
+    DB.Free();
+
+
+See the pattern? Initialize(), Driver(), Connect(), Statement() with no code inbetween them. These 4 functions are needed, in that order. They act exactly the same as a file.open, except it's a database.open, but obviousely more complicated. So it looks like we should have a function in DB that does those 4 things, since they make sense together. We should come up with a good name. 
+InitializeDriverConnectStatement() would be a bit much. Connect() would be too terse. What is the opposite of 'free'? I got it! Wordhippo.com sugests bound! On the mainframe, if your code includes SQL, the compiler make two executables. One for your code the other for your SQL. These need to be combined together with a command, a 'bind' command. So Bind() it is!
+
+Plus there is another problem. In CLEditDB::Error(), the function called whenever a Try fails, it just exits and we don't know what's wrong in Edit. That's bad.
+Let's fix that.
+It's easy.
+
+First lets add a function to CLEditDB.h, it will return an integer. 
+
+	int Bind();
+
+That name will make sense to everybody. 
+
+In CLEditDB, Bind() will call Initialize(), Driver(), Connect() and Statement()
+checking the return code abendi between each.
+
+**int Bind();**	// declared in CLEditDB.h
+```
+int CLEditDB::Bind()	 	// implemented in CLEditDB.cpp
+{
+
+    Initialize();
+
+    if  (abendi != 0)
+    {
+        return abendi;
+    }
+
+    Driver();
+
+    if  (abendi != 0)
+    {
+        return abendi;
+    }
+
+    Connect();
+
+    if  (abendi != 0)
+    {
+        return abendi;
+    }
+
+    Statement();
+
+    if  (abendi != 0)
+    {
+        return abendi;
+    }
+
+    return abendi;
+
+}
+```
+
+In CLEditMain, ToStage(), FromStage() and CreateTable() will call DB.Bind() and check the return code. Also, they will respond to a non zero result!
+
+```
+void CLEditFrame::CreateTable()	// implemented in CLEditMain.cpp
+{
+
+    LogFile << "Create Table" << std::endl;   // need a block copy and file name
+
+// the next three lines are the equivalent of an "open"
+// create a driver object
+// create a connection object
+// create a statement object
+    DB.DataBase = FirstParameter;
+    DB.TableName = SecondParameter;
+    res = DB.Bind();
+    
+    if (res != 0)
+    {
+        LoadScreen();
+        wxLogStatus(PrimaryCommand + " " + FirstParameter + SecondParameter + " failed " + to_string(res));
+        WipeCommand();
+        return;
+    }
+
+    InitDB();
+
+    for (i = 0; i < CCrows; i++)
+    {
+        WorkStr = ccinputfile[i].cIFCode;
+        SetEndl();
+        DB.inputfile[i].IFCode = WorkStr;
+    }
+
+    DB.rowcnt = CCrows;
+
+    DB.ToStage();
+// "close" the database
+    DB.Free();
+
+    LoadScreen();   //always from work input
+
+    wxLogStatus(PrimaryCommand + " " + FirstParameter + SecondParameter + " applied");
+
+    WipeCommand();
+
+}
+```
+
+
+```
+void CLEditFrame::ToStage()	// implemented in CLEditMain.cpp
+{
+// save the file to a Table :)
+    LogFile << "To Stage " << std::endl;
+
+    if  (FirstParameter == "")
+    {
+        wxLogStatus(PrimaryCommand + " need Database name ");
+        return;
+    }
+
+    if  (SecondParameter == "")
+    {
+        wxLogStatus(PrimaryCommand + " need TableName ");
+        return;
+    }
+
+    if (wfilecnt == 0)
+    {
+        wxLogStatus(PrimaryCommand + " no data to stage  ");
+        return;
+    }
+
+    if (wfilecnt > 23000)
+    {
+        FileSizeError = true;
+        wxLogStatus(PrimaryCommand + " file too big ");
+        return;
+    }
+
+// the next three lines are the equivalent of an "open"
+// create a driver object
+// create a connection object
+// create a statement object
+    DB.DataBase = FirstParameter;
+    DB.TableName = SecondParameter;
+    res = DB.Bind();
+    
+    if (res != 0)
+    {
+        LoadScreen();
+        wxLogStatus(PrimaryCommand + " " + FirstParameter + SecondParameter + " failed " + to_string(res));
+        WipeCommand();
+        return;
+    }
+
+    InitDB();
+ //trim the ends off the file
+    LogFile << "Trim File " << std::endl;
+
+    for (i = (wfilecnt - 1); i > 1; i--)
+    {
+        TrimFile();
+    }
+
+    for (i = 0; i < wfilecnt; i++)
+    {
+        WorkStr = winputfile[i].wIFCode;
+        SetEndl();
+        DB.inputfile[i].IFCode = WorkStr;
+    }
+
+    DB.rowcnt = wfilecnt;
+
+    DB.ToStage();
+
+ // "close" the database
+    DB.Free();
+
+    LoadScreen();
+
+    wxLogStatus(PrimaryCommand + FirstParameter + SecondParameter + " applied");
+
+    WipeCommand();
+
+}
+```
+
+```
+void CLEditFrame::FromStage()		// implemented in CLEditMain.cpp
+{
+
+// get the file from a table :)
+    LogFile << "From Stage " << std::endl;
+
+    InitScreen();
+
+    if  (FirstParameter == "")
+    {
+        wxLogStatus(PrimaryCommand + " need Database name ");
+        return;
+    }
+
+    if  (SecondParameter == "")
+    {
+        wxLogStatus(PrimaryCommand + " " + FirstParameter + " need TableName ");
+        return;
+    }
+    
+// the next three lines are the equivalent of an "open"
+// create a driver object
+// create a connection object
+// create a statement object
+    DB.DataBase = FirstParameter;
+    DB.TableName = SecondParameter;
+    res = DB.Bind();
+    
+    if (res != 0)
+    {
+        LoadScreen();
+        wxLogStatus(PrimaryCommand + " " + FirstParameter + SecondParameter + " failed " + to_string(res));
+        WipeCommand();
+        return;
+    }
+    
+    rowcnt = DB.Count();
+
+    LogFile << "rows " << rowcnt << std::endl;
+
+    if (rowcnt > 23000)
+    {
+        FileSizeError = true;
+        wxLogStatus(PrimaryCommand + " " + FirstParameter + " " + SecondParameter + " file too big ");
+        haveaFile = false;
+        DB.Free();
+        return;
+    }
+
+    if  (rowcnt == 0)
+    {
+        haveaFile = false;
+        wfilecnt = 0;
+        wxLogStatus(PrimaryCommand + " " + FirstParameter + " " + SecondParameter + " not found");
+        DB.Free();
+        return;
+    }
+
+    haveaFile = true;
+    wfilecnt = rowcnt;
+
+    InitIF();
+
+    InitWIF();
+
+    DB.Cursor();
+
+    DB.FromStage();
+// "close" the database
+    DB.Free();
+
+    for (i = 0; i < rowcnt; i++)
+    {
+        inputfile[i].IFCode = DB.inputfile[i].IFCode;
+        winputfile[i].wIFlc   = "000000";
+        winputfile[i].wIFCode = DB.inputfile[i].IFCode;
+        GetEndl();
+    }
+
+    frstl = 1;
+
+    LoadScreen();
+
+    PageofPage();
+
+    wxLogStatus(PrimaryCommand + " " + FirstParameter + " " + SecondParameter + " applied Page " + std::to_string(page) + " of " + std::to_string(ofpage));
+
+    WipeCommand();
+
+}
+```
+This is easy to test, try it without a database name.
+
+CLEditDB::Free() I've decided I do not like this function. Why? Because it's doing too many things. It's inprecise. the try block is really 4 different parts. It should be 5, one for each object we delare, but C++ won't let you delete driver. Interesting. I'm tring to find out why. Also I notices in an example that the declare is in a try catch block? Whacky. Ah, it;s because it's like all the other trivial examples, local declare!
+We can fix Free() easy.
+
+add to CLEditDB.h
+```
+/*      void Freedriver();   not allowed ??? */
+        void Freecon();
+        void Freestmt();
+        void Freepstmt();
+        void Freeres(); 
+```
+bad
+```
+void CLEditDB::Free()
+{
+
+    LogFile << "Free " << std::endl;
+
+    try
+    {
+        delete con;
+        delete stmt;
+        delete pstmt;
+        delete res;
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+    }
+
+    CloseLog();
+
+    CloseErr();
+
+}
+```
+good
+**void CLEditDB::Free();**    // declared in CLEditDB.h
+```
+void CLEditDB::Free() 	// implemeted in CLEditDB.cpp 
+{
+
+    LogFile << "Free " << std::endl;
+
+    Freecon();
+
+    Freestmt();
+
+    Freepstmt();
+
+    Freeres();
+
+    CloseLog();
+
+    CloseErr();
+
+}
+```
+**void CLEditDB::Freecon();**    // declared in CLEditDB.h
+```
+void CLEditDB::Freecon() 	// implemeted in CLEditDB.cpp
+{
+
+    LogFile << "Free con " << std::endl;
+
+    try
+    {
+        delete con;
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3509;
+    }
+
+}
+```
+**void CLEditDB::Freestmt();**    // declared in CLEditDB.h
+```
+void CLEditDB::Freestmt() 	// implemeted in CLEditDB.cpp
+{
+
+    LogFile << "Free stmt " << std::endl;
+
+    try
+    {
+        delete stmt;
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3510;
+    }
+
+}
+```
+**void CLEditDB::Freepstmt();**    // declared in CLEditDB.h
+```
+void CLEditDB::Freepstmt() 	// implemeted in CLEditDB.cpp
+{
+
+    LogFile << "Free pstmt " << std::endl;
+
+    try
+    {
+        delete pstmt;
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3511;
+    }
+
+}
+```
+**void CLEditDB::Freeres();**    // declared in CLEditDB.h
+```
+void CLEditDB::Freeres() 	// implemeted in CLEditDB.cpp
+{
+
+    LogFile << "Free res " << std::endl;
+
+    try
+    {
+        delete res;
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3512;
+    }
+
+}
+```
+
+I'm still not satistified with this project. I'd like to keep track of all the logging, check, and the errors, to do. But I don't want the files to occupy my entire hard drive. So we'll open the Log and Error files with the 'app' option.
+The 'app' option means 'append', add data to the existing stream.  
+```
+filename.open("filename.txt", std::ios::out | ios_base::app);
+```
+then, if that is successful, check the file size with filename.tellg() 
+Add to variables.h, CLEditCF.h and CLEditDB.h
+```
+int bytecnt;
+```
+then check the byte count using tellg(). If the byte count, the file size, is greater than some number you pick, close the file and re open it without the 'app' option. Yes we can do all sorts of things like this with files and much more. 
+
+Make CLEditFrame::CLEditFrame() look like this:
+```
+    OpenLog();
+
+    OpenErr();
+
+    CreateControls();
+```
+Change CLEditFrame::OnTerminal() to this. We need to put a message somewhere, then exit the application.
+```
+void CLEditFrame::OnTerminal()
+{
+
+    std::cout << "On Terminal " << std::endl;
+    std::cout << ReturnFunction << ReturnCode << ReturnMessage << std::endl;
+
+    exit(9999);
+
+}
+```
+In CLEditMain.cpp add these(): don't forget functions.h
+open the Log file in append mode
+if it's 'too big' close it and re open as a new file 
+```
+void CLEditFrame::OpenLog()
+{
+
+    LogFile.open("CLEditLog.txt", std::ios::out | ios_base::app);
+
+    if  (!LogFile.is_open())
+    {
+        ReturnFunction = "Open Log ";
+        ReturnCode = "3502 ";
+        ReturnMessage = " Log File Open error ";
+        OnTerminal();
+    }
+
+    bytecnt = LogFile.tellg();
+
+    if  (bytecnt > 100)
+    {
+        CloseLog();
+        OpenLogn();
+    }
+
+    LogFile << "Log file size " << to_string(bytecnt) << std::endl;
+
+}
+```
+open the Log file as a new file 
+```
+void CLEditFrame::OpenLogn()
+{
+
+    LogFile.open("CLEditLog.txt", std::ios::out);
+
+    if  (!LogFile.is_open())
+    {
+        ReturnFunction = "Open Log New ";
+        ReturnCode = "3503 ";
+        ReturnMessage = " Log File Open error ";
+        OnTerminal();
+    }
+
+}
+```
+close Log file
+```
+void CLEditFrame::CloseLog()
+{
+
+    LogFile.close();
+
+}
+```
+open the Error file in append mode
+if it's too big, close it and re open as a new file
+```
+void CLEditFrame::OpenErr()
+{
+
+    ErrFile.open("CLEditErr.txt", std::ios::out | ios_base::app);
+
+    if  (!ErrFile.is_open())
+    {
+        ReturnFunction = "Open Error ";
+        ReturnCode = "3504 ";
+        ReturnMessage = " Error File Open error ";
+        OnTerminal();
+    }
+
+    bytecnt = ErrFile.tellg();
+
+    if  (bytecnt > 100)
+    {
+        CloseErr();
+        OpenErrn();
+    }
+
+    LogFile << "Error file size " << to_string(bytecnt) << std::endl;
+
+}
+```
+open Error file as a new file
+```
+void CLEditFrame::OpenErrn()
+{
+
+    ErrFile.open("CLEditErr.txt", std::ios::out);
+
+    if  (!ErrFile.is_open())
+    {
+        ReturnFunction = "Open Error new ";
+        ReturnCode = "3505 ";
+        ReturnMessage = " Error File Open error ";
+        OnTerminal();
+    }
+
+}
+```
+close Error file
+```
+void CLEditFrame::CloseErr()
+{
+
+    ErrFile.close();
+
+}
+```
+
+In CLEditCF.cpp do this: don't forget CLEditCF.h (declare the functions)
+open the Log file
+if it's too big, close it and re open as a new file
+```
+void CLEditCF::OpenLog()
+{
+
+    LogFile.open("CLEditCFLogFile.txt", ios_base::out | ios_base::app);
+
+    if  (!LogFile.is_open())
+    {
+        msg = "Log file Open error";
+        abendi = 3503;
+        std::cout << msg << abendi << std::endl;    // better than flying blind
+        return;
+    }
+
+    bytecnt = LogFile.tellg();
+
+    if  (bytecnt > 100)
+    {
+        CloseLog();
+        OpenLogn();
+    }
+
+    LogFile << "Log file size " << to_string(bytecnt) << std::endl;
+
+}
+```
+open the Log file as a new file
+```
+void CLEditCF::OpenLogn()
+{
+
+    LogFile.open("CLEditCFLogFile.txt", ios_base::out);
+
+    if  (!LogFile.is_open())
+    {
+        msg = "Log file Open error";
+        abendi = 3504;
+        std::cout << msg << abendi << std::endl;    // better than flying blind
+        return;
+    }
+
+}
+```
+close log file
+```
+void CLEditCF::CloseLog()
+{
+
+    LogFile.close();
+
+}
+```
+open Error file in append mode
+if it's too big, close it and re open as a new file
+```
+void CLEditCF::OpenErr()
+{
+    ErrFile.open("CLEditCFErrFile.txt", std::ios::out | ios_base::app);
+
+    if  (!ErrFile.is_open())
+    {
+        msg = "Error file Open error";
+        abendi = 3505;
+        std::cout << msg << abendi << std::endl;   // better than flying blind
+        return;
+    }
+
+    bytecnt = ErrFile.tellg();
+
+    if  (bytecnt > 100)
+    {
+        CloseErr();
+        OpenErrn();
+    }
+
+    LogFile << "Error file size " << to_string(bytecnt) << std::endl;
+
+}
+```
+open Error file as a new file
+```
+void CLEditCF::OpenErrn()
+{
+    ErrFile.open("CLEditCFErrFile.txt", std::ios::out | ios_base::app);
+
+    if  (!ErrFile.is_open())
+    {
+        msg = "Error file Open error";
+        abendi = 3506;
+        std::cout << msg << abendi << std::endl;   // better than flying blind
+        return;
+    }
+
+}
+```
+close Error file
+```
+void CLEditCF::CloseErr()
+{
+
+    ErrFile.close();
+
+}
+```
+
+In CLEditDB.cpp do this: don't forget CLEditDB.h (declare functions)
+open the Log file in append mode
+If it's too big, close it and re open as a new file 
+```
+void CLEditDB::OpenLog()
+{
+
+    LogFile.open("CLEditDBLogFile.txt", ios_base::out | ios_base::app);
+
+    if  (!LogFile.is_open())
+    {
+        msg = "Log file Open error";
+        abendi = 3514;
+        std::cout << msg << abendi << std::endl;    // better than flying blind
+        return;
+    }
+
+    bytecnt = LogFile.tellg();
+
+    if  (bytecnt > 100)
+    {
+        CloseLog();
+        OpenLogn();
+    }
+
+    LogFile << "Log file size " << to_string(bytecnt) << std::endl;
+
+}
+```
+open the Log file as a new file
+```
+void CLEditDB::OpenLogn()
+{
+
+    LogFile.open("CLEditDBLogFile.txt", ios_base::out);
+
+    if  (!LogFile.is_open())
+    {
+        msg = "Log file Open error";
+        abendi = 3515;
+        std::cout << msg << abendi << std::endl;    // better than flying blind
+        return;
+    }
+
+}
+```
+close the Log file
+```
+void CLEditDB::CloseLog()
+{
+
+    LogFile.close();
+
+}
+```
+open the Error file in append mode
+```
+void CLEditDB::OpenErr()
+{
+    ErrFile.open("CLEditDBErrFile.txt", std::ios::out | ios_base::app);
+
+    if  (!ErrFile.is_open())
+    {
+        msg = "Error file Open error";
+        abendi = 3516;
+        std::cout << msg << abendi << std::endl;   // better than flying blind
+        return;
+    }
+
+    bytecnt = ErrFile.tellg();
+
+    if  (bytecnt > 100)
+    {
+        CloseErr();
+        OpenErrn();
+    }
+
+    LogFile << "Error file size " << to_string(bytecnt) << std::endl;
+
+}
+```
+open Error file as a new file
+```
+void CLEditDB::OpenErrn()
+{
+    ErrFile.open("CLEditDBErrFile.txt", std::ios::out);
+
+    if  (!ErrFile.is_open())
+    {
+        msg = "Error file Open error";
+        abendi = 3517;
+        std::cout << msg << abendi << std::endl;   // better than flying blind
+        return;
+    }
+
+}
+```
+close the Error file
+```
+void CLEditDB::CloseErr()
+{
+
+    ErrFile.close();
+
+}
+```
+That was fun right? I looked at the Log files and I'm still not satisfied. This project was started years ago and you can see I did things differently here and there. That's unlike me. Not my 'style'.
+I especially like the start / end time in CF. I want to apply that everywhere. Also, I'd like to know how long each action takes to perform. For this we'll need a couple of new variables and use some clock functions.
+Since we're running actions in CLEdit, this is where we'll put our start/stop logic. Also, since we're always thinking about the future, we'll structure the information so that we can process it later. I'm thinking a nice usage report. Oh, this will be fun!
+
+Let's start by increasing the file size limit to 100KB or 102,400 bytes 
+We'll do that with a C++ '#define' directive in CLEditMain.h, CLEditCF.h and CLEditDB.h just before the namespace line
+```
+#define FILE_SIZE 102400 
+```
+then change the condition testing the file size, everywhere, to:
+```
+    if  (bytecnt > FILE_SIZE)
+```
+Did you notice how simple it is to share code, if you use the same variable names? Remember that.
+We're tempted to pull the clock logic from CF and put it into CLEdit. When I wrote CLEditCF it was a stand alone application, and now it's a class. So where would you put it? CLEditCF and CLEditDB could be used anywhere. I could have put them into different libraries or projects. I will perhaps next time. We'll modify the clock logic in CLEditCF to give us the elapsed time by action, and add that logic to CLEditDB too of it's actions. We'll put the reporting action in CLEdit because we can. Actually, we'll do better, we'll create a reporting class called CLEditRP.
+Why not.
+
+The basics of the clock are a: start time
+declare
+```
+        int start_s;
+```
+
+implement
+```
+    start_s = clock();
+```
+
+b: end time
+declare
+```
+        int stop_s;
+```
+implement
+```
+    stop_s = clock();
+```
+c: elapsed time
+implement
+```
+(stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 
+```
+this command returns a string like:
+```
+"Tue Dec 17 08:09:50 2024"
+```
+Full disclosure, this command is actually several instructions
+first subtract the stop time from the start time
+
+used in our code
+```
+    LogFile << "elapsed time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << std::endl; 
+```
+Let's add those instructions to the beginning and end of each action.
+In CF that's copyfile(), openfile() and savefile(). In DB that's Cursor(), FromStage(), Count() and ToStage(). In other words, the public functions.
+Make sense?
+In CLEditCF each public function starts with init() and ends with eop(). So guess where we'll put our code. duh 
+In CLEditDB it's a little diffferent, because the init() and eop() logic are different by action. I think we might need to account for that. Furthermore, CLEdit uses some DB functions in combination within CreateTable(), ToStage() and FromStage(). So we'll account for that.
+Let's exercise our changes by performing all the actions that use our classes and observe our Log files. It will good to re test everything.
+CLEditLog.txt
+CLEditCFLog.txt
+CLEditDBLog.txt 
+Did you notice that CreateFile() is broken?
+Did you figure out why?
+It's because we decided to declare CF dynamically with new. So what? This means that CF is now local scope. When we try to call InitCF() you abend, you generate an 'addressing exception'. We only declare DB once in the header, that makes it static true, but, also it's global. So no matter what we do and where we do it with DB dot we're golden. Are you starting to get the difference? 
+InitCF is only used in one place, so we have options. We can put the code for InitCF() in CreateFile() or we can revert it to static. I do not want to start coding functions one way for dynamic and another way for static. I think that this was enough 'learning'. I'm changing the declare in objects.h to static, changing all 'CF->' back to 'CF.' and removing the related 'new' and 'delete'.
+I'll never use dynamic allocations. You can do as you wish.
+
+Let's get back to the Log files and what fun we could have.
+CF Log shows, abridged
+```
+Welcome Tue Dec 17 15:36:05 2024
+open file 
+Open File elapsed time: 0.922
+```
+
+it shows the date, which I love, the action but not the file name
+
+Main Log shows, abridged
+```
+Find Primary open
+Find First objects.h
+Open File elapsed time: 9.783
+```
+it shows the action and the filename but not the date
+
+This is where we can have a wonderful adult conversation. Wouldn't it be delightful if we could gather all this great data and store it? Then interested parties, of which you surely are one, could extract it, on your schedule and in whatever format make your tail feathers shake. This 'meta' data is more important to some people than a successful completion of one action. I'm not kidding. 
+ 
+
+**here**
+
+**#appendix#**
 
 **CLEdit** – incomplete tasks – exclude logic
 

@@ -1,12 +1,17 @@
 					
 ## **Clunker...C++ is funny.**
 
-The idea behind Clunker is to de mystify C++, far beyond a Reference or Tutorial. The C++ language although powerful, is a tough nut to crunch. The references seem clear enough, but look beyond that at any project and things go to outer space fast. I intend to wrangle	C++, and write an Editor as a learning exercise, because we can. The Editor will be special.
+The motivation behind Clunker is to de mystify computer programming, using the C++ language. Far beyond a Reference or Tutorial. Computer programming is a black box, it shouldn't be. What is a computer program. What is it made of. How is it made. Why do we even have them. What do we need to think of to make one.
+How do we know what it's doing. I believe I can clear all that up.
+
+The C++ language although powerful, is a tough nut to crunch. The references seem clear enough, but look beyond that at any project and things go to outer space fast. We can make it pretty, and clear. I intend to wrangle C++.
+
+To accomplish both these tasks we'll write an Editor, and incorporate common tools, as a learning exercise. Because othere have, we can. The Editor will be special.
 		
 We’ll call it CLEdit! 
 
 ## **Introduction**
-Do you edit code? CLEdit is a Command Line Editor based on IBM TSO edit and BIM,	an extension with additional features. Why write this editor? Imagine if you would, the olden days prior to 1980. No PC. No keyboards. No screens. No libraries. No mouse. No Graphic User Interface (GUI). No Integrated Development Environment (IDE). No nothing!
+Do you edit text? CLEdit is a Command Line Editor based on IBM TSO edit and BIM,	an extension with additional features. Why write this editor? Imagine if you would, the olden days prior to 1980. No PC. No keyboards. No screens. No libraries. No mouse. No Graphic User Interface (GUI). No Integrated Development Environment (IDE). No nothing!
 
 But Pierre, How did you code? 
 
@@ -30,12 +35,12 @@ Then you would, if you were lucky enough, walk your sheets over to the 'key punc
    	
 ![alt text](https://www.glennsmuseum.com/pics/ibm_029.jpg "026")
    	
-A stack of punch cards would be loaded into the IBM 026 card puncher and each line of code read from the coding sheet produced a 'punched card' by you typing the code off the sheet.The card would have small rectangular holes punched through it, in columns, that represented bytes - where ever there was a hole - that was a 1 , no hole meant 0, zeros and ones, analog binary.
+A stack of punch cards would be loaded into the IBM 026 card puncher and each line of code read from the coding sheet produced a 'punched card' by you typing the code off the sheet.The card would have small rectangular holes punched through it, in columns, that represented bytes - where ever there was a hole,that was a 1, no hole meant 0, zeros and ones, analog binary.
 
-Now imagine, you have a stack of cards, one for each line of code! Don't drop them! Well, if you were smart, you added sequence numbers, in the first 6 columns on the coding sheets. You wrote the numbers down and tracked them yourself. If you were really cleaver, you'd number each line in a multiple of 5 or 10  - so that you could "insert" code using the sequence number as an index.
+Now imagine, you have a stack of cards, one for each line of code! Don't drop them! Well, if you were smart, you added sequence numbers, in the first 6 columns on the coding sheets. You wrote the numbers down and tracked them yourself. If you were really cleaver, you'd number each line in a multiple of 5 or 10, so that you could "insert" code using the sequence number as an index.
 A physical index. I would go a step further and put the program name in the last 8 characters too. COBOL and Fortan allow for that. The compiler looked for code between colums 8 and 72. Column 7 was for a '*' comment, or a '-' line continuation. Yikes!
 
-If you dropped your stack on the floor, you could place it into a card sorter and it would fix it for you - if you had sequence numbers. Otherwise you would have to manually restack your deck comparing it to the code sheets, or re punch your cards. In school or at work these machines and services were valuable.
+If you dropped your stack on the floor, you could place it into a card sorter and it would fix it for you, if you had sequence numbers. Otherwise you would have to manually restack your deck comparing it to the code sheets, or re punch your cards. In school or at work these machines and services were invaluable.
 
 So now you have your stack, or multiple stacks, imagine one line of code is one card! I've seen programs that used multiple boxes of cards, 2000 each, on cart trays on wheels. Some of these programs represented several months of work. They were nearly priceless. see Sir George Williams affair 1969 Montreal Canada.
 
@@ -46,7 +51,7 @@ Believe me, it was a pile too thick to drive through. Millions of hours of progr
 When you were ready to run your program, you added some special cards in front and back of your stack (brown) - to compile, link and run (red), followed by your data cards(green)! It is 'data' processing after all, we're not dialing controls here or shooting at things. You loaded your stack into a card reader,  pressed F1 , R, Send on the keyboard of the Card Reader.
 Then waited for someone to gather your 'listing' off the printer. Houston Automated Spool Protocol aka 'HASP'. Then you would head back to your desk to 'desk check' your output. No debug. No watching. No nothing.
 
-Everything with your eyes and your head and multiple eyes were essential. You could ask for a 'core dump' and get a stack of paper or hex output. Good Luck. 
+Everything with your eyes and your head and multiple eyes were essential. You could ask for a 'core dump' and get a stack of paper of hex output. Good Luck. 
 
 This is how programmers lived and data processing occurred until about 1980. I started in 1982 and this is how it was done. Actually, I remember in college in the late 70's there was only one CRT, the 'main' console. There was always a collection of future Phd's surrounding it, cigarettes hanging from their lips, deep in thought, staring at the blinking cursor. Mesmerized. 
 
@@ -54,15 +59,15 @@ Next up was the DEC writer! A dot matrix printer with a keyboard. It would spit 
  
 ![alt text](https://archive.computerhistory.org/resources/still-image/DEC/DEC_Accessories/dec_accessories.front_view_decwriter3.102627795.lg.jpg "dec")
 
-Back and forth over and over, like DOS or a Unix terminal without a 'screen' - no CRT's yet. You would keep the box of fan fold paper and run it through on the reverse side too, to save paper. It was your log of day to day exchanges between you and the computer. The only proof you had of any kind of a result. 
+Back and forth over and over, like DOS or a Unix terminal without a 'screen', no CRT's yet. You would keep the box of fan fold paper and run it through on the reverse side too, to save paper. It was your log of day to day exchanges between you and the computer. The only proof you had of any kind of a result. 
 
 The next huge break through - storage! On disk and tapes. Punch cards could be loaded into permanent storage on 'disk' and files could be on disk, or tapes!
  
 ![alt text](https://handwiki.org/wiki/images/thumb/b/bb/IBM_3277_Model_2_terminal.jpg/1200px-IBM_3277_Model_2_terminal.jpg "3270")
 
-Eventually, if you were good, you got a screen, a crt. tiny, monochrome brown, not green yet! Forget about color or high resolution. Your files were stored in partitioned data sets. A PDS is a mainframe file system format. Very much like folders today but easier to use in my not so humble opinion.
+Eventually, if you were good, you got a screen, IBM3270, tiny, monochrome brown, not green yet! Forget about color or high resolution. Your files were stored in partitioned data sets. A PDS is a mainframe file system format. Very much like folders today but easier to use in my not so humble opinion.
 
-Now that you had a screen you could log on to Time Sharing Option (TS0) a CUI 'desktop' created at IBM in Toronto. From there you could manipulate settings and files. There were plenty of functions, always evolving amd improving yet at the end of the day it was a cui, no mouse, no copy / paste.  
+Now that you had a screen you could log on to Time Sharing Option (TS0) a CUI 'desktop' created at IBM in Toronto. From there you could manipulate settings and files. There were plenty of functions, always evolving amd improving yet at the end of the day it was a CUI, no mouse, no copy / paste.  
 
 ## **Guidance**
 So what could you do?
@@ -8703,7 +8708,7 @@ This is nor initialize stuff we need to do before we run.
 void CLEditCF::init()
 {
 
-    start_s = clock();
+    start_s = std::clock();
 
     fileibytecnt = 0;
     fileobytecnt = 0;
@@ -8856,7 +8861,7 @@ The managers loved it, the agents wanted me dead! Best job I ever had.
 void CLEditCF::eop()
 {
 
-    stop_s = clock();
+    stop_s = std::clock();
 
     LogFile << "elapsed time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << std::endl;
 
@@ -10408,7 +10413,7 @@ open Error file as a new file
 ```
 void CLEditCF::OpenErrn()
 {
-    ErrFile.open("CLEditCFErrFile.txt", std::ios::out | ios_base::app);
+    ErrFile.open("CLEditCFErrFile.txt", std::ios::out);
 
     if  (!ErrFile.is_open())
     {
@@ -10561,7 +10566,7 @@ declare
 
 implement
 ```
-    start_s = clock();
+    start_s = std::clock();
 ```
 
 b: end time
@@ -10571,7 +10576,7 @@ declare
 ```
 implement
 ```
-    stop_s = clock();
+    stop_s = std::clock();
 ```
 c: elapsed time
 implement
@@ -10622,10 +10627,616 @@ Open File elapsed time: 9.783
 ```
 it shows the action and the filename but not the date
 
-This is where we can have a wonderful adult conversation. Wouldn't it be delightful if we could gather all this great data and store it? Then interested parties, of which you surely are one, could extract it, on your schedule and in whatever format make your tail feathers shake. This 'meta' data is more important to some people than a successful completion of one action. I'm not kidding. 
+This is where we can have a wonderful adult conversation. Wouldn't it be delightful if we could gather all this great data and store it? Then interested parties, of which you surely are one, could extract it, on your schedule and in whatever format make your tail feathers shake. This 'meta' data is more important to some people than a successful completion of one action. I'm not kidding. I typically had, duringthe majority of my career, 9 levels of management above me. Everybody wanted something different. Very frustrating.
+
+So let's try to make the log files similar and uniform to make it easier to collect the data. We'll add the file names and dates where needed.
+check this out, I copied it from the internet: local scope declare a std::time_t
+typicall trivial example
+btw avoid using underscores, and all caps, they are used all over the standard libraries
+```
+    std::time_t currentdatetime = std::time(nullptr);
+    LogFile << "Welcome " << std::ctime(&currentdatetime) << std::endl;
+```
+let's put std::time_t currentdatetime; in the headers where it belongs
+and remove the endl because ctime adds one already 
+```
+    LogFile << "Welcome " << std::ctime(&currentdatetime);
+```
+Lets add one more thing to out Welcome message; the user name
+declare in variables.h
+
+```
+    struct passwd * password;
+    uid_t username;
+	std::string userid;
+```
+implement in CLEditFrame::CLEditFrame() just before OpenLog(). As the first instruction
+```
+    username = geteuid ();
+    password = getpwuid (username);
+    userid   = password->pw_name;
+```
+and pretty up the Welcome
+```
+    LogFile << "Welcome " << userid << " " << std::ctime(& currentdatetime);
+```
+Here is an abridged version of our log files
+CLEdit
+```
+On Apply Clicked Length 14
+Find Primary open
+Find First objects.h
+Welcome pierre Wed Dec 18 13:01:18 2024
+Open File elapsed time: 15.439
+```
+
+CLEditCF
+```
+Welcome Wed Dec 18 13:01:18 2024
+Open File objects.h
+File In Bytes 334
+File In Records 15
+Open File elapsed time: 0.848
+```
+As you can see, it's handy to say things in the same manner. From the Main program we see that user pierre did an open file action, and the driven program CF opened file objects.h and it was 334 bytes across 15 records. I can't comment on the elapsed time yet. There's CPU time and clock time and the uniots are unclear. No matter, we can treat them relatively. It a unit of something, a number. That's enough for me.
+There is plenty to play with here, if we can get it into some sort of format that is usefull. Let's create a new class called CLEditRP for 'report', in our project. It will add two files CLEditRP.cpp and CLEditRP.h. 
+header file CLEditRP.h
+```
+class CLEditRP
+{
+    public:
+        CLEditRP();
+        virtual ~CLEditRP();
+
+        void Report();
+
+    protected:
+
+    private:
+};
+```
+implentation file CLEditRP.cpp
+```
+#include "CLEditRP.h"
+CLEditRP::CLEditRP()
+{
+}
+CLEditRP::~CLEditRP()
+{
+}
+void CLEditRP::Report()
+{
+}
+```
+We'll add a 'report' action in Main. That's the easy part.  
+
+Now let's think. This is what programming is all about. How are we going to organize all our meta data from the log files. Should we create structures? Should we create a record layout? Should we create a table in a database? And  how should we generate a report from that data? 
+I have a crazy idea. Let's do all three!
+
+Where oh where to begin. Don't forget, we can always improve our log file to help us. Let's see how it goes. Lets start by adding the framework we've been using so far. Meaning, a log file, an error file, a basic init() etc. I'll do that by copying the two CLEditCF files and deleting we don't need yet.
+Now I have CLEditRP.h
+
+```
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstring>
+#include <ctime>
+#include <ctype.h>
+#define FILE_SIZE 102400
+using namespace std;
+class CLEditRP
+{
+    public:
+
+        CLEditRP();
+        virtual ~CLEditRP();
+
+        int Report();
+
+    protected:
+
+    private:
+
+        std::fstream LogFile;
+        std::fstream ErrFile;
+
+        std::time_t currentdatetime;
+
+        int bytecnt;
+
+        int start_s;
+        int stop_s;
+        int abendi;
+
+        std::string str;
+        std::string msg;
+        std::string action;
+
+        bool abend;
+
+        void init();
+        void OpenLog();
+        void OpenLogn();
+        void CloseLog();
+        void OpenErr();
+        void OpenErrn();
+        void CloseErr();
+        void eop();
+
+};
+```
+
+And I have CLEditRP.cpp
+
+```
+#include "CLEditRP.h"
+using namespace std;
+CLEditRP::CLEditRP()
+{
+    // constructor
+}
+
+CLEditRP::~CLEditRP()
+{
+    // destructor
+}
+```
+
+this will need work
+
+```
+int CLEditRP::Report()
+{
+
+    init();
+
+    if (abendi != 0)
+    {
+        goto reportexit;
+    }
+
+    LogFile << "Report " << std::endl;
+
+
+//  do stuff here
+
+
+    action = "Report ";
+
+    eop();
+
+reportexit:
+
+    return abendi;
+
+}
+```
+standard stuff
+
+```
+void CLEditRP::init()
+{
+
+    start_s = std::clock();
+
+    OpenLog();
+
+    if (abendi != 0)
+    {
+        return;
+    }
+
+    LogFile << "init " << std::endl;
+
+    currentdatetime = std::time(nullptr);
+
+    LogFile << "Welcome " << std::ctime(& currentdatetime);
+
+    OpenErr();
+
+    if (abendi != 0)
+    {
+        return;
+    }
+
+}
+```
+open log file in append mode
+```
+void CLEditRP::OpenLog()
+{
+
+    LogFile.open("CLEditRPLogFile.txt", ios_base::out | ios_base::app);
+
+    if  (!LogFile.is_open())
+    {
+        msg = "Log file Open error";
+        abendi = 3503;
+        std::cout << msg << abendi << std::endl;    // better than flying blind
+        return;
+    }
+
+    bytecnt = LogFile.tellg();
+
+    if  (bytecnt > FILE_SIZE)
+    {
+        CloseLog();
+        OpenLogn();
+    }
+
+    LogFile << "Log file size " << to_string(bytecnt) << std::endl;
+
+}
+```
+open the log file as a new file
+```
+void CLEditRP::OpenLogn()
+{
+
+    LogFile.open("CLEditRPLogFile.txt", ios_base::out);
+
+    if  (!LogFile.is_open())
+    {
+        msg = "Log file Open error";
+        abendi = 3504;
+        std::cout << msg << abendi << std::endl;    // better than flying blind
+        return;
+    }
+
+}
+```
+open the error file in append mode
+
+```
+void CLEditRP::OpenErr()
+{
+    ErrFile.open("CLEditRPErrFile.txt", std::ios::out | ios_base::app);
+
+    if  (!ErrFile.is_open())
+    {
+        msg = "Error file Open error";
+        abendi = 3505;
+        std::cout << msg << abendi << std::endl;   // better than flying blind
+        return;
+    }
+
+    bytecnt = ErrFile.tellg();
+
+    if  (bytecnt > FILE_SIZE)
+    {
+        CloseErr();
+        OpenErrn();
+    }
+
+    LogFile << "Error file size " << to_string(bytecnt) << std::endl;
+
+}
+```
+open the error file as a new file
+```
+void CLEditRP::OpenErrn()
+{
+    ErrFile.open("CLEditRPErrFile.txt", std::ios::out);
+
+    if  (!ErrFile.is_open())
+    {
+        msg = "Error file Open error";
+        abendi = 3506;
+        std::cout << msg << abendi << std::endl;   // better than flying blind
+        return;
+    }
+
+}
+```
+standard end of processing stuff
+```
+void CLEditRP::eop()
+{
+
+    CloseErr();
+
+    stop_s = std::clock();
+
+    LogFile << action << "elapsed time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << std::endl;
+
+    CloseLog();
+
+}
+```
+close the log file
+
+```
+void CLEditRP::CloseLog()
+{
+
+    LogFile.close();
+
+}
+```
+close the error file
+```
+void CLEditRP::CloseErr()
+{
+
+    ErrFile.close();
+
+}
+```
+Too easy. Build upon what you know. Code reuse. OOP without even trying.
+Are you thinking of putting init() in the constructor, and eop() in the
+destructor? Try it.
+
+At this point we can do the easy part and add the 'report' action to main.
+In objects.h add
+```
+	CLEditRP RP;
+```
+In functions.h add
+```
+	void Report();
+```
+InCLEditMain.h add
+```
+#include "CLEditRP.h"
+```
+In CLEditMain.cpp in OnApply() add
+```
+//create a file - or stage to a table - from a block copy
+    if (PrimaryCommand == "report")
+    {
+        Report();
+        goto ExitOnApplyClicked;
+    }
+```
+Check step: test it! and look at the log
+```
+Log file size 0
+init 
+Welcome Wed Dec 18 15:33:23 2024
+Error file size 0
+Report 
+Report elapsed time: 0.1
+```
+Way too easy.
+Backup and Review log output from Main and CF
+```
+On Apply Clicked Length 14
+Wipe Command 
+Find Primary open
+Find First objects.h
+Welcome pierre Wed Dec 18 13:01:18 2024
+Open File 
+Open File elapsed time: 15.439
+
+Welcome Wed Dec 18 13:01:18 2024
+Error file size 0
+Open File objects.h
+File In Bytes 334
+File In Records 15
+File Out Bytes 0
+File Out Records 0
+Open File elapsed time: 0.848
+```
+Let's review our data points we've put into the logs. Interesting list.
+```
+User
+Date ccyy/mm/dd
+Time hh:mm:ss
+File Actions 
+Input Files, Copy or Open
+input file name
+record count
+byte count
+Output Files, Copy, Create, Save and Save As
+output file name
+record count
+byte count
+Database actions
+To Stage
+From Stage 
+Create
+row count
+datbase name 
+table name
+elapsed time
+```
+The first thing is to figure out how to gather it all, then organize it for consumption. From the Main log, it looks like there is a unit of work from On Apply Clicke through elapsed time. Lets call that an action.
+
+From the CF log, the unit of work is from Welcome to elapsed time. Let's call that a reaction. 
+
+What ties them together? The File name and a Date, maybe. Not alot to go on.
+We need something better. Especially when you consider that the log files, rollover, at different rates, and the date can change. We need to invent a unique key. We need to tie the action with the reaction, We can do that by creating a unique value in Main and pass that value to CF, DB and RP even. What ever we pass will give us something to match on regardless of date and or time changes. Can you think of something? This is a very common problem in data processing. It is typically solved by storing and maintaining an Action number somewhere. Either in a file or a table. Then, since the Action number can grow quickly, normally a Date would be included. How many times can an Action run in one day? Values for an int are up to 2,147,483,647. That's plenty. If we add a Date in front we have ccyymmdd2147483647. That should do it. That looks like a ton for work doesn't it. It also looks like you'd not want to clutter up Main either. So what will we do? We'll create another class! We'll call it CLEditAR for action/reaction. We'll just call it from Main. 
+
+This exersize is common in computer programming. We separate our work into managable functions. These can be built, tested and trusted separately. Did you notice that we were working on Report and we found an issue and now the project is bigger? This is without considering people asking for more functionality. This is just us, solving a problem. It happens all the time. It's frustrating. It's life. Build your stuff to be flexable, or be prepaired to suffer. The persons making the requirements never suffer. We programmers don't like to suffer. I carried around a toolbox of code my entire career. CLEditAR is a copy of CLEditRP, like a template. We can do that because we didn't put any meat on the bones of RP yet. Heck, we should create a basic template class. We'll call it CLEditTemp and copy it when we need to. So from now on we'll have a little useable proven framework to build on.
+
+CLEditAR.cpp; what does it need to do?
+declare public
+``` 
+	std::string DateSeq;
+	int ActReact();
+```
+implement
+```
+int CLEditAR::ActReact()
+{
+
+    init();
+    
+    if (abendi != 0)
+    {
+        goto actreactexit;
+    }
+
+    LogFile << "CLEditAR " << std::endl;
+
+// get the currrent date
+// open a file for input  
+// it will have a single record, containing a date and a number as a string
+// if the file exists
+//     read 'the' record  
+//     gather the date
+//     gather the number
+//     close the file
+//     if the date matches
+//         increase the number by 1
+//         open the file as output
+//	       write the record
+//         close the file 
+//     else
+//	   if the date doesn't match
+//         open the file as output
+//         write the record with the date and 1
+//         close the file
+// else
+// if the file doesn't exist
+//     open the file as output
+//     set the date
+//     set the number to 1 
+//     write the record 
+//     close the file
+
+    action = "ActReact ";
+
+    eop();
+
+actreactexit:
+
+    return abendi;
+
+}
+```
+I think that will do it. You know the drill by now. Convert all the comments into C++ instructions. It's clear that there are blocks of logic, and repeated actions. Each will get their own function, within reason. 
+// do stuff
+// get the currrent date
+	GetDate();
+// open a file for input  
+	OpenI();
+// it will have a single record, containing a date and a number as a string
+// if the file exists
+		OldFile();
+//     read 'the' record  
+		Read();
+//     gather the date
+//     gather the number
+//     close the file
+		Close()
+//     if the date matches
+//         increase the number by 1
+//         open the file as output
+			OpenO();
+//	       write the record
+			Write();
+//         close the file
+			Close();			 
+//     else
+//	   if the date doesn't match
+			NewFile();
+//         open the file as output
+			OpenO();
+//     		set the date
+//     		set the number to 1 
+//         write the record
+			Write();	
+//         close the file
+// else
+		NewFile();
+// if the file doesn't exist
+//     open the file as output
+		OpenO();
+//     set the date
+//     set the number to 1 
+//     write the record
+		Write(); 
+//     close the file
+		Close();
+Now declare those functions() in CLEditAR.h 
+```
+    void GetDate();
+    void OpenI();
+    void OldFile(); 
+    void Read();
+    void Close()
+	void OpenO();
+	void Write();
+    void NewFile();  
+```
+Now do stuff in ActReact() becomes
+```
+// do stuff
+// get the currrent date
+	GetDate();
+// open a file for input  
+	OpenI();
+// it will have a single record, containing a date and a number as a string
+    if  (ActFile.is_open())
+	{
+	    OldFile();
+    }
+    else
+	{
+	    NewFile();
+    }
+```
+Get Date, This was tough! Makes little sence to me but C++ is funny.	
+```
+void CLEditAR::GetDate()
+{
+
+    LogFile << "GetDate " << std::endl;
+
+    timestamp = time(NULL);
+
+    datetime  = *localtime(&timestamp);
+
+    datetime.tm_year += 1900;                       // years since 1900!
+
+    datetime.tm_mon++;                              // 0 thru 11 
+
+    CurrentAR.date += to_string(datetime.tm_year);  // "ccyy"
+
+    if (datetime.tm_mon < 10)                       
+    {
+        CurrentAR.date += "0";
+        CurrentAR.date += to_string(datetime.tm_mon);
+    }
+    else
+    {
+        CurrentAR.date += to_string(datetime.tm_mon);
+    }
+
+    CurrentAR.date += to_string(datetime.tm_mday);   // "dd"
+
+    str = asctime(&datetime);
+
+}
+```
+Open CLEditAR.txt for input
+```
+void CLEditAR::OpenI()
+{
+
+    LogFile << "Open CLEditAR.txt Input " << std::endl;
+
+    ActFile.open("CLEditAR.txt", std::ios::in );
+
+}
+```
+
  
 
+
 **here**
+**#playtime#**
+
+```
+   std::system("ls -l >test.txt"); 
+   
+   // executes the UNIX command ls -l 
+   // ouput to test.txt
+```
+
 
 **#appendix#**
 
@@ -11722,7 +12333,7 @@ void InitializeStructuresX()
 {
     std::cout << "Initialize Structures - bad " << std::endl;
     Timer time;
-    start_s = clock();
+    start_s = std::clock();
 
     for (x = 0; x < 500; x++)
     {
@@ -11754,7 +12365,7 @@ void InitializeStructuresX()
         }
     }
 
-    stop_s = clock();
+    stop_s = std::clock();
     std::cout << "elapsed time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << std::endl;
 
     std::cout << "press enter to continue" << std::endl;
@@ -11767,7 +12378,7 @@ provide values to structures - good way
 void InitializeStructures()
 {
     std::cout << "Initialize Structures - good " << std::endl;
-    start_s = clock();
+    start_s = std::clock();
 
 // array of structures
 // here is where the fireworks really begin
@@ -11824,7 +12435,7 @@ void InitializeStructures()
     }
 //  so we have initialized a 5 x 5 x 5 (125)) element array with 14 assignments (5 + 4 + 4)
 //  had the array been 500x500x500 that would be 125,000,000 versus 500 + 499 + 499 = 1,498 - that is a massive performance difference
-    stop_s = clock();
+    stop_s = std::clock();
     std::cout << "elapsed time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << std::endl;
 
     std::cout << "press enter to continue" << std::endl;

@@ -8548,21 +8548,21 @@ int CLEditCF::copyfile(std::string fileiname, std::string fileoname)
 
     init();
 
-    if (abendi != 0)
+    if (abend)
     {
         goto copyexit;
     }    
     
     openfo();
 
-    if (abendi != 0)
+    if (abend)
     {
         goto copyexit;
     }
 
     openfi();
 
-    if (abendi != 0)
+    if (abend)
     {
         goto copyexit;
     }
@@ -8596,14 +8596,14 @@ int CLEditCF::openfile(std::string fileiname)
 
     init();
 
-    if (abendi != 0)
+    if (abend)
     {
         goto openexit;
     }
 
     openfi();
 
-    if (abendi != 0)
+    if (abend)
     {
         goto openexit;
     }
@@ -8647,14 +8647,14 @@ int CLEditCF::savefile(std::string fileoname)
 
     init();
 
-    if (abendi != 0)
+    if (abend)
     {
         goto saveexit;
     }
 
     openfo();
 
-    if (abendi != 0)
+    if (abend)
     {
         goto saveexit;
     }
@@ -8717,14 +8717,14 @@ void CLEditCF::init()
 
     OpenLog();
 
-    if (abendi != 0)
+    if (abend)
     {
         return;
     }
 
     OpenErr();
 
-    if (abendi != 0)
+    if (abend)
     {
         return;
     }
@@ -8757,6 +8757,7 @@ void CLEditCF::openfo()
     {
         msg = "TO file Open error";
         abendi = 3500;
+        abend = true;
         ErrFile << msg << abendi << std::endl;
     }
 
@@ -8780,6 +8781,7 @@ void CLEditCF::openfi()
     {
         msg = "FROM file Open error";
         abendi = 3501;
+        abend = true;
         ErrFile << msg << abendi << std::endl;
     }
 
@@ -8810,6 +8812,7 @@ void CLEditCF::openfi()
     {
         msg = "FROM file unavailable";
         abendi = 3501;
+        abend = true;
         ErrFile << msg << abendi << std::endl;
         return;
     }
@@ -8823,6 +8826,7 @@ void CLEditCF::openfi()
     {
         msg = "FROM file Open error";
         abendi = 3502;
+        abend = true;
         ErrFile << msg << abendi << std::endl;
         return;
     }
@@ -9057,6 +9061,7 @@ void CLEditCF::OpenLog()
     {
         msg = "Log file Open error";
         abendi = 3501;
+        abend = true;
         std::cout << msg << abendi << std::endl;    // better than flying blind
         return;
     }
@@ -9085,6 +9090,7 @@ void CLEditCF::OpenErr()
     {
         msg = "Error file Open error";
         abendi = 3502;
+        abend = true;
         std::cout << msg << abendi << std::endl;   // better than flying blind
         return;
     }
@@ -9174,6 +9180,7 @@ class CLEditDB
         int i;
         int n;
         bool OnOne;
+        bool abend;
 
         std::string what;
         std::string state;
@@ -9671,6 +9678,7 @@ void CLEditDB::OpenLog()
     {
         msg = "Log file Open error";
         abendi = 3501;
+        abend = true;
         std::cout << msg << abendi << std::endl;    // better than flying blind
         return;
     }
@@ -9697,6 +9705,7 @@ void CLEditDB::OpenErr()
     {
         msg = "Error file Open error";
         abendi = 3502;
+        abend = true;
         std::cout << msg << abendi << std::endl;   // better than flying blind
         return;
     }
@@ -9782,28 +9791,28 @@ int CLEditDB::Bind()	 	// implemented in CLEditDB.cpp
 
     Initialize();
 
-    if  (abendi != 0)
+    if  (abend)
     {
         return abendi;
     }
 
     Driver();
 
-    if  (abendi != 0)
+    if  (abend)
     {
         return abendi;
     }
 
     Connect();
 
-    if  (abendi != 0)
+    if  (abend)
     {
         return abendi;
     }
 
     Statement();
 
-    if  (abendi != 0)
+    if  (abend)
     {
         return abendi;
     }
@@ -10114,6 +10123,7 @@ void CLEditDB::Freecon() 	// implemeted in CLEditDB.cpp
         state = e.getSQLState();
         Error();
         abendi = 3509;
+        abend = true;
     }
 
 }
@@ -10136,6 +10146,7 @@ void CLEditDB::Freestmt() 	// implemeted in CLEditDB.cpp
         state = e.getSQLState();
         Error();
         abendi = 3510;
+        abend = true;
     }
 
 }
@@ -10158,6 +10169,7 @@ void CLEditDB::Freepstmt() 	// implemeted in CLEditDB.cpp
         state = e.getSQLState();
         Error();
         abendi = 3511;
+        abend = true;
     }
 
 }
@@ -10180,6 +10192,7 @@ void CLEditDB::Freeres() 	// implemeted in CLEditDB.cpp
         state = e.getSQLState();
         Error();
         abendi = 3512;
+        abend = true;
     }
 
 }
@@ -10340,6 +10353,7 @@ void CLEditCF::OpenLog()
     {
         msg = "Log file Open error";
         abendi = 3503;
+        abend = true;
         std::cout << msg << abendi << std::endl;    // better than flying blind
         return;
     }
@@ -10367,6 +10381,7 @@ void CLEditCF::OpenLogn()
     {
         msg = "Log file Open error";
         abendi = 3504;
+        abend = true;
         std::cout << msg << abendi << std::endl;    // better than flying blind
         return;
     }
@@ -10393,6 +10408,7 @@ void CLEditCF::OpenErr()
     {
         msg = "Error file Open error";
         abendi = 3505;
+        abend = true;
         std::cout << msg << abendi << std::endl;   // better than flying blind
         return;
     }
@@ -10419,6 +10435,7 @@ void CLEditCF::OpenErrn()
     {
         msg = "Error file Open error";
         abendi = 3506;
+        abend = true;
         std::cout << msg << abendi << std::endl;   // better than flying blind
         return;
     }
@@ -10448,6 +10465,7 @@ void CLEditDB::OpenLog()
     {
         msg = "Log file Open error";
         abendi = 3514;
+        abend = true;
         std::cout << msg << abendi << std::endl;    // better than flying blind
         return;
     }
@@ -10475,6 +10493,7 @@ void CLEditDB::OpenLogn()
     {
         msg = "Log file Open error";
         abendi = 3515;
+        abend = true;
         std::cout << msg << abendi << std::endl;    // better than flying blind
         return;
     }
@@ -10500,6 +10519,7 @@ void CLEditDB::OpenErr()
     {
         msg = "Error file Open error";
         abendi = 3516;
+        abend = true;
         std::cout << msg << abendi << std::endl;   // better than flying blind
         return;
     }
@@ -10526,6 +10546,7 @@ void CLEditDB::OpenErrn()
     {
         msg = "Error file Open error";
         abendi = 3517;
+        abend = true;
         std::cout << msg << abendi << std::endl;   // better than flying blind
         return;
     }
@@ -10792,7 +10813,7 @@ int CLEditRP::Report()
 
     init();
 
-    if (abendi != 0)
+    if (abend)
     {
         goto reportexit;
     }
@@ -10823,7 +10844,7 @@ void CLEditRP::init()
 
     OpenLog();
 
-    if (abendi != 0)
+    if (abend)
     {
         return;
     }
@@ -10836,7 +10857,7 @@ void CLEditRP::init()
 
     OpenErr();
 
-    if (abendi != 0)
+    if (abend)
     {
         return;
     }
@@ -10854,6 +10875,7 @@ void CLEditRP::OpenLog()
     {
         msg = "Log file Open error";
         abendi = 3503;
+        abend = true;
         std::cout << msg << abendi << std::endl;    // better than flying blind
         return;
     }
@@ -10881,6 +10903,7 @@ void CLEditRP::OpenLogn()
     {
         msg = "Log file Open error";
         abendi = 3504;
+        abend = true;
         std::cout << msg << abendi << std::endl;    // better than flying blind
         return;
     }
@@ -10898,6 +10921,7 @@ void CLEditRP::OpenErr()
     {
         msg = "Error file Open error";
         abendi = 3505;
+        abend = true;
         std::cout << msg << abendi << std::endl;   // better than flying blind
         return;
     }
@@ -10924,6 +10948,7 @@ void CLEditRP::OpenErrn()
     {
         msg = "Error file Open error";
         abendi = 3506;
+        abend = true;
         std::cout << msg << abendi << std::endl;   // better than flying blind
         return;
     }
@@ -11042,19 +11067,20 @@ datbase name
 table name
 elapsed time
 ```
-The first thing is to figure out how to gather it all, then organize it for consumption. From the Main log, it looks like there is a unit of work from On Apply Clicke through elapsed time. Lets call that an action.
+The first thing is to figure out how to gather it all, then organize it for consumption. From the Main log, it looks like there is a unit of work from On Apply Clicked through elapsed time. Lets call that an action.
 
 From the CF log, the unit of work is from Welcome to elapsed time. Let's call that a reaction. 
 
 What ties them together? The File name and a Date, maybe. Not alot to go on.
-We need something better. Especially when you consider that the log files, rollover, at different rates, and the date can change. We need to invent a unique key. We need to tie the action with the reaction, We can do that by creating a unique value in Main and pass that value to CF, DB and RP even. What ever we pass will give us something to match on regardless of date and or time changes. Can you think of something? This is a very common problem in data processing. It is typically solved by storing and maintaining an Action number somewhere. Either in a file or a table. Then, since the Action number can grow quickly, normally a Date would be included. How many times can an Action run in one day? Values for an int are up to 2,147,483,647. That's plenty. If we add a Date in front we have ccyymmdd2147483647. That should do it. That looks like a ton for work doesn't it. It also looks like you'd not want to clutter up Main either. So what will we do? We'll create another class! We'll call it CLEditAR for action/reaction. We'll just call it from Main. 
+We need something better. Especially when you consider that the log files, rollover, at different rates, and the date can change. We need to invent a unique key. We need to tie the action with the reaction, We can do that by creating a unique value in Main and pass that value to CF, DB and RP even. What ever we pass will give us something to match on regardless of date and or time changes. Can you think of something? This is a very common problem in data processing. It is typically solved by storing and maintaining an Action number somewhere. Either in a file or a table. Then, since the Action number can grow quickly, normally a Date would be included. How many times can an Action run in one day? Values for an int are up to 2,147,483,647. That's plenty. If we add a Date in front we have ccyymmdd2147483647. That should do it. That looks like a ton for work doesn't it. It also looks like you'd not want to clutter up Main with all this logic either. So what will we do? We'll create another class! We'll call it CLEditAR for action/reaction. We'll just call it from Main. 
 
-This exersize is common in computer programming. We separate our work into managable functions. These can be built, tested and trusted separately. Did you notice that we were working on Report and we found an issue and now the project is bigger? This is without considering people asking for more functionality. This is just us, solving a problem. It happens all the time. It's frustrating. It's life. Build your stuff to be flexable, or be prepaired to suffer. The persons making the requirements never suffer. We programmers don't like to suffer. I carried around a toolbox of code my entire career. CLEditAR is a copy of CLEditRP, like a template. We can do that because we didn't put any meat on the bones of RP yet. Heck, we should create a basic template class. We'll call it CLEditTemp and copy it when we need to. So from now on we'll have a little useable proven framework to build on.
+This exersize is common in computer programming. We separate our work into managable functions. These can be built, tested and trusted separately. Did you notice that we were working on Report and we found an issue and now the project is bigger? This is without considering people asking for more functionality. This is just us, solving a problem. It happens all the time. It's frustrating. It's life. Build your stuff to be flexable, or be prepaired to suffer. The persons making the requirements never suffer. We programmers don't like to suffer. I carried around a toolbox of code my entire career. I never promisede to do something I didn't already know how to do. 
+
+CLEditAR is a copy of CLEditRP, like a template. We can do that because we didn't put any meat on the bones of RP yet. Heck, we should create a basic template class. We'll call it CLEditTemp and copy it when we need to. So from now on we'll have a little useable proven framework to build on.
 
 CLEditAR.cpp; what does it need to do?
 declare public
 ``` 
-	std::string DateSeq;
 	int ActReact();
 ```
 implement
@@ -11064,7 +11090,7 @@ int CLEditAR::ActReact()
 
     init();
     
-    if (abendi != 0)
+    if (abend)
     {
         goto actreactexit;
     }
@@ -11160,7 +11186,9 @@ Now declare those functions() in CLEditAR.h
     void Close()
 	void OpenO();
 	void Write();
-    void NewFile();  
+    void NewFile();
+    void DateMatch();
+    void FormatRec();  
 ```
 Now do stuff in ActReact() becomes
 ```
@@ -11172,14 +11200,44 @@ Now do stuff in ActReact() becomes
 // it will have a single record, containing a date and a number as a string
     if  (ActFile.is_open())
 	{
-	    OldFile();
+ // the file should be 19 bytes: "ccyymmdd0000000000\n"  
+ // file was opened with std::ios::ate 'at the end'      
+	    lrecl = ActFile.tellg(); 
+	    if (lrecl == 19)  
+        {
+            OldFile();
+        }
+        else   
+    	    {
+            NewFile();
+        }
     }
     else
 	{
 	    NewFile();
     }
 ```
-Get Date, This was tough! Makes little sence to me but C++ is funny.	
+Get Date, This was tough! Makes little sence to me but C++ is funny.
+declare in CLEditAR.h 
+public
+```
+        struct dateseq
+        {
+            std::string date;
+            std::string seq;
+        };
+        dateseq DateSeq;
+```
+declare in CLEditAR.h
+private	
+```
+        time_t timestamp;
+/* struct */  tm datetime;
+        dateseq CurrentAR;
+        dateseq NewAR;
+```
+implement in CLEditAR.cpp
+I know, I know. C++ is funny. Two instructions, read backwards. pass a reference to a pointer of time_t type to function localtime() that dereferences a pointer to populate tm structure. Now here is the 'best' part; after all that it returns the number of years since 1900, and an index value, off by one, for the month. I don't get it. That's not even Y2K compilant! Perpetual silliness.
 ```
 void CLEditAR::GetDate()
 {
@@ -11208,23 +11266,2971 @@ void CLEditAR::GetDate()
 
     CurrentAR.date += to_string(datetime.tm_mday);   // "dd"
 
-    str = asctime(&datetime);
-
 }
 ```
 Open CLEditAR.txt for input
+declare in CLEditAR.h
+private
+```
+        std::fstream ActFile;
+        int lrecl;
+```
+implement in CLEditAR.cpp
 ```
 void CLEditAR::OpenI()
 {
 
     LogFile << "Open CLEditAR.txt Input " << std::endl;
 
-    ActFile.open("CLEditAR.txt", std::ios::in );
+    ActFile.open("CLEditAR.txt", std::ios::in | std::ios::ate);
 
 }
 ```
 
+declare in CLEditAR.h
+
+```
+private
+        char fileic;
+        int i;
+```
+
+implement in CLEditAR.cpp. nothing fancy, just read a char 
+
+```
+void CLEditAR::Read()
+{
+
+    LogFile << "Read CLEditAR.txt " << std::endl;
+    
+    fileic = ActFile.get();   // one byte at a time
+
+}
+```
+
+implement in OldFile()
+
+```
+    LogFile << "Old File " << std::endl;
+
+// point back to the beginning of the file
+    ActFile.seekg(0);
+   
+    for (i = 0; i < 8; i++)
+    {
+// read 'the' record
+        Read();
+// gather the date
+        NewAR.date += fileic;
+    }
+
+    for (i = 0; i < 10; i++)
+    {
+// read 'the' record
+        Read();
+// gather the number
+        NewAR.seq += fileic;
+    }
+```
+
+implement in CLEditAR.cpp
+```
+void CLEditAR::Close()
+{
+
+    LogFile << "Close CLEditAR.txt " << std::endl;
+
+    ActFile.close();
+
+}
+```
+implement in CLEditAR.cpp
+```
+void CLEditAR::OpenO()
+{
+
+    LogFile << "Open CLEditAR.txt Output " << std::endl;
+    
+    ActFile.open("CLEditAR.txt", std::ios::out);
+
+    if  (!ActFile.is_open())
+    {
+        msg = "ActFile file Open error";
+        abendi = 3506;
+        abend = true;
+        return;
+
+}
+```
+declare in CLEditAR.h
+add #include <iomanip>
+private
+
+```
+        int seq;
+        std::string ToString(int); 
+        char Actrec[19];
+        int j;
+```
+implement in CLEditAR.cpp 
+from CLEditMain.cpp
+```
+std::string CLEditAR::ToString(int u)
+{
+
+//  LogFile << "To String " << std::endl;
+// make 10 look like 000010 etc
+    ostringstream os;
+    os<<setfill('0')<<setw(10)<<seq;
+
+    return os.str();
+
+}
+```
+implement in CLEditAR.cpp 
+```
+void CLEditAR::OldFile()
+{
+
+    LogFile << "Old File " << std::endl;
+
+    for (i = 0; i < 8; i++)
+    {
+// read 'the' record
+        Read();
+// gather the date
+        NewAR.date += fileic;
+    }
+
+    for (i = 0; i < 10; i++)
+    {
+// read 'the' record
+        Read();
+// gather the number
+        NewAR.seq += fileic;
+    }
+
+// close the file
+    Close();
+
+    if (CurrentAR.date == NewAR.date)
+    {
+        DateMatch();
+    }
+    else
+	{
+	    NewFile();
+    }
+
+}
+```
+declare in CLEditAR.h
+private
+```
+void DateMatch();
+```
+implement in CLEditAR.cpp
+```
+void CLEditAR::DateMatch()
+{
+
+// convert string to int
+    seq = std::stoi(NewAR.seq);
+// increase the number by 1
+    seq++;
+// convert int to string, pad width
+    NewAR.seq = ToString(seq);
+//  open the file as output
+    OpenO();
+
+    if (abend)
+    {
+        return;
+    }
+
+    FormatRec();
+
+// write the record
+    Write();
+// close the file
+    Close();
+
+}
+```
+declare in CLEditAR.h
+private
+```
+void FormatRec();
+```
+implement in CLEditAR.cpp
+```
+void CLEditAR::FormatRec()
+{
+
+    for (i = 0; i < 8; i++)
+    {
+        Actrec[i] = NewAR.date[i];
+    }
+
+    j = 8;
+    for (i = 0; i < 10; i++)
+    {
+        Actrec[j] = NewAR.seq[i];
+        j++;
+    }
+
+    Actrec[18] = '\n';
+
+}
+```
+
+declare in CLEditAR.h
+private
+
+implement in CLEditAR.cpp
+
+```
+void CLEditAR::NewFile()
+{
+
+    LogFile << "New File " << std::endl;
+// open the file as output
+    OpenO();
+
+	if (abend)
+	{
+		return;
+	}
+	
+// set the date
+    NewAR.date = CurrentAR.date;
+// set the number to 1
+    NewAR.seq = "0000000001";
+
+    FormatRec();
+// write the record
+    Write();
+// close the file   
+    Close();
+}
+```
+
+
+declare in CLEditAR.h
+private
+
+implement in CLEditAR.cpp 
+complete
+```
+int CLEditAR::ActReact()
+{
+
+    init();
+
+    if (abend)
+    {
+        goto actreactexit;
+    }
+
+    LogFile << "ActReact " << std::endl;
+
+// do stuff
+// get the currrent date
+	GetDate();
+// open a file for input
+	OpenI();
+
+// it will have a single record, containing a date and a number as a string
+    if  (ActFile.is_open())
+	{
+ // the file should be 19 bytes: "ccyymmdd0000000000\n"
+	    lrecl = ActFile.tellg();
+	    if (lrecl == 19)
+        {
+            OldFile();
+        }
+        else
+    	{
+            NewFile();
+        }
+    }
+    else
+	{
+	    NewFile();
+    }
+
+actreactexit:
+
+    action = "ActReact ";
+
+    eop();
+
+    return abendi;
+
+}
+```
+
+```
+void CLEditAR::OpenO()
+{
+
+    LogFile << "Open CLEditAR.txt Output " << std::endl;
+
+    ActFile.open("CLEditAR.txt", std::ios::out);
+
+    if  (!ActFile.is_open())
+    {
+        msg = "ActFile file Open error";
+        abendi = 3506;
+        abend = true;
+        return;
+    }
+
+}
+```
+
+Time to test!
+start without a file, should show date/1
+202412200000000001
+next with a file, should show date/2
+202412200000000002
+change the date, retest. should show date2/1
+202412200000000001
+next with a file, should show date2/2
+202412200000000002
+B I N G O, you win a car! that's what my first manager would say to me when I succeded.
+
+Let's add DateSeq everywhere it's needed. All the headers need
+public
+```
+        struct dateseq
+        {
+            std::string date;
+            std::string seq;
+        };
+        dateseq DateSeq;
+```
+implement the set, pass everywhere in CLEditMain.cpp 
+set where ever there is a 'Welcome'. 9 places 
+```
+    res = AR.ActReact();
+
+    if (res != 0)
+    {
+        DateSeq.date = "boomboom";
+        DateSeq.seq  = "9999999999";
+    }
+    else
+    {
+        DateSeq.date = AR.DateSeq.date;
+        DateSeq.seq  = AR.DateSeq.seq;
+    }
+
+    LogFile << "Usage Date " << DateSeq.date << " " << DateSeq.seq << std::endl;
+```
+pass prior to each CF action, 5 places 
+```
+    CF.DateSeq.date = DateSeq.date;
+    CF.DateSeq.seq = DateSeq.seq;
+```
+
+or DB action, 3 places
+```
+    DB.DateSeq.date = DateSeq.date;
+    DB.DateSeq.seq = DateSeq.seq;
+```
+
+
+and get in CF.cpp and DB.cpp action
+in CF after init()
+
+```
+    LogFile << "Usage Date " << DateSeq.date << " " << DateSeq.seq << std::endl;
+```
+
+Ok. time for more testing
+let's do an open and a from stage and look at the logs to see if we can make progress on the reports.
+Main
+
+```
+Welcome pierre Sun Dec 22 03:07:59 2024
+Command fromstage
+Parameter one mydb
+Parameter two testones
+Parameter III 
+Usage Date 20241222 0000000001
+rows 1
+From Stage elapsed time: 17.63
+Welcome pierre Sun Dec 22 03:13:58 2024
+Command open
+Parameter one objects.h
+Parameter two 
+Parameter III 
+Usage Date 20241222 0000000002
+Open File elapsed time: 10.215
+```
+I want the put the actions after the Welcome
+CF
+```
+Welcome Fri Dec 20 14:15:02 2024
+Error file size 0
+Open File objects.h
+Usage Date 20241220 0000000001
+File In Bytes 506
+File In Records 23
+File Out Bytes 0
+File Out Records 0
+Open File elapsed time: 1.106
+```
+DB 
+```
+Welcome Fri Dec 20 14:16:12 2024
+Count(*) 1 testones
+From Stage mydb testones
+Usage Date 20241220 0000000002
+From Stage elapsed time: 0.269
+```
+
+something is wrong
+it the act react file exists, but is empty or the wrong size, you get a Date and the seq is alawsy 1, and the file never has data!
+C++ is funny. It tells you nothing! 
+this issue is here - another missing close()!
+bad
+```
+	if  (ActFile.is_open())
+	{
+		lrecl = ActFile.tellg();
+	    if (lrecl == 19)
+        {
+            OldFile();
+        }
+        else
+	    {
+            NewFile();
+        }
+    }
+    else
+	{
+	    NewFile();
+    }
+```
+
+ good
  
+```
+    if  (ActFile.is_open())
+	{
+	    lrecl = ActFile.tellg();
+	    if (lrecl == 19)
+        {
+            OldFile();
+        }
+        else
+    		{
+    	    		Close();
+            	NewFile();
+        }
+    }
+    else
+	{
+	    NewFile();
+    }    
+```
+
+WOW. Ok. That was really hard to find. Thank God we could focus on one file.
+
+Back to the report. We're going to read through the Main log file first, end to end. Then create an initial structure gathering the meta data from the log. Then we'll read the CF log file, end to end, plugging in the missing meta data where we can. Then do the same thing with the DB log. Then, we'll create a table and load the meta there. We'll do our very own extract, transform and load. An ETL! From there we can use fancy SQL to draw whatever reports we want. This is what happens in the real world. 
+
+in CLEditRP.h create these structures 
+private
+```
+User
+Date ccyymmdd
+seq  0000000000
+Time hhmmss
+File Actions 
+Input Files, Copy or Open
+input file name
+record count
+byte count
+Output Files, Copy, Create, Save and Save As
+output file name
+record count
+byte count
+```
+let's refine CF action to:
+```
+struct cfaction
+{
+    std::string User;
+    std::string Date;
+            int Seq;
+    std::string Time;
+    std::string Action;
+    std::string InputFile;
+            int Inputrecs;
+            int Inputbytes; 
+    std::string OutputFile;
+            int Outputrecs;
+            int Outputbytes;
+            
+};
+cfaction CFAction;
+```
+let's refine DB action to:
+```
+struct dbaction
+{
+    std::string User;
+    std::string Date;
+            int Seq;
+    std::string Time;
+    std::string Action;
+            int rowcnt;
+    std::string DataBase; 
+    std::string TableName;
+    std::string ElapsedTime;
+};
+dbaction DBAction;
+```
+in CLEditRP.cpp
+implement these steps, the 'do stuff' in Report(). Not really an accurate name. It's more of a reporting facilitation, or even more accurately an extract and transform and load logical unit of work. An ETL.
+
+```
+// the log files roll over at different rates
+// the Main log file contains actions other than
+// file actions or database actions
+// process Main log file, create anchor points
+// open Main log file for input
+// read byte by byte
+// process until end of file, aka eof   
+// close Main log file
+// dump the Main log into a table, create the anchor points 
+// process CF log file, connect to anchor point
+// open CF log file for input
+// read byte by byte
+// process until end of file, aka eof   
+// close CF log file
+// dump the CF log into a table, attach to the anchor points
+// process DB log file, connect to anchor point
+// open DB log file for input
+// read byte by byte
+// process until end of file, aka eof   
+// close DB log file
+// dump the DB log into a table, attach to the anchor points
+```
+If you've been following so far, 90% of what we need to do exists in code in CF and or DB. This is normal, and a huge time saver.
+
+the process the Main log file would look like this
+
+```
+// in each record, look for key words like Welcome, Usage, elapsed etc
+// gather those keywords into a structure
+// collect those structures into an array 
+```
+   
+
+the process the CF log file would look like this
+
+```
+// in each record, look for key words like Welcome, Usage, elapsed etc
+// gather those keywords into a structure
+// collect those structures into an array  
+```
+
+the process the DB log file would look like this
+
+```
+// in each record, look for key words like Welcome, Usage, elapsed etc
+// gather those keywords into a structure
+// collect those structures into an array
+```
+dump the Main log array into a Table, create the anchor points 
+
+dump the CF log array into a Table, attach to the anchor points
+
+dump the DB log array into a Table, attach to the anchor points
+
+ So here is one of those stop and think moments. The dillema. Should or would you put all this logic in one place. Would you create three separate programs, one for each log. If so why? What we need is a table where each action, and it's associated meta data is gathered and results in a row in a table. Each record in the log has the Usage data in it, the 'key', index or anchor, so we could create a row with the records for either log file. Another thing to ask yourself is, am I ever going to have another log file, or other types of actions. How would I handle that. If I have one program that does the ETL for all ETL's and I change it, I need to retest all the ETL's to be certain that they still all work. Yikes. If I have one ETL per log file, I'd only have one ETL to test, without risking the others. Also, a nagging issue is that the log files roll over at different points. What happens if I don't run the Report() action often enough. I might lose meta data and create incomplete meta data. Everyone hates that. If you do that in real life your going to get the famouse 'why did you do that ' ding. Not fun. We prefer ' how did you do that ' compliment. Pierre it sounds like you're thinking of redesigning the entire unit. Yes, I am. Let's face it, following this path, we're createing a future headache. The smart play here is to a) create an ETL process per log and b) make Report() action actually produce a report. duh Maybe, we can try this inheritance business. 
+The ETL process will be triggered before a Log File 'new'. We're gonna need a smarter Template! We're going to improve CF,DB and Main to give us the meta data we need in a format that is easy to gather. It's not cheating. Then, one day, we'll actually build Report() RP. Maybe, maybe not. Perhaps there are tools out there that we can leverage for reporting. Most companies rely on collections of applications to run their businesses. Some of these talk to each other or, are made to! 
+
+Structually, the ETL will look like CF combined with DB, right? CF reads and processes a file and DB does SQL stuff like SELECT and INSERT rows. There will be very little 'new' instructions. So let's get cracking, what do we want to call this? It's an application log etl, how about CLEditMETL, CLEditCFETL and CLEditDBETL. Not terrible. We'll start with XETL. We can test it by lowering FILE_SIZE to 100 lol. 
+start by creating a 'dummy' class and connecting it to the template CLEditTemp.
+add in CLEditTemp.h
+```
+#include "CLEditXETL.h"
+public
+CLEditXETL ETL;
+```
+implement in CLEDitTemp.cpp in OpenLog().
+```
+        CloseLog();
+        abendi = ETL.DoStuff();
+        if (abend)
+        {
+            msg = "Log file ETL error";
+            abendi = 3503;
+            abend = true;
+            std::cout << msg << abendi << std::endl; // better than flying blind
+            return;
+        }
+        else
+        {
+            OpenLogn();
+        }
+
+```
+Now, let's build it, test it and copy it as needed. Did you say 'inherit'. Hold that thought. Let's build it first using DB as a template, since it already processes files and tables. It needs to do the following;
+```
+// open log file for input
+// read byte by byte
+// loop,process until end of file, aka eof 
+// in each record, look for key words like Welcome, Usage, elapsed etc
+// gather those keywords into a structure
+// collect those structures into an array
+// close log file
+// like Bind
+// loop,dump the log array into a Table, create, or update, the anchor points 
+// like ToStage
+```
+
+in CLEditXETL.h 
+declare take a copy of DB.h and CF.h and remove the duplication 
+
+in CLEditXETL.cpp
+implement take a copy of DB.cpp and CF.cpp and remove the duplication 
+the 'build' function in code::blocks will help you out
+ 
+For CLEditXETL.h there will be one public function; not DoStuff() too silly
+delcare
+int ETL();
+implement the following improved unit of work
+```
+// init
+// 	open log file for input
+// 	bind and connect to database
+// read byte by byte
+// loop,process until end of file, aka eof 
+// 	in each record, look for key words like Welcome, Usage, Elapsed etc
+// 	gather those meta data into a structure
+// 	take each structures and INSERT or UPDATE rows in a table
+// eop
+// 	Free the database reqources
+// 	close log file
+```
+C++ is funny. Remember when I said that XETL would combine code from CF and DB? Well. We started with Main.cpp adding #include "CLEditXETL.h". Main already uses CF and DB. But, DB amd CF didn't use XETL yet. So we needed to add #include "CLEditXETL.h". to them too. What happens next is kinda funny. C++  complains
+that class CLEditXETL is redefined!
+What?
+This project is headed by Main. CF,DB,XETL are children of Main. But, XETL is also a child of CF and DB. So when the compiler does it's thing, it sees the definition or declaration of XETL 4 times! Once in each Main.CF,DB and XETL.
+How do we fix that? 
+We need to use a compiler directive to control the define. At the start of each header file for the classname.cpp file add two lines:
+```
+#ifndef classname_H
+#define classname_H
+```
+
+At the end of the header file add one line:
+```
+#endif // classname_H
+```
+
+This is actually code. Pre compiler code. It says "if you, C++, have not seen this definition called classname_H, then define classname_H with the below. The 'end if' goes at the bottom. Some cpp files are absolutely littered with pre compiler directives.   
+
+CLEditXETL.h 
+```
+#ifndef CLEDITXETL_H
+#define CLEDITXETL_H
+
+// C++
+#include <stdio.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstring>
+#include <ctime>
+#include <ctype.h>
+#include <chrono>
+#include <sstream>
+// MySQL
+#include "mysql.h"
+#include "mysql_driver.h"
+#include "mysql_connection.h"
+// Cpp Conn
+#include <cppconn/driver.h>
+#include <cppconn/exception.h>
+#include <cppconn/resultset.h>
+#include <cppconn/statement.h>
+#include <cppconn/prepared_statement.h>
+//#define FILE_SIZE 102400
+#define FILE_SIZE 1000
+using namespace std;
+class CLEditXETL
+{
+    public:
+
+        CLEditXETL();
+        virtual ~CLEditXETL();
+
+        std::string fileiname;
+
+        int ETL();
+
+    protected:
+
+    private:
+
+// objects
+        sql::Driver * driver;
+        sql::Connection * con;
+        sql::Statement * stmt;
+        sql::PreparedStatement * pstmt;
+        sql::ResultSet * res;
+
+// structures
+        struct logaction
+        {
+            std::string DateSeq;
+            std::string User;
+            std::string Time;
+            std::string Action;
+            std::string InputFile;
+                    int Inputrecs;
+                    int Inputbytes;
+            std::string OutputFile;
+                    int Outputrecs;
+                    int Outputbytes;
+                    int RowCnt;
+            std::string DataBase;
+            std::string TableName;
+                    int ElapsedAct;
+                    int ElapsedRes;
+        };
+        logaction LA;
+        logaction DB;
+
+        struct dateseq
+        {
+            std::string date;
+            std::string seq;
+        };
+        dateseq DateSeq;
+
+// file stream
+        std::fstream LogFile;
+        std::fstream ErrFile;
+        std::fstream filei;
+// SQL
+       	stringstream sql;
+// timestamp
+        std::time_t currentdatetime;
+// int
+        int rowcnt;
+        int start_s;
+        int stop_s;
+        int abendi;
+        int errorcode;
+        int u;
+        int i;
+        int n;
+        int reccnt;
+        int bytecnt;        // bytes in a file
+        int fileireccnt;
+        int fileibytecnt;
+        int fileitellg;
+        int fileoi;
+        int fileotellg;
+        int j;
+        int k;
+        int l;
+        int InsertCnt;
+        int UpdateCnt;
+        int CodeId;
+        int CodeStrl;
+
+// char
+        char fileic;
+        char fileir[253];  // the largest record allowed for IBM TSO PDS BIM
+        char arr[253];     // the largest record allowed for IBM TSO PDS BIM
+
+// strings
+
+        std::string str;
+        std::string msg;
+        std::string action;
+        std::string DataBase;
+        std::string TableName;
+        std::string what;
+        std::string state;
+        std::string Query;
+        std::string CodeStr;
+        std::string CodeNew;
+        std::string Word;
+
+// boolean
+        bool abend;
+        bool elapsed;
+        bool tbexists:
+        bool welcome;
+        bool OnOne;
+        bool OnOneWelcome;
+        bool OnOneUser;
+        bool OnOneCommand;
+        bool OnOneParameterone;
+        bool OnOneParametertwo;
+        bool OnOneUsageDate;
+        bool OnOneElapsed;
+        bool OnOneSelect;
+        bool OnOneGetRes;
+        bool OnOneUpdate;
+        bool OnOneInsert;
+        bool OnOneInitRecord;
+        bool OnOneInitLA;
+
+// file functions
+        void Init();
+        void InitLA();
+        void OpenLog();
+        void OpenLogn();
+        void OpenErr();
+        void OpenErrn();
+// open input file
+        void OpenFile();
+// connect to database
+        void Bind();
+        void Error();
+        void Driver();
+        void Connect();
+        void Statement();
+        void UseDb();
+        bool Exists();
+        void DropTable();
+        void CreateTable();
+
+        void ReadFile();
+//      File Input Record
+        void ProcessFile();
+        void ProcessRecord();
+        void Select();
+        void GetRes();
+        void Update();
+        void Insert();
+
+        void Gather();
+        void LookforWord();
+        void Welcome();
+        void User();
+        void Command();
+        void Parameterone();
+        void Parametertwo();
+        void UsageDate();
+        void Elapsed();
+        void FileInBytes();
+        void FileInRecords();
+        void FileOutBytes();
+        void FileOutRecords();
+
+        void InitRecord();
+        void EoP();
+        void CloseFile();
+        void CloseLog();
+        void CloseErr();
+        void Free();
+ /*     void Freedriver();    not allowed */
+        void Freecon();
+        void Freestmt();
+        void Freepstmt();
+        void Freeres();
+
+};
+
+#endif // CLEDITXETL_H
+```
+
+CLEditXETL will handle the roll over af any log file in the project, to start. If we discover that we want more logic for one log over another, we can reevaluate. Maybe we'll inherit a class or override a function?
+CLEditXETL will read a text file of log records, gather meta data and store that data in a row in a table for processing elsewhere. 
+
+declare in CLEditXETL.h
+public
+```
+        CLEditXETL();
+        virtual ~CLEditXETL();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+#include "CLEditXETL.h"
+using namespace std;
+CLEditXETL::CLEditXETL()
+{
+    // constructor
+}
+CLEditXETL::~CLEditXETL()
+{
+    // destructor
+}
+```
+
+declare in CLEditXETL.h
+public
+```
+        int ETL();
+```
+
+You'll notice I'm sure by now that data processing has a logic framework. It goes like this, initial, open, read, process until end of file, end of process, close. Here we're using file processing and database processing, so the connection to the database, Bind() follows the open(s), and the database Free() preceeds the close(s). If you follow that framework you'll never go wrong.
+
+implement in CLEditXETL.cpp 
+
+```
+int CLEditXETL::ETL()
+{
+
+//  init
+    Init();
+
+    if (abend)
+    {
+        return abendi;
+    }
+// 	open file
+    OpenFile();
+
+    if (abend)
+    {
+        return abendi;
+    }
+
+    LogFile << "ETL " << std::endl;
+
+// 	bind and connect to database
+    Bind();
+
+    if (abend)
+    {
+        return abendi;
+    }
+
+// read byte by byte
+    ReadFile();
+// loop,process until end of file, aka eof
+    while (fileitellg > 0)  // at end of file the read returns -1
+    {
+        ProcessFile();
+    }
+
+// 	Free the database reqources
+    Free();
+
+    if (abend)
+    {
+        return abendi;
+    }
+
+// eop
+// 	close log file
+    EoP();
+
+    return abendi;
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+        void Init();
+```
+
+The initialize opens the files and provides an inital value, initial implementation of all your variables. Many of the boolean type are there just to wrangle the logging. Ideally, there would be a 'Logging' action in Main and we would pass that value around and trim the fat off the logs. That's a great idea, LogOn(), LogOff()! 
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Init()
+{
+
+    start_s = std::clock();
+
+    OpenLog();
+
+    if (abend)
+    {
+        return;
+    }
+
+    LogFile << "Init " << std::endl;
+
+    OpenErr();
+
+    if (abend)
+    {
+        return;
+    }
+
+    for (l = 0; l < 253; l++)
+    {
+        fileir[l] = '\0';     // set to null
+    }
+
+    for (l = 0; l < 253; l++)
+    {
+        arr[l] = '\0';     // set to null
+    }
+
+// stringstream
+//    sql = ""; No!
+
+// int
+    rowcnt = 0;
+    abendi = 0;
+    errorcode = 0;
+    reccnt = 0;
+    bytecnt = 0;        // bytes in a file
+    fileireccnt = 0;
+    fileibytecnt = 0;
+    fileitellg = 0;
+    fileoi = 0;
+    fileotellg = 0;
+    InsertCnt = 0;
+    UpdateCnt = 0;
+    CodeId = 0;
+    CodeStrl = 0;
+    j = 0;
+    k = 0;
+    l = 0;
+    u = 0;
+    i = 0;
+    n = 0;
+
+// char
+    fileic = ' ';
+
+// strings
+//  fileiname = ""; No!
+    str = "";
+    msg = "";
+    action = "";
+
+    what = "";
+    state = "";
+    Query = "";
+    CodeStr = "";
+    CodeNew = "";
+
+// boolean
+    abend = false;
+    elapsed = false;
+    tbexists = true;
+    OnOne = true;
+    OnOneWelcome = true;
+    OnOneUser = true;
+    OnOneCommand = true;
+    OnOneParameterone = true;
+    OnOneParametertwo = true;
+    OnOneUsageDate = true;
+    OnOneElapsed = true;
+    OnOneSelect = true;
+    OnOneGetRes = true;
+    OnOneUpdate = true;
+    OnOneInsert = true;
+    OnOneInitRecord = true;
+    OnOneInitLA = true;
+
+}
+```
+This is the 'standard' open for input file processing. Check to be sure that the file is complete and available first, then open it in input mode.
+ 
+declare in CLEditXETL.h
+private
+```
+	void OpenLog();
+```
+
+implement in CLEditXETL.cpp 
+```
+void CLEditXETL::OpenLog()
+{
+
+    LogFile.open("CLEditXETLLogFile.txt", ios_base::out | ios_base::app);
+
+    if  (!LogFile.is_open())
+    {
+        msg = "Log file Open error";
+        abendi = 3503;
+        abend = true;
+        std::cout << msg << abendi << std::endl;    // better than flying blind
+        return;
+    }
+
+    bytecnt = LogFile.tellg();
+
+    if  (bytecnt > FILE_SIZE)
+    {
+        CloseLog();
+        OpenLogn();
+    }
+
+    LogFile << "Log file size " << to_string(bytecnt) << std::endl;
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void OpenLogn();	
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::OpenLogn()
+{
+
+    LogFile.open("CLEditXETLLogFile.txt", ios_base::out);
+
+    if  (!LogFile.is_open())
+    {
+        msg = "Log file Open error";
+        abendi = 3504;
+        abend = true;
+        std::cout << msg << abendi << std::endl;    // better than flying blind
+        return;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void OpenErr();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::OpenErr()
+{
+
+    ErrFile.open("CLEditXETLErrFile.txt", std::ios::out | ios_base::app);
+
+    if  (!ErrFile.is_open())
+    {
+        msg = "Error file Open error";
+        abendi = 3505;
+        abend = true;
+        std::cout << msg << abendi << std::endl;   // better than flying blind
+        return;
+    }
+
+    bytecnt = ErrFile.tellg();
+
+    if  (bytecnt > FILE_SIZE)
+    {
+        CloseErr();
+        OpenErrn();
+    }
+
+    LogFile << "Error file size " << to_string(bytecnt) << std::endl;
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void OpenErrn();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::OpenErrn()
+{
+
+    ErrFile.open("CLEditXETLErrFile.txt", std::ios::out);
+
+    if  (!ErrFile.is_open())
+    {
+        msg = "Error file Open error";
+        abendi = 3506;
+        abend = true;
+        std::cout << msg << abendi << std::endl;   // better than flying blind
+        return;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void OpenFile();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::OpenFile()
+{
+
+    LogFile << "Open File " << std::endl;
+// keep trying to open the file for output, until you can
+// you won't be able to do that if the file is not complete or available
+    fileoi = 0;
+    do
+    {
+        filei.open(fileiname, std::ios::out | std::ios::app);
+        fileoi++;
+        if (fileoi > 2)
+        {
+            break;
+        }
+    }
+    while (!filei.is_open());
+
+    if (fileoi > 2)
+    {
+        msg = "input file unavailable";
+        abendi = 3501;
+        abend = true;
+        ErrFile << msg << abendi << std::endl;
+        return;
+    }
+
+    CloseFile();
+
+// now you can open the file
+    filei.open(fileiname, std::ios::in );
+
+    if  (!filei.is_open())
+    {
+        msg = "input file Open error";
+        abendi = 3502;
+        abend = true;
+        ErrFile << msg << abendi << std::endl;
+        return;
+    }
+
+}
+```
+These are the 'standard' steps to connect your application to MySQL. It's simple, once someone else figured it all out. One day that might be you.
+declare in CLEditXETL.h
+private
+```
+	void Bind();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Bind()
+{
+
+    LogFile << "Bind " << std::endl;
+
+    Driver();
+
+    if  (abend)
+    {
+        return;
+    }
+
+    Connect();
+
+    if  (abend)
+    {
+        return;
+    }
+
+    Statement();
+
+    if  (abend)
+    {
+        return;
+    }
+
+    UseDb();
+
+    if  (abend)
+    {
+        return;
+    }
+
+    tbexists = Exists();
+
+    if (tbexists)
+    {
+        return;
+    }
+
+    DropTable();
+
+    if  (abend)
+    {
+        return;
+    }
+
+    CreateTable();
+
+    if  (abend)
+    {
+        return;
+    }
+
+
+}
+```
+
+declare in CLEditXETL.h
+private
+
+```
+	void Driver();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Driver()
+{
+
+    LogFile << "Driver " << std::endl;
+
+    try
+    {
+        driver = get_driver_instance();
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3500;
+        abend = true;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+	void Connect();
+implement in CLEditXETL.cpp 
+```
+void CLEditXETL::Connect()
+{
+
+    LogFile << "Connect " << std::endl;
+
+    DataBase = "mydb";
+
+    try
+    {
+        con = driver->connect("localhost", "CLEdit", "CLEdit");    //host,user,pass
+        con->setSchema(DataBase);
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3501;
+        abend = true;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Statement();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Statement()
+{
+
+    LogFile << "Statement " << std::endl;
+
+    try
+    {
+        stmt = con->createStatement();
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3502;
+        abend = true;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void UseDb();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::UseDb()
+{
+
+    LogFile << "UseDb " << std::endl;
+
+    try
+    {
+        Query = "";
+        Query += "USE ";
+        Query += DataBase;
+        Query += ";";
+        stmt->execute(Query);
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3505;
+        abend = true;
+    }
+
+}
+```
+A simple SQL query that tells us if a table exists. We normally would not check to see if a database exists. That is the job of a database admistrator (DBA). They would make sure the subsystems are up and running. It's a good idea to keep your DBA close. They can make or break you.
+declare in CLEditXETL.h
+private
+```
+	bool Exists();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+bool CLEditXETL::Exists()
+{
+
+    LogFile << "Exists " << std::endl;
+
+    TableName = "editxetl";
+
+    try
+    {
+        Query = "";
+        Query += "SHOW TABLE STATUS FROM mydb WHERE Name = 'editxetl'";
+        Query += ";";
+        res = stmt->executeQuery(Query);
+        if (res->next())
+        {
+            tbexists = true;
+        }
+        else
+        {
+            tbexists = 0;
+        }
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3503;
+        abend = true;
+    }
+
+    return tbexists;
+
+}
+```
+
+Here is the 'standard' way of safely creating a table. Wipe the board clean first. 
+declare in CLEditXETL.h
+private
+```
+	void DropTable();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::DropTable()
+{
+
+    LogFile << "Drop Table " << std::endl;
+
+    try
+    {
+        Query = "DROP TABLE IF EXISTS ";
+        Query += TableName;
+        Query += ";";
+        stmt->execute(Query);
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3506;
+        abend = true;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void CreateTable();
+```
+This is the 'standard' SQL to create a table. There are many columns in this table. Not too many, not too few. Never fear, if you have too many or too few, you can change that with your code or an SQL utility.
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::CreateTable()
+{
+
+    LogFile << "Create Table " << std::endl;
+
+    try
+    {
+        Query = "";
+        Query += "CREATE TABLE ";
+        Query += TableName;
+        Query += " (";
+        Query += "dateseq  VARCHAR(18) NOT NULL PRIMARY KEY, ";
+        Query += "usercode VARCHAR(08), ";
+        Query += "timecode VARCHAR(08), ";
+        Query += "action   VARCHAR(20), ";
+        Query += "input    VARCHAR(30), ";
+        Query += "inrec    INT, ";
+        Query += "inbyte   INT, ";
+        Query += "output   VARCHAR(30), ";
+        Query += "outrec   INT, ";
+        Query += "outbyte  INT, ";
+        Query += "rowcnt   INT, ";
+        Query += "dbname   VARCHAR(08), ";
+        Query += "tbname   VARCHAR(08), ";
+        Query += "elapseda INT, ";
+        Query += "elapsedr INT);";
+        stmt->execute(Query);
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3507;
+        abend = true;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Error();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Error()
+{
+
+    LogFile << "Error " << std::endl;
+
+    ErrFile << std::endl;
+    ErrFile << "CLEditXETL - Error " << errorcode;
+    ErrFile << std::endl;
+    ErrFile << "# ERR: SQLException in " << __FILE__;
+    ErrFile << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+    ErrFile << "# ERR: " << what;
+    ErrFile << " (MySQL error code: " << errorcode;
+    ErrFile << ", SQLState: " << state << " )" << std::endl;
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void ProcessFile();
+```
+Remember, files don't need to have end of record or end line markers. We put them there on purpose, for a purpose. Our purpose. That's not cheating. This is pod racing. 
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::ProcessFile()
+{
+
+    if (fileireccnt == 0)
+    {
+        LogFile << "ProcessFile " << std::endl;
+    }
+
+    j++;
+
+    fileir[i] = fileic;
+
+    i++;
+
+    if  (fileic == '\n')
+    {
+        fileireccnt++;
+        ProcessRecord();
+        InitRecord();
+    }
+
+    ReadFile();
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void ReadFile();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::ReadFile()
+{
+
+    if (fileibytecnt == 0)
+    {
+        LogFile << "ReadFile " << std::endl;
+    }
+
+    fileic = filei.get();   // one byte at a time
+
+    fileitellg = filei.tellg();
+
+    if  (filei.tellg() > 0)
+    {
+        fileibytecnt = filei.tellg();
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void ProcessRecord();
+```
+This is really the guts of the processing. We create log records, formatted in a way that makes it easy for us to digest. A unit of work ends with an Elapsed record. Other records contain other pieces of meta data.
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::ProcessRecord()
+{
+
+    if (fileireccnt == 1)
+    {
+        LogFile << "Process Record " << std::endl;
+    }
+
+// look for words and gather meta data
+// between welcome and elapsed
+    Gather();
+
+// elapsed is the end of a block of meta data
+    if  (elapsed)
+    {
+        elapsed = false;
+        Select();
+        if (res->next())
+        {
+            GetRes();
+            Update();
+            UpdateCnt++;
+        }
+        else
+        {
+            Insert();
+            InsertCnt++;
+        }
+
+        InitLA();
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void InitRecord();
+```
+If you skip this step, you experience bad dreams. No. Actually what will happen is that fileir will just get bigger and bigger and bigger. A nightmare. 
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::InitRecord()
+{
+
+    if (OnOneInitRecord)
+    {
+        LogFile << "InitRecord " << std::endl;
+        OnOneInitRecord = false;
+    }
+
+    for (i = 0; i < j; i++)   // i < j to save time
+    {
+        fileir[i] = '\0';     // set to null
+    }
+
+    i = 0;
+    j = 0;
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Gather();
+```
+Each log record starts with a key word we decided on. Formatted in a way we decided on. That is what programming is all about. You take a problem and solve it. IF you can make the problem easier to solve, so be it. That's not cheating.
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Gather()
+{
+
+    if (fileireccnt == 1)
+    {
+        LogFile << "Gather " << std::endl;
+    }
+
+// in each record, look for key words like Welcome, Usage, elapsed etc
+// gather those keywords into a structure
+// at Elapsed from any log
+//      look for row
+//      update existing row
+//      or insert a new row
+
+// what is the first word from the log record
+    LookforWord();
+// welcome is the beginning of a block of meta data
+// Sun Dec 22 03:21:05 2024  LA.Time
+    if (Word == "Welcome")
+    {
+        Welcome();
+        return;
+    }
+
+// Welcome pierre Sun Dec 22 03:21:05 2024
+// LA.User
+    if (Word == "User")
+    {
+        User();
+        return;
+    }
+
+// Command fromstage
+// LA.Action
+    if (Word == "Command")
+    {
+        Command();
+        return;
+    }
+
+// Parameterone mydb
+// LA.DataBase or LA.InputFile
+    if (Word == "Parameterone")
+    {
+        Parameterone();
+        return;
+    }
+
+// Parameter two testones
+// LA.TableName /  LA.OutputFile
+    if (Word == "Parametertwo")
+    {
+        Parametertwo();
+        return;
+    }
+
+// Usage Date 20241222 0000000003
+// LA.Date / LA.Seq
+    if (Word == "Usage")
+    {
+        UsageDate();
+        return;
+    }
+    
+// FileInBytes 0
+// LA.Inputbytes
+    if (Word == "FileInBytes")
+    {
+        FileInBytes();
+        return;
+    }
+// FileInRecords 26
+// LA.Inputrecs
+    if (Word == "FileInRecords")
+    {
+        FileInRecords();
+        return;
+    }
+// FileOutBytes 337
+// LA.Outputbytes
+    if (Word == "FileOutBytes")
+    {
+        FileInBytes();
+        return;
+    }
+// FileOutRecords 41
+// LA.Outputrecs
+    if (Word == "FileOutRecords")
+    {
+        FileInRecords();
+        return;
+    }
+// Elapsed 14.376
+// LA.ElapsedTime
+    if  (Word == "Elapsed")
+    {
+        Elapsed();
+        elapsed = true;
+        return;
+    }
+
+}
+```
+declare in CLEditXETL.h
+private
+```
+	void LookForWord();
+```
+
+implement in CLEditXETL.cpp
+
+```
+void CLEditXETL::LookforWord()
+{
+
+    if (fileireccnt == 1)
+    {
+        LogFile << "Look for Word " << std::endl;
+    }
+
+    Word = "";
+    CodeStr = fileir;
+    CodeStrl = CodeStr.length();
+
+    for (i = 0; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' ')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Welcome();
+```
+Gather the time from the welcome log record. We are trying to extract the time in hh:mm:ss. We could make this code complicated, but, instead we'll just 'cheat' and start gathering the time from the position we put it in, position 19. 
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Welcome()
+{
+
+    if (OnOneWelcome)
+    {
+        LogFile << "Welcome " << std::endl;
+        OnOneWelcome = false;
+    }
+
+// Welcome Sun Dec 22 03:21:05 2024  LA.Time
+// 01234567891123456789212345678931234
+
+    Word = "";
+
+    for (i = 19; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+    LA.Time = Word;
+
+}
+```
+Gather the user id from the User log record.
+declare in CLEditXETL.h
+private
+```
+	void User();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::User()
+{
+
+    if (OnOneUser)
+    {
+        LogFile << "User " << std::endl;
+        OnOneUser = false;
+    }
+// User Pierre  LA.User
+// 01234567891123456789212345678931234
+    Word = "";
+
+    for (i = 5; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+    LA.User = Word;
+
+}
+```
+Gather the action or reaction from the command log record.
+declare in CLEditXETL.h
+private
+```
+	void Command();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Command()
+{
+
+    if (OnOneCommand)
+    {
+        LogFile << "Command " << std::endl;
+        OnOneCommand = false;
+    }
+
+// Command fromstage    LA.Action
+// 01234567891123456789212345678931234
+    Word = "";
+
+    for (i = 8; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+    LA.Action = Word;
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Parameterone();
+```
+Gather the database name or input file name from the paramater one log record. 
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Parameterone()
+{
+
+    if (OnOneParameterone)
+    {
+        LogFile << "Parameterone " << std::endl;
+        OnOneParameterone = false;
+    }
+
+// Parameterone mydb    LA.DataBase or LA.InputFile
+// 01234567891123456789212345678931234
+    Word = "";
+
+    for (i = 13; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+    if  (LA.Action == "FromStage"
+    ||   LA.Action == "ToStage"
+    ||   LA.Action == "CreateTable")
+    {
+        LA.DataBase = Word;
+    }
+    else
+    {
+        LA.InputFile = Word;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Parametertwo();
+```
+Gather table name or output file name from the parameter two log record.
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Parametertwo()
+{
+
+    if (OnOneParametertwo)
+    {
+        LogFile << "Parametertwo " << std::endl;
+        OnOneParametertwo = false;
+    }
+
+// Parametertwo testones    LA.TableName /  LA.OutputFile
+// 01234567891123456789212345678931234
+    Word = "";
+
+    for (i = 13; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+    if (Word == "")
+    {
+        return;
+    }
+
+    if  (LA.Action == "FromStage"
+    ||   LA.Action == "ToStage"
+    ||   LA.Action == "CreateTable")
+    {
+        LA.TableName = Word;
+    }
+    else
+    {
+        LA.OutputFile = Word;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void UsageDate();
+```
+Gather usage date and sequence number from the usage date log record.
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::UsageDate()
+{
+
+    if (OnOneUsageDate)
+    {
+        LogFile << "UsageDate " << std::endl;
+        OnOneUsageDate = false;
+    }
+
+// Usage Date 20241222 0000000003   LA.Date / LA.Seq
+// 01234567891123456789212345678931234
+    Word = "";
+
+    for (i = 11; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+    LA.DateSeq = Word;
+
+    Word = "";
+
+    for (i = 20; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+    LA.DateSeq += Word;
+
+}
+```
+declare in CLEditXETL.h
+private
+```
+        void FileInBytes();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::FileInBytes()
+{
+
+    if (OnOneInBytes)
+    {
+        LogFile << "FileInBytes " << std::endl;
+        OnOneUser = false;
+    }
+
+// FileInBytes 0
+// 01234567891123456
+
+    Word = "";
+
+    for (i = 12; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+    LA.Inputbytes = std::stoi(Word);
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+        void FileInRecords();
+```
+
+implement in CLEditXETL.cpp 
+```
+void CLEditXETL::FileInRecords()
+{
+
+    if (OnOneInRecords)
+    {
+        LogFile << "FileInRecords " << std::endl;
+        OnOneUser = false;
+    }
+// FileInRecords 26
+// 01234567891123456
+
+    Word = "";
+
+    for (i = 14; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+    LA.Inputrecs = std::stoi(Word);
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+        void FileOutBytes();
+```
+
+implement in CLEditXETL.cpp
+```
+void CLEditXETL::FileOutBytes()
+{
+
+    if (OnOneOutBytes)
+    {
+        LogFile << "FileOutBytes " << std::endl;
+        OnOneUser = false;
+    }
+
+// FileOutBytes 337
+// 01234567891123456
+
+    Word = "";
+
+    for (i = 13; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+    LA.Outputbytes = std::stoi(Word);
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+        void FileOutRecords();
+```
+
+implement in CLEditXETL.cpp
+```
+void CLEditXETL::FileOutRecords()
+{
+
+    if (OnOneOutRecords)
+    {
+        LogFile << "FileOutRecords " << std::endl;
+        OnOneUser = false;
+    }
+
+// FileOutRecords 41
+// 01234567891123456
+
+    Word = "";
+
+    for (i = 15; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+    LA.Outputrecs = std::stoi(Word);
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Elapsed();
+```
+Gather the elapsed time of the action or reaction from the elapsed log record.
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Elapsed()
+{
+
+    if (OnOneElapsed)
+    {
+        LogFile << "Elapsed " << std::endl;
+        OnOneElapsed = false;
+    }
+
+// Elapsed 14.376   LA.ElapsedTime
+// 01234567891123456789212345678931234
+    Word = "";
+
+    for (i = 8; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+            if  (CodeStr[i] == '.')
+            {
+                continue;
+            }
+            else
+            {
+                Word += CodeStr[i];
+            }
+    }
+
+// Main actions in upper case
+    if  (LA.Action == "FromStage"
+    ||   LA.Action == "ToStage"
+    ||   LA.Action == "CreateTable"
+    ||   LA.Action == "CopyFile"
+    ||   LA.Action == "OpenFile"
+    ||   LA.Action == "SaveFile"
+    ||   LA.Action == "SaveAsFile"
+    ||   LA.Action == "CreateFile")
+    {
+        LA.ElapsedAct = std::stoi(Word);
+    }
+    else
+    {
+        LA.ElapsedRes = std::stoi(Word);
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Select();
+```
+This is a 'standard' SELECT WHERE. You get the idea. We need to gather all the meta data we might already have. We could create a row from the action or the reaction, since the log files roll over at different times. If we find the row, we'll update the mata data on it. Or create a new row.
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Select()
+{
+
+    if  (OnOneSelect)
+    {
+        LogFile << "Select " << std::endl;
+        OnOneSelect = false;
+    }
+
+    try
+    {
+        Query = "";
+        Query += "SELECT usercode, ";
+        Query += "timecode, ";
+        Query += "action, ";
+        Query += "input, ";
+        Query += "inrec, ";
+        Query += "inbyte, ";
+        Query += "output, ";
+        Query += "outrec, ";
+        Query += "outbyte, ";
+        Query += "rowcnt, ";
+        Query += "dbname, ";
+        Query += "tbname, ";
+        Query += "elapseda, ";
+        Query += "elapsedr FROM ";
+        Query += DataBase;
+        Query += ".";
+        Query += TableName;
+        Query += "WHERE dateseq = ";
+        Query += LA.DateSeq;
+        Query += ";";
+        res = stmt->executeQuery(Query);
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3504;
+        abend = true;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void GetRes();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::GetRes()
+{
+
+    if (OnOneGetRes)
+    {
+        LogFile << "GetRes " << std::endl;
+        OnOneGetRes = false;
+    }
+
+// key / primary index
+//  LA.Date = res->getString("datecode");
+//  LA.Seq  = res->getString("dateseq");
+
+// replace values you don't have
+// with values you might have
+    if (LA.User == "")
+    {
+        LA.User = res->getString("usercode");
+    }
+
+    if (LA.Action == "")
+    {
+        LA.Action = res->getString("action");
+    }
+
+    if (LA.InputFile == "")
+    {
+        LA.InputFile = res->getString("input");
+    }
+
+    if (LA.Inputrecs == 0)
+    {
+        LA.Inputrecs = res->getInt("inrec");
+    }
+
+    if (LA.Inputbytes == 0)
+    {
+        LA.Inputbytes = res->getInt("inbyte");
+    }
+
+    if (LA.OutputFile == "")
+    {
+        LA.OutputFile = res->getString("output");
+    }
+
+    if (LA.Outputrecs == 0)
+    {
+        LA.Outputrecs = res->getInt("outrec");
+    }
+
+    if (LA.Outputbytes == 0)
+    {
+        LA.Outputbytes = res->getInt("outbyte");
+    }
+
+    if (LA.RowCnt == 0)
+    {
+        LA.RowCnt = res->getInt("rowcnt");
+    }
+
+    if (LA.DataBase == "")
+    {
+        LA.DataBase =res->getString("dbname");
+    }
+
+    if (LA.TableName == "")
+    {
+        LA.TableName = res->getString("tbname");
+    }
+
+    if (LA.ElapsedAct == 0)
+    {
+        LA.ElapsedAct = res->getInt("elapseda");
+    }
+
+    if (LA.ElapsedRes == 0)
+    {
+        LA.ElapsedRes = res->getInt("elapsedr");
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Update();
+```
+This is a 'standard' UPDATE. Don't try to combine the line of code. It will stop working. MySQL needs to see the variables to resolve the values. It can't if you bury them in a string. 
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Update()
+{
+
+    if (OnOneUpdate)
+    {
+        LogFile << "Update " << std::endl;
+        OnOneUpdate = false;
+    }
+
+    try
+    {
+        sql.str("");
+        sql << "UPDATE ";
+        sql << TableName;
+        sql << " SET ";
+        sql << ", usercode = ";
+        sql << LA.User;
+        sql << ", timecode = ";
+        sql << LA.Time;
+        sql << ", action = ";
+        sql << LA.Action;
+        sql << ", input = ";
+        sql << LA.InputFile;
+        sql << ", inrec = ";
+        sql << LA.Inputrecs;
+        sql << ", inbyte = ";
+        sql << LA.Inputbytes;
+        sql << ", output = ";
+        sql << LA.OutputFile;
+        sql << ", outrec = ";
+        sql << LA.Outputrecs;
+        sql << ", outbyte = ";
+        sql << LA.Outputbytes;
+        sql << ", rowcnt = ";
+        sql << LA.RowCnt;
+        sql << ", dbname = ";
+        sql << LA.DataBase;
+        sql << ", tbname = ";
+        sql << LA.TableName;
+        sql << ", elapseda = ";
+        sql << LA.ElapsedAct;
+        sql << ", elapsedr = ";
+        sql << LA.ElapsedRes;
+        sql << " WHERE dateseq = ";
+        sql <<LA.DateSeq;
+        sql << ";";
+        stmt->execute(sql.str());
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3508;
+        abend = true;
+    }
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Insert();
+```
+This is a 'standard' INSERT. 
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Insert()
+{
+
+    if (OnOneInsert)
+    {
+        LogFile << "Insert " << std::endl;
+        OnOneInsert = false;
+    }
+
+    try
+    {
+        sql.str("");
+        sql << "INSERT INTO ";
+        sql << TableName;
+        sql << " (dateseq, ";
+        sql << "usercode, ";
+        sql << "timecode, ";
+        sql << "action, ";
+        sql << "input, ";
+        sql << "inrec, ";
+        sql << "inbyte, ";
+        sql << "output, ";
+        sql << "outrec, ";
+        sql << "outbyte, ";
+        sql << "rowcnt, ";
+        sql << "dbname, ";
+        sql << "tbname, ";
+        sql << "elapseda, ";
+        sql << "elapsedr) VALUES (";
+        sql << "'" << LA.DateSeq << "', ";
+        sql << "'" << LA.User << "', ";
+        sql << "'" << LA.Time << "', ";
+        sql << "'" << LA.Action << "', ";
+        sql << "'" << LA.InputFile << "', ";
+        sql << LA.Inputrecs << ", ";
+        sql << LA.Inputbytes << ", ";
+        sql << "'" << LA.OutputFile << "', ";
+        sql << LA.Outputrecs << ", ";
+        sql << LA.Outputbytes << ", ";
+        sql << LA.RowCnt << ", ";
+        sql << "'" << LA.DataBase << "', ";
+        sql << "'" << LA.TableName << "', ";
+        sql << LA.ElapsedAct << ", ";
+        sql << LA.ElapsedRes << ")";
+        stmt->execute(sql.str());
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3508;
+        abend = true;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void InitLA();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::InitLA()
+{
+
+    if (OnOneInitLA)
+    {
+        LogFile << "InitLA " << std::endl;
+        OnOneInitLA = false;
+    }
+
+    LA.DateSeq = "";
+    LA.User = "";
+    LA.Time = "";
+    LA.Action = "";
+    LA.InputFile = "";
+    LA.Inputrecs = 0;
+    LA.Inputbytes = 0;
+    LA.OutputFile = "";
+    LA.Outputrecs = 0;
+    LA.Outputbytes = 0;
+    LA.RowCnt = 0;
+    LA.DataBase = "";
+    LA.TableName = "";
+    LA.ElapsedAct = 0;
+    LA.ElapsedRes = 0;
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Free();
+```
+
+implement in CLEditXETL.cpp 
+```
+void CLEditXETL::Free()
+{
+
+    LogFile << "Free " << std::endl;
+
+    Freecon();
+
+    Freestmt();
+
+    Freepstmt();
+
+    Freeres();
+
+    CloseLog();
+
+    CloseErr();
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Freecon();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Freecon()
+{
+
+    LogFile << "Free con " << std::endl;
+
+    try
+    {
+        delete con;
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3510;
+        abend = true;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Freestmt();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Freestmt()
+{
+
+    LogFile << "Free stmt " << std::endl;
+
+    try
+    {
+        delete stmt;
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3511;
+        abend = true;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Freepstmt();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Freepstmt()
+{
+
+    LogFile << "Free pstmt " << std::endl;
+
+    try
+    {
+        delete pstmt;
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3512;
+        abend = true;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void Freeres();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::Freeres()
+{
+
+    LogFile << "Free res " << std::endl;
+
+    try
+    {
+        delete res;
+    }
+    catch (sql::SQLException &e)
+    {
+        errorcode = e.getErrorCode();
+        what = e.what();
+        state = e.getSQLState();
+        Error();
+        abendi = 3513;
+        abend = true;
+    }
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void EoP();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::EoP()
+{
+
+    LogFile << "EoP " << std::endl;
+    LogFile << "Inserts " << InsertCnt << std::endl;
+    LogFile << "Updates " << UpdateCnt << std::endl;
+    LogFile << "File in Bytes " << fileibytecnt << std::endl;
+    LogFile << "File in Records " << fileireccnt << std::endl;
+
+    CloseFile();
+
+    CloseErr();
+
+    stop_s = std::clock();
+
+    LogFile << action << "elapsed time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << std::endl;
+
+    CloseLog();
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void CloseFile();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::CloseFile()
+{
+
+    LogFile << "CloseFile " << std::endl;
+
+    filei.close();
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void CloseLog();
+```
+
+implement in CLEditXETL.cpp 
+
+```
+void CLEditXETL::CloseLog()
+{
+
+    LogFile.close();
+
+}
+```
+
+declare in CLEditXETL.h
+private
+```
+	void CloseErr();
+```
+
+implement in CLEditXETL.cpp 
+```
+void CLEditXETL::CloseErr()
+{
+
+    ErrFile.close();
+
+}
+```
+
+
+
+**here**
+After the roll over of the Main log, this was the result. Remember, we make life as easy for us as we can. If you were trying to connect to an existing application you job would be harder. Since we are in development, we make things easy for us. We'll complete the meta data when we roll the other logs. The main log I consider the Action log, and the others, re actions. Makes sense to me.  
+**MySQL**
+pierre@pierre-OptiPlex-9020:~$ sudo mysql
+[sudo] password for pierre:  
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 45
+Server version: 8.0.40-0ubuntu0.22.04.1 (Ubuntu)
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+mysql> USE mydb
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+Database changed
+mysql> SELECT * FROM mydb.editxetl
+![alt text](Mysql1.png "Title")
 
 
 **here**

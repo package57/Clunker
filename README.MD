@@ -12085,6 +12085,11 @@ class CLEditXETL
         bool OnOneInsert;
         bool OnOneInitRecord;
         bool OnOneInitLA;
+        bool OnOneInBytes;
+        bool OnOneInRecords;
+        bool OnOneOutBytes;
+        bool OnOneOutRecords;
+        bool OnOneRows;
 
 // file functions
         void Init();
@@ -12128,6 +12133,7 @@ class CLEditXETL
         void FileInRecords();
         void FileOutBytes();
         void FileOutRecords();
+        void Rows(); 
 
         void InitRecord();
         void EoP();
@@ -13097,14 +13103,14 @@ void CLEditXETL::Gather()
 // LA.Outputbytes
     if (Word == "FileOutBytes")
     {
-        FileInBytes();
+        FileOutBytes();
         return;
     }
 // FileOutRecords 41
 // LA.Outputrecs
     if (Word == "FileOutRecords")
     {
-        FileInRecords();
+        FileOutRecords();
         return;
     }
 // Elapsed 14.376
@@ -13454,7 +13460,7 @@ void CLEditXETL::FileInBytes()
 // FileInBytes 0
 // 01234567891123456
 
-    Word = "";
+    Word = "0";
 
     for (i = 12; i < CodeStrl; i++)
     {
@@ -13493,7 +13499,7 @@ void CLEditXETL::FileInRecords()
 // FileInRecords 26
 // 01234567891123456
 
-    Word = "";
+    Word = "0";
 
     for (i = 14; i < CodeStrl; i++)
     {
@@ -13533,7 +13539,7 @@ void CLEditXETL::FileOutBytes()
 // FileOutBytes 337
 // 01234567891123456
 
-    Word = "";
+    Word = "0";
 
     for (i = 13; i < CodeStrl; i++)
     {
@@ -13573,7 +13579,7 @@ void CLEditXETL::FileOutRecords()
 // FileOutRecords 41
 // 01234567891123456
 
-    Word = "";
+    Word = "0";
 
     for (i = 15; i < CodeStrl; i++)
     {
@@ -13589,6 +13595,46 @@ void CLEditXETL::FileOutRecords()
     }
 
     LA.Outputrecs = std::stoi(Word);
+
+}
+```
+declare in CLEditXETL.h
+private
+```
+	void Rows();
+```
+
+Gather the number of rows from the rowcnt log record.
+implement in CLEditXETL.cpp 
+```
+void CLEditXETL::Rows()
+{
+
+    if (OnOneRows)
+    {
+        LogFile << "Rows " << std::endl;
+        OnOneRows = false;
+    }
+
+// RowCnt 1
+// 01234567891123456
+
+    Word = "0";
+
+    for (i = 7; i < CodeStrl; i++)
+    {
+        if  (CodeStr[i] == ' '
+        ||   CodeStr[i] == '\n')
+        {
+            break;
+        }
+        else
+        {
+            Word += CodeStr[i];
+        }
+    }
+
+    LA.Rowcnt = std::stoi(Word);
 
 }
 ```
@@ -13658,7 +13704,7 @@ private
 ```
 	void Select();
 ```
-This is a 'standard' SELECT WHERE. You get the idea. We need to gather all the meta data we might already have. We could create a row from the action or the reaction, since the log files roll over at different times. If we find the row, we'll update the mata data on it. Or create a new row.
+This is a 'standard' SELECT WHERE. You get the idea. We need to gather all the meta data we might already have. We could create a row from the action or the reaction, since the log files roll over at different times. If we find the row, we'll update the mata data on it. Or create a new row. The value of dateseq ties the action to the reaction and visa versa. 
 implement in CLEditXETL.cpp 
 
 ```
@@ -13806,7 +13852,7 @@ private
 ```
 	void Update();
 ```
-This is a 'standard' UPDATE. Don't try to combine the line of code. It will stop working. MySQL needs to see the variables to resolve the values. It can't if you bury them in a string. 
+This is a 'standard' UPDATE. Don't try to combine the lines of code. It will stop working. MySQL needs to 'see' the variables to resolve the values. It can't if you bury them in a string. 
 implement in CLEditXETL.cpp 
 
 ```
@@ -14210,30 +14256,52 @@ void CLEditXETL::CloseErr()
 }
 ```
 
-
-
-**here**
 After the roll over of the Main log, this was the result. Remember, we make life as easy for us as we can. If you were trying to connect to an existing application you job would be harder. Since we are in development, we make things easy for us. We'll complete the meta data when we roll the other logs. The main log I consider the Action log, and the others, re actions. Makes sense to me.  
 **MySQL**
-pierre@pierre-OptiPlex-9020:~$ sudo mysql
-[sudo] password for pierre:  
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 45
-Server version: 8.0.40-0ubuntu0.22.04.1 (Ubuntu)
-Copyright (c) 2000, 2024, Oracle and/or its affiliates.
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-mysql> USE mydb
-Reading table information for completion of table and column names
-You can turn off this feature to get a quicker startup with -A
-Database changed
-mysql> SELECT * FROM mydb.editxetl
-![alt text](Mysql1.png "Title")
+
+```
+$ sudo mysql
+mysql> USE mydb;
+mysql> SELECT * FROM mydb.editxetl;
+```
+
+![alt text](Mysql1.png "Actions")
+
+Here I've rolled the logs from CF and DB too. 
+
+![alt text](Mysql2.png "Reactions")
+
+Full disclosure. I decided to make some changes I thought made sense after all these days of testing. I added a flag 
+```
+bool Logging;
+```
+as public in all the classes and in Main. I added a file 
+```
+ std::fstream StatFile;
+```
+in all the classes and Main. The errors will go in the Error File like normal. The StatFile will be used to gather statistics from all the actions and reactions. The log file will only be populated when asked for in Main and two new commands; logon and logoff. This value will be passed to the reaction classes.
+implemented in OnApplyClicked()
+
+```
+    if (PrimaryCommand == "LogOn")
+    {
+        Logging = true;
+    }
+
+    if (PrimaryCommand == "LogOff")
+    {
+        Logging = false;
+    }
+```
+So I also decided that XETL will suffice for the project for capturing statistics. There are not too many colums in the editxetl table and the likely hood of new functions is low. We really need to learn more important things. The reporting can be handled by tools like MySQL. How about another challange? What if instead of gathering statistics into a table, what if we wanted to, or had to, do that using a file? I mention 'have to', because sometimes you have to do certain things. What if you are processing a customers data and it's not to your liking? You could always ask the customer to do it. It's not an unrealistic ask. They have a computer deptartment and their own programmers. What if they say "no". Are you going to argue with a client? The reality of life is that if the customer can get you to program for them, for free, they will insist on it. So now your processing data from all sorts of clients but some of them are smarter in a certain way. If they make the changes on their end, they have to pay for the development and testing, plus risk a failed implementation. So they push it on to you! 
+
+Here is what we'll do. We'll change XETL to output a flat file with statistics records, and we'll make RP produce a couple of reports from that file. It will be so much fun I promise you'll never want to do it again and you'll use a tool instead. But we will learn. I promise. 
 
 
 **here**
+
+
+
 **#playtime#**
 
 ```
@@ -14241,6 +14309,21 @@ mysql> SELECT * FROM mydb.editxetl
    
    // executes the UNIX command ls -l 
    // ouput to test.txt
+```
+**Beep**
+get the computer to speak
+
+```
+#include <iostream>
+using namespace std;
+int main()
+{
+// speak a string
+    system("espeak-ng -ven-us -g 8 \"Lily likes to be silly \" ");
+// speak a file
+    system("espeak-ng -ven-us -g 8 -f booboo.txt ");
+    return 0;
+}
 ```
 
 

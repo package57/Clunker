@@ -14283,12 +14283,12 @@ in all the classes and Main. The errors will go in the Error File like normal. T
 implemented in OnApplyClicked()
 
 ```
-    if (PrimaryCommand == "LogOn")
+    if (PrimaryCommand == "logon")
     {
         Logging = true;
     }
 
-    if (PrimaryCommand == "LogOff")
+    if (PrimaryCommand == "logoff")
     {
         Logging = false;
     }

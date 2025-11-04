@@ -880,9 +880,10 @@ wxPanel * Panel = new wxPanel(this);
       
 **Step three** add a place where the user can enter a command, called Command. 
 	
-You can call it anything you’d like.  And set the length of that field to 200 pixels using the SetMaxLength() method of the wxTextCtrl object type.  The note on “point” l-r is left to right or X axis, the second point is top to bottom or Y axis. Size is width and height in pixels. 
-
-    Command = new wxTextCtrl(Panel
+You can call it anything you’d like.  And set the length of that field to 200 pixels using the SetMaxLength() method of the wxTextCtrl object type.  The note on “point” l-r is left to right or X axis, the second point is top to bottom or Y axis. Size is width and height in pixels.  
+ 
+```
+   Command = new wxTextCtrl(Panel
                              ,wxID_ANY
                              ,"enter command here"
                              ,wxPoint(1,1)      // l-r,t-b
@@ -891,9 +892,11 @@ You can call it anything you’d like.  And set the length of that field to 200 
                             );
 
 	Command->SetMaxLength(200);
+```
 
 **Step four** add a button named Apply. It will say “Apply” on the face.
 
+```
     Apply = new wxButton(Panel
                          ,wxID_ANY
                          ,"Apply"
@@ -902,9 +905,12 @@ You can call it anything you’d like.  And set the length of that field to 200 
                          ,wxBORDER_NONE
                         );
  
-  
+```
+ 
+
 **Step five** add 50 lines where the user can enter line commands and lines of text, each in a different Y position.
  
+```
     int ypos = 20;
     for (int u = 0; u < 50; u++)
     {
@@ -923,6 +929,8 @@ You can call it anything you’d like.  And set the length of that field to 200 
         CL[u].Code->SetMaxLength(200);
         ypos += 20;
     }
+```
+
 
 I need to elaborate here on a couple of things. First let’s tackle the syntax. Wx parts accept many complex arguments. I put them on separate lines, so that I can change them, add to them or delete them without risking affecting the other line of code, and also so I can read it. You don’t have to do that. That’s what I do with 40 years of experience behind that choice. I'm not that smart.
 
@@ -1047,8 +1055,12 @@ class CLEditFrame : public wxFrame
 
 In CLEditMain.cpp remove the local scope int declares. I’ll be using local scope declaration one time in this project because, otherwise I get an undesirable result. 
 
+
+```
     ypos = 20;
     for (u = 0; u < 50; u++)	
+```
+
  
 Let’s make some more moves now. What’s the next thing? Well, now that we have a window, a frame a panel and a few controls, let’s have a fire side chat about connecting our program to the GUI. At this point you can enter commands, type in line commands and text, press a button even. But nothing will happen. The window opened, the button changed shades when you press it. This means wxWdgets is ‘in the house’. It’s performing a send/receive loop! All you can do is run or stop the application. So far all we’ve done is create an interface, now we need to connect, or 'bind' in wxWidget terms our GUI to our application. I’ll call that a connection. Ok?
 	
@@ -1122,6 +1134,8 @@ Tasks rarely remain simple. Keep them simple. If you want, code CLEdit without a
 	
 Make  CLEditFrame::CLEditFrame() in file CLEditMain.cpp look like this:
 
+
+```
     LogFile.open("CLEditLog.txt", std::ios::out);  //add this
     ErrFile.open("CLEditErr.txt", std::ios::out);  //add this
 
@@ -1136,6 +1150,7 @@ Make  CLEditFrame::CLEditFrame() in file CLEditMain.cpp look like this:
         ReturnMessage = " Create Controls failure";
         OnTerminal();
     } 
+```
 
 Any program worth running will create both a log file and an error file. We are not using “cerr” or “clog” because we want our stuff separate and easy to find.  I recall back in the university days, my first week in Introduction to Computer
 Science. It was 1976. I didn't even know what a computer was. Using Fortran to learn. Fortran put a man on the moon. Anyway, I was quite certain my code should work, but as much as I tried to impose my will on the code, it didn’t work. I walked up to my professor, Mr Cooper, and tried to convince him that my creation was a work of art and should work as I intended but didn’t. He looked straight into my eyes and said 'right as you are, you are flying blind'. Then he walked away, we never spoke again. I went back to my room, dejected. I had no idea what he was talking about. I had to think for a long time to realize, we’re exactly the same. When we speak, we assume that the people know what we’re talking about and sometimes we leave out important parts! What Mr Cooper was trying to tell me was, yes, I know, your creation is amazing, but, do you know what it did? What did it try to do? What could it not do? When your TV has power, a little red light shows up. That little red light tells you that the TV has power. It is feedback to you. It has nothing to do with what the TV does. All programs need little red lights, we can call them log files. We also need error files, for when things go badly, we need to know when, where,why and hopefully how to fix the issue. Maybe even send the file to someone as a text message so they can get to work on the issue asap. I worked like that for 40 years. Remember, 'to err is human, to really foul things up requires a computer!'. Your car is loaded with computers and ‘red lights’, it runs a program called CANBUS and has a port for collecting the error log. Heck, my 22’ Dodge Charge eMails me my tire pressure every month. How does it do that? Computers and ‘the internet of things’ aka IoT. I’m pretty sure there are no elves in my driveway taking pressure readings. All proper operating systems create log files, otherwise, you’d have no idea what is going on. The system log of a mainframe would blow your mind.
@@ -1170,6 +1185,7 @@ void CLEditFrame::Initialize()  // implemented in Main.cpp
 Make  OnTerminal in file CLEditMain.cpp look like this:
 
 **void OnTerminal();**	// declared in functions.h 
+
 ```
 void CLEditFrame::OnTerminal()	// implemented in Main.cpp 
 {
@@ -1180,7 +1196,9 @@ void CLEditFrame::OnTerminal()	// implemented in Main.cpp
 
 }
 ```
+
 Add the return variables to variables.h 
+
 ```
 // variables
 // characters
@@ -1195,24 +1213,20 @@ Add the return variables to variables.h
 // boolian
         bool Return;         // return code
 ```
-And add the functions to functions.h
-```
-// functions are repeatable reusable pieces of useful code
-// Logic
-        void OnTerminal();
-        void CreateControls();
-// basics
-        void Initialize();
-```
+
+And add the 
 Create a file called objects.h with 
+
 ```
 // logging and error messages
         std::fstream LogFile;
         std::fstream ErrFile;
 ```
-And include the fstream library it in CLEditMain.h. Yes I know I said we won’t 
-```
+
+And include the fstream library it in CLEditMain.h. Yes I know I said we won’t
 use file streams but just this once. 
+
+``` 
 // the purpose of this file is . . .
 #include <wx/wx.h>
 #include <fstream>
@@ -1233,12 +1247,15 @@ class CLEditFrame : public wxFrame
 
 };
 ```
-You’ll develop a rhythm! Repetition is king.  Our little editor is becoming a work of art! A thing of beauty as I like to say. Lets run it and look into the log and error files shall we. We’ll type some stuff, press the button and then exit.
+
+You’ll develop a rhythm! Repetition is king. Our little editor is becoming a work of art! A thing of beauty as I like to say. Lets run it and look into the log and error files shall we. We’ll type some stuff, press the button and then exit.
 The log file says:
+
 ```
 Create Controls 
 Initialize 
 ```
+
 We love that!
 The error file says, nothing. We prefer that.
 
@@ -1302,7 +1319,7 @@ So, let’s talk. We want to be able to respond to commands. We need to capture 
 
 The next level is everything else on the screen that might have changed because the User typed something. This is the Main Process. Our side of the send / receive loop. 
 
-User text input has two parts: The length or number of characters they entered and the value entered. The way we get those properties is by using wxWidget methods that are built for us. 
+User text input in wxWidgets has two parts: The length or number of characters they entered and the value entered. The way we get those properties is by using wxWidget methods that are built for us. 
 
 OnApplyClicked()  will start out like this:
 
@@ -1330,6 +1347,7 @@ Add to variables.h.
 ```
 
 Compile and Run the program, enter a word, I entered “thisisabigword”, pressed Apply and then looked at the log file. Rinse and repeat. I’m not suggesting you log everything happening, I’m warning you strongly against not doing so.  Logging is an excellent source of ‘proof’ that you’re exercising all your functions, regardless of if they actually work. That’s what we call debugging. Bugs are undesirable features, we like to say. Proof of accurate, meaningful, relevent testing will preserve your behind, lack of proof, well, not so much. It’s a science. They are even called Testing Engineers. I test all my code, line by line without exception, and I still make mistakes. I remember them all.
+
 ```
 Create Controls 
 Initialize 
@@ -1361,14 +1379,14 @@ void CLEditFrame::OnApplyClicked(wxCommandEvent & event) // implemented in Main.
        
 MainProcess:
 
-    ProcessScreen();     // this is the receive – process all the 							user data and act on it
-    LoadScreen();        // this is the send – then send back the 							data
+    ProcessScreen();  // this is the receive – process all the user data and act on it
+    LoadScreen();     // this is the send – then send back the data
 
 ExitOnApplyClicked: 
 	
     Command->Clear();    // wipe out the command on the screen 
 
-    Command->SetFocus();    // place the cursor within the command 							 line on the screen
+    Command->SetFocus();    // place the cursor within the command line on the screen
 
 }
 ```
@@ -1379,13 +1397,16 @@ What I’ve tried to convey here in code is that some commands require more or l
 But first, I always say that. What I mean to say is let’s get the wxWidgets stuff out of the way first so we can move on with our busy lives. Let’s complete another connection! A keyboard connection. Our GUI friend wxWidgets has a feature called an event table. It’s a macro. 
 
 Add to Main.h 
+
 ```
     private:
 
            wxDECLARE_EVENT_TABLE();
 
 ```
+
 Add to Main.cpp 
+
 ```
 using namespace std;
 
@@ -1395,13 +1416,16 @@ wxEND_EVENT_TABLE()
 
 CLEditFrame::CLEditFrame(const wxString & title)      
 ```
+
 Add to CreateControls()
+
 ```
 	 wxPanel * Panel = new wxPanel(this);
 
       Panel->Bind(wxEVT_CHAR_HOOK, & CLEditFrame::OnKeyDown, this); 
 
 ```
+
 Add to functions.h 
 
 ```
@@ -1414,6 +1438,7 @@ Add to functions.h
 ```
 
 In Main.cpp add the three functions, we’ll put meat on the bones soon, I promise.
+
 **void OnKeyDown(wxKeyEvent & event);** // declared in functions.h 
 
 ```
@@ -1438,7 +1463,9 @@ void CLEditFrame::OnKeyDown(wxKeyEvent & event) // implemented in Main.cpp
 
 }
 ```
+
 **void ProcessScreen();** // declared in functions.h 
+
 ```
 void CLEditFrame::ProcessScreen() // implemented in Main.cpp
 {
@@ -1447,6 +1474,7 @@ void CLEditFrame::ProcessScreen() // implemented in Main.cpp
     
 }
 ```
+
 **void LoadScreen();** // declared in functions.h 
 
 ```
@@ -1480,7 +1508,9 @@ Let’s explore the function ProcessScreen(). ProcessScreen() means capture all 
 
 In some languages this is all done for you with a simple command like ‘receive’ or ‘get’. In C++ we get the privilege of using code to accomplish what we want. Byte by Byte. So lucky we are.
  
-**void ProcessScreen();** // declared in functions.h```
+**void ProcessScreen();** // declared in functions.h
+
+```
 void CLEditFrame::ProcessScreen() // implemented in Main.cpp
 {
 
@@ -1494,6 +1524,8 @@ void CLEditFrame::ProcessScreen() // implemented in Main.cpp
 //         * * * MORE BELOW
 
 }
+```
+
 Add to functions.h 
 
 ```
@@ -1527,6 +1559,7 @@ Add to trackers.h
 ReadScreen() means capture everything from the 50 line of user input. Note we are initializing that 50 element array.  Before we capture any data, be sure to make proper space to get clean data. So we’ll “initialize” our array. Notice that ‘input’ from the User, from a text control is in two parts, a length and a value. That length is not only handy, it’s essential.
 
 **void ReadScreen();**	// declared in functions.h
+
 ```
 void CLEditFrame::ReadScreen()	// implemented in Main.cpp
 {
@@ -1563,7 +1596,9 @@ void CLEditFrame::ReadScreen()	// implemented in Main.cpp
     }    
 }
 ```
+
 Reviewing the code for new things, GetLineText returns a string, the text entered by the User. The 'if', a condition, asking if we 'haveafile', in the negative '!'  is meaningful to the process. If we opend a file we’d load it and have a wfilecnt. We need that counter. I coded a negative because otherwise I’d have to do this:
+
 ```
 	if (haveaFile)
 	{
@@ -1575,9 +1610,11 @@ Reviewing the code for new things, GetLineText returns a string, the text entere
 		wfilecnt++;    // off by one eh
 	}  
 ```
+
 There is no “do nothing” command in C++, and adding something like byte = ‘ ‘;  instead is naughty. Just some pointless instruction that does nothing but cause confusion.
 
 Look at this logic closely. It has a secret. Most mere mortals would code this.
+
 ```
 	for (i = 0; i < 50; i++)
 	{  
@@ -1587,9 +1624,11 @@ Look at this logic closely. It has a secret. Most mere mortals would code this.
     		Input[i].Codestr = ""; 
 	}	  
 ```
+
 That is 50 x 4 assignments or 200. The code below is 50 + 4 or 54. Remember that. It makes huge difference in performance. See my example InitializeArrays to learn and appreciate even more.
 
 You can do this ‘trick’ in Fortran, C, COBOL etc, do not try that in C# it won’t work. What it does is beyond weird. C# 'does not use pointers'. Ya right. If you do this 'Input[i] = Input[0];' in C#, what it does is make Input[i] point to Input[0]. What does that look like, well when you change Input[0], it changes everywhere in the array! I’ve proved it. I wrote a paper on it and sent it to Microsoft, 15 years ago. I know a thing or two.
+
 **void InitUser();** 	// declared in functions.h
 
 ```
@@ -1624,9 +1663,11 @@ void CLEditFrame::InitUser()	// implemented in Main.cpp
 
 }
 ```
+
 Reading through the logic we see, a simple way to prevent logging WhatCommand 50 times! It’s a cheat way of saying ‘on one’ or ‘first time’.   Make the line command uppercase and only look at the first two characters, because this is all we want. The User will learn quick enough. For now.
 
 **void WhatCommand();** // declared in functions.h
+
 ```
 void CLEditFrame::WhatCommand()	// implemented in Main.cpp
 {
@@ -1652,9 +1693,11 @@ void CLEditFrame::WhatCommand()	// implemented in Main.cpp
 
 }
 ```
+
 Having identified the User entered an 'A', capture it and count it. Could you combine WhatCommandA() into the condition statement that identified the 'a', yes, but this is only because an 'a' is not big deal. You need to capture it and count them. You’ll see that this is not the case for all the line commands. One day, we might want to make WhatCommandA() more complicated. Remember the thought process. When I created WhatCommand(), I just repeated the pattern, identify the letter, create a function that will be implemented to do the needful on each. The needful depends on the letter.  The needful can and will change to be more complex, never the other way.
 
 **void WhatCommandA();** // declared in functions.h
+
 ```
 void CLEditFrame::WhatCommandA() 	// implemented in Main.cpp
 {
@@ -1671,6 +1714,7 @@ void CLEditFrame::WhatCommandA() 	// implemented in Main.cpp
 Functions like toupper() are very handy. I mean, you can imagine if you had to code that? It would be 26 conditions and assignments. Just use the function. It’s open source.
  
 Ok, lots to see, and think about. You should be getting the idea that we’re going to add a “WhatCommand()” the elaborates every command we care about. For now, lets do the compile, run and look at the log. I ran it and entered an A and pressed enter. This is what I got. Good.
+
 ```
 Create Controls 
 Initialize 
@@ -1686,6 +1730,7 @@ Load Screen
 **Part two:** ProcessScreen(), did anything change? 
 	
 Changes in data, affect logic applied to that data. We add a new function LookForChanges(). I hope that is a clear enough name. 
+
 ```
 void CLEditFrame::ProcessScreen()
 {
@@ -1704,6 +1749,7 @@ void CLEditFrame::ProcessScreen()
 We compare what we received with what we already have. Think about the relationship between the 50 lines on the screen and the potential 25,000 line of code as a stack of 50 punch cards versus a stack of 25,000 punch cards. Or sheets of paper, or playing cards. The index 'u' points to the user line/code and index 'i' points to the whole stack of them. We use the ‘master’ index 'frstl' to tell us which card in the stack is the same card as in the beginning of the user stack. And of course, we cannot forget that the card number versus the array index is off by 1, so we set 'i' to (frstl - 1). Note, we’re concerned with the text changing, not the line command, we treat that elsewhere. If we see one change, that’s enough, stop looking. Don’t forget to add LookForChanges() in the functions header, functions.h.        
 
 **void LookForChanges();** // declared in functions.h
+
 ```
 void CLEditFrame::LookForChanges() 	// implemented in Main.cpp
 {
@@ -1731,9 +1777,12 @@ void CLEditFrame::LookForChanges() 	// implemented in Main.cpp
 
 }
 ```
+
 Here is a thought experiment for you. That code is bad. We need to know if anything changes, and stop looking if it has. But this logic is turning the flag ‘changes’ on and off. We need to check for something, 
 ```
+
 if (winputfile[i].wIFCode == Input[u].Codestr)
+
 ```
 
 then iterate the array 
@@ -1774,6 +1823,7 @@ and it would...break! What?!
 It would break because the return exits dothis() and not LookForChanges(). It would loop 50 times. And as a bonus, you might not ever notice there is a change, unless it is on the last line! Who said programming was easy? The best hidden bug I’ve ever seen occurred when the program ran past midnight, on the last day of the month! As the program was running the date changed. Try to reproduce that!
 
 Here is a safer clearer better way to code this, even though it uses a 'not equal'. The condition now says exactly what we want to know. Just be careful with the return, it exits the function. It is not a ‘continue’. Meaning, if you put code after the 'for' loop, it wont ever execute. And C++ will not tell you. C++ is funny. 
+
 ```
    for (u = 0; u < 50; u++)
     {
@@ -1811,6 +1861,7 @@ void CLEditFrame::ProcessScreen()
     }
 //         * * * MORE BELOW
 ```
+
 But Pierre, I could have coded LookForChanges inside this loop! Yes. You could have, and it would look ugly, and more importantly, do the highest evil of combining two units of work into one. Never in my life have I ever seen an instance where modifying a unit of work, that didn’t adversely effect the other unit of work. I have seen many, many people lose their jobs due to this. Keep you stuff separate. Be Kosher! 
 
 This part means take everything entered, all the User “cards” and replace them in the file stack. This has no bearing on LookForChanges(), and visa versa, and neither will ever have to change. Each does it’s thing. The compiler does not give a hoot how many 'lines of code' you have, but when you look at a tangled mess, we used to call that 'spaghetti code' in the good old days, and it’s 2am and you just got back from a party, and there’s a missing penny on a report, your head will explode. Yes, you’ll spend 100’s of hours looking for a missing penny, if you choose programming as a career. It’s not the penny, it’s the fact that it’s missing. Extra pennies are even worse. Or imagine the SpaceX rocket is off course by 1/1000 of a degree! Keep it clean, simple. It will try to get messy and we will resist! 
@@ -1850,6 +1901,7 @@ void CLEditFrame::ProcessScreen()
 InitIF() is implemented as follows, using our array “trick”. InitIF is used in 6 places.
 
 **void InitIF();** // declared in functions.h
+
 ```
 void CLEditFrame::InitIF()	// implemented in Main.cpp
 {
@@ -1977,6 +2029,7 @@ Add to variables.h
 ```
 
 Add to Main.h
+
 ```
 		#include "structures.h"
 ```
@@ -2045,6 +2098,7 @@ Add to structures.h
 Add to CLEditMain.cpp
 
 **void LookForChanges();** 	// declared in functions.h
+
 ```
 void CLEditFrame::LookForChanges()	// implemented in Main.cpp
 {
@@ -2072,6 +2126,7 @@ void CLEditFrame::LookForChanges()	// implemented in Main.cpp
 Standard array initialization of the input file, or current stack of cards.
 
 **void InitIF();**	// declared in functions.h
+
 ```
 void CLEditFrame::InitIF()	// implemented in Main.cpp
 {
@@ -2095,6 +2150,7 @@ void CLEditFrame::InitIF()	// implemented in Main.cpp
 This is where most of the work is done. 
 
 **void ApplyChanges();**	// declared in functions.h
+
 ```
 void CLEditFrame::ApplyChanges()	// implemented in Main.cpp
 {
@@ -2109,6 +2165,7 @@ void CLEditFrame::ApplyChanges()	// implemented in Main.cpp
 Standard initialization of the change trackers, counters etc. 
 
 **void InitCTrackers();**	// declared in functions.h
+
 ```
 void CLEditFrame::InitCTrackers()    // implemented in Main.cpp
 {
@@ -2194,6 +2251,7 @@ void CLEditFrame::InitCTrackers()    // implemented in Main.cpp
 Standard array initialization of the place we capture a block of lines to be Copied, it’s trackers and counters. 
 
 **void InitCC();**	// declared in functions.h
+
 ```
 void CLEditFrame::InitCC()	// implemented in Main.cpp
 {
@@ -2220,6 +2278,7 @@ void CLEditFrame::InitCC()	// implemented in Main.cpp
 Standard array initialization of the place we capture a block of lines to be Moved, it’s trackers and counters. 
 
 **void InitMM();**	// declared in functions.h
+
 ```
 void CLEditFrame::InitMM()	// implemented in Main.cpp
 {
@@ -2245,6 +2304,7 @@ void CLEditFrame::InitMM()	// implemented in Main.cpp
 Standard array initialization of the place we capture a block of lines to be Overlayed, it’s trackers and counters. 
 
 **void InitOO();**	// declared in functions.h
+
 ```
 void CLEditFrame::InitOO()	// implemented in Main.cpp
 {
@@ -2269,7 +2329,8 @@ void CLEditFrame::InitOO()	// implemented in Main.cpp
 
 Standard array initialization of the place we capture a block of lines to be Repeated, it’s trackers and counters. 
 
-**void InitRR();**	// declared in functions.h
+**void InitRR();** 	// declared in functions.h
+
 ```
 void CLEditFrame::InitRR()	// implemented in Main.cpp
 {
@@ -2333,6 +2394,7 @@ Add to functions.h
 Here’s the complete WhatCommand(). Very clunky, but you’ll see very easy to code with CLEdit! We identify an action and capture it, count it and other things if needed.
 
 **void WhatCommand();**	// declared in functions.h
+
 ```
 void CLEditFrame::WhatCommand() 	// implemented in Main.cpp
 {
@@ -2408,6 +2470,7 @@ If you notice I wrote the return on the same line. Silly I know. What you should
 A “before” is a location command, like, put this before this line. A single character. Have you ever used a mouse to put a folder before or after another?  Right.
 
 **void WhatCommandB();**	// declared in functions.h
+
 ```
 void CLEditFrame::WhatCommandB()    // implemented in Main.cpp
 {
@@ -2425,6 +2488,7 @@ A 'C' is a copy command, copy a single line. Or 'CC', in pairs, copy a block of 
 We cannot look for data where it isn’t. If the length, number of characters, entered by the User is only 1, we can’t look for the second character. The program will crash. So we check the length first. 
 
 **void WhatCommandCC();**	// declared in functions.h
+
 ```
 void CLEditFrame::WhatCommandCC()	// implemented in Main.cpp
 {
@@ -2452,6 +2516,7 @@ void CLEditFrame::WhatCommandCC()	// implemented in Main.cpp
 A 'D' is a delete command, delete a single line. Or 'DD', in pairs, delete a block of lines. This does not need locations. There are no exceptions.  A block delete does not require us to capture the data.  This action will decrease the size of the file.
 
 **void WhatCommandDD();**	// declared in functions.h
+
 ```
 void CLEditFrame::WhatCommandDD()	// implemented in Main.cpp
 {
@@ -2477,6 +2542,7 @@ void CLEditFrame::WhatCommandDD()	// implemented in Main.cpp
 A 'M' is a move command, move a single line. Or 'MM', in pairs, move a block of lines. This will need locations. There are no exceptions.  A block Move will require us to capture the data.  This action will not change the size of the file. 
 
 **void WhatCommandMM();**	// declared in functions.h
+
 ```
 void CLEditFrame::WhatCommandMM()	// implemented in Main.cpp
 {
@@ -2504,6 +2570,7 @@ void CLEditFrame::WhatCommandMM()	// implemented in Main.cpp
 A 'O' is a Overlay command, overlay a single line. Or 'OO', in pairs, overlay a block of lines. This does not need locations, it needs an equal number of block Move lines. There are no exceptions. A block Overlay requires us to capture both the data Moved and the data Overlaid. This action will decrease the size of the file. You’re probably wonder what Overlay does and why you’d need that. Often, in programming you’ll perform an assignment. An assignment is usually something on the left and something on the right. Also, lots of times the value assigned is the same. So what a block Move Overlay does is merge a block of lines one Moved over the other, where there is space in the line being overlaid. I’ll show you.
 
 **void WhatCommandOO();**	// declared in functions.h
+
 ```
 void CLEditFrame::WhatCommandOO()	// implemented in Main.cpp
 {
@@ -2530,6 +2597,7 @@ void CLEditFrame::WhatCommandOO()	// implemented in Main.cpp
 A 'R' is a Repeat command, repeat a single line. Or 'RR', in pairs, overlay a block of lines. This does not need locations.  There are no exceptions.  A block Repeat requires us to capture the data to be repeated.  This action will increase the size of the file.
 
 **void WhatCommandRR();**	// declared in functions.h
+
 ```
 void CLEditFrame::WhatCommandRR()	// implemented in Main.cpp
 {
@@ -2557,6 +2625,7 @@ void CLEditFrame::WhatCommandRR()	// implemented in Main.cpp
 A '>' is a Shift Right, shift a single line right. Or '>>', in pairs, shift a block of lines right. This does not need locations.  No exceptions.  A block shift does not require us to capture the data to be shifted.  This action will have no impact to the size of the file.
 
 **void WhatCommandSR();**	// declared in functions.h
+
 ```
 void CLEditFrame::WhatCommandSR()	// implemented in Main.cpp
 {
@@ -2585,6 +2654,7 @@ void CLEditFrame::WhatCommandSR()	// implemented in Main.cpp
 A '<' is a Shift Left, shift a single line left. Or '<<', in pairs, shift a block of lines left. This does not need locations.  No exceptions.  A block shift does not require us to capture the data to be shifted.  This action will have no impact to the size of the file.
 
 **void WhatCommandSL();**	// declared in functions.h
+
 ```
 void CLEditFrame::WhatCommandSL()	// implemented in Main.cpp
 {
@@ -2613,6 +2683,7 @@ void CLEditFrame::WhatCommandSL()	// implemented in Main.cpp
 A 'I' is Insert, inserte a single line. No pairs. This does not need locations.  No exceptions. No data to capture.This action will increase the size of the file.
 
 **void whatCommandI();**	// declared in functions.h
+
 ```
 void CLEditFrame::WhatCommandI()	// implemented in Main.cpp
 {
@@ -2626,6 +2697,7 @@ void CLEditFrame::WhatCommandI()	// implemented in Main.cpp
 ```
 
 Lets compile and run, enter some commands, press enter, exit eh app and look at the log.
+
 ```
 Create Controls 
 Initialize 
@@ -2684,6 +2756,7 @@ std::string prettystr;   // result string from STD::OSTRINGSTREAM::SETW
 The complicated part of LoadScreen() is, what is the first line?  We’re not interested in seeing 'focus line' in the log 50 times. We could have used the ‘on one’ trick. How would we do that?
 
 **void LoadScreen();**	// declared in functions.h
+
 ```
 void CLEditFrame::LoadScreen()	// implemented in Main.cpp
 {
@@ -2705,6 +2778,7 @@ void CLEditFrame::LoadScreen()	// implemented in Main.cpp
 We’d like a pretty, legacy looking line command area. Nostalgia. 
 
 **void FocusLine();**	// declared in functions.h
+
 ```
 void CLEditFrame::FocusLine()	// implemented in Main.cpp
 {
@@ -2722,9 +2796,11 @@ void CLEditFrame::FocusLine()	// implemented in Main.cpp
 
 }   
 ```
+
 This function is the only place where I code a local declaration. The type ‘ostringstream’ once declared, acts like a big rain barrel, accumulating everything you put in it for life. We don’t want that. We only want to see one action '<<setfill('0')<<setw(6)<<prettyint' at a time. So we need to, essentially, declare 'os' every time we need it. You’re probably thinking, wait, we’re performing ToString() 50 times, why doesn’t that create 50 of 'os' variables? The answer is, scope. You declared ToString(). You implemented ToString(). To C++ every time you say ToString() it thinks, oh ok do the ToString stuff. As if it never did it before. And each time it will create a new 'os'. And it will live until the ToString() ends, at the '}'. Scope? Correct, the ‘u’ in the declare of ToString and the ‘u’ passed to ToString when we code ToString(u), are not the same ‘u’. They are different, you can prove that by looking at the address of each. If we wanted to use the same ‘u’, we have to use a reference. C++ is funny. I like it as is.
 
 **std::string ToString(int u);**	// declared in functions.h
+
 ```
 std::string CLEditFrame::ToString(int u)	// implemented in Main.cpp
 {
@@ -2752,6 +2828,7 @@ Add to functions.h
 ```
 
 Add to variables.h
+
 ```
         		int page;           // page number
         		int ofpage;         // number of pages
@@ -2762,6 +2839,7 @@ Add to variables.h
 
 Float? Ever wonder how to create a variable that can support fractions? The type is 'float'. Now, the first thing is that is you mix float and int, you only get int. In other words, if you divide an int by an int and assign that ‘fraction’ to a float, you get an int. example  float = int / int; will return the non fractional part, the whole number. Nice and frustrating. The ‘/’ operator is a divide. A ‘*’ is a multiply operator, we have yet to use one. Note if you divide by zero you will not get 'infinity', you program will crash! Some compilers will ding you if you try to divide without checking for a zero first. 
 Example
+
 ```
 		if (y != 0)
 		{
@@ -2773,6 +2851,7 @@ Example
 Here is what the Page of Page logic might look like. Conceptually, we have 50 lines per screen, 50 cards from our stack. So let’s dig in. This exemplifies my favorite style. Write a comment of intent, write the line(s) of code to accomplish the task.
 
 **void PageofPage();** 	// declared in function.h
+
 ```
 void CLEditFrame::PageofPage() 	// implemented in Main.cpp
 {
@@ -2808,6 +2887,7 @@ void CLEditFrame::PageofPage() 	// implemented in Main.cpp
 Ya, you caught me, I’m doing a subtraction ‘-’ inside a conditional statement. Let’s fix that. I can do it ‘ugly’ too.  example 'a = a – b;' or in C++ talk 'a -= b;'.
 
 **void PageofPage();** 	// declared in function.h
+
 ```
 void CLEditFrame::PageofPage()		// implemented in Main.cpp
 {
@@ -3032,7 +3112,7 @@ I improved End/Bottom
     wxLogStatus(PrimaryCommand + " applied Page " + std::to_string(page) + " of " + std::to_string(ofpage));
 ```
 
-Have you noticed that I am applying continuous improvement to the code. Do that whenever you can. Get used to 'code reviews' and 'gentle improvement suggestions'. They thicken your hide.   
+Have you noticed that I am applying 'continuous improvement' to the code. Do that whenever you can. Get used to 'code reviews' and 'gentle improvement suggestions'. They thicken your hide.   
 	  
 Back to work. Lets compile and run, enter some commands, in lower case, press enter, you’ll see that your commands are in upper case, preserved, and the other lines have pretty numbers. By 5, more nostalgia. 
 
@@ -3050,6 +3130,7 @@ Add to functions.h
 ```
 
 **void ApplyChanges();**	// declared in functions.h
+
 ```
 void CLEditFrame::ApplyChanges()	// implemented in Main.cpp
 {
@@ -3113,6 +3194,7 @@ void CLEditFrame::ApplyChanges()	// implemented in Main.cpp
 Look For Changes and do some preliminary logic checks. Save time and energy. This is pure grunt work folks. Wee need to look for and identify instance of line command and block commands, but not capture anything yet. Don’t get ahead of ourselves.
 
 Add to functions.h 
+
 ```
         void LookForLCCC();
         void LookForLCDD();
@@ -3122,7 +3204,9 @@ Add to functions.h
         void LookForLCSR();
         void LookForLCSL();
 ```
+
 **void LookForLC();**	//  declared in functions.h
+
 ```
 void CLEditFrame::LookForLC()	// implemented in Main.cpp
 {
@@ -3189,10 +3273,13 @@ void CLEditFrame::LookForLC()	// implemented in Main.cpp
 Look for block Copy line commands and check if the request makes sense. We don’t allow multiple blocks, or incomplete pairs.  
 
 Add to functions.h
+
 ```
 	void LookForCC();
 ```
+
 **void LookForLCCC();**	// declared in functions.h
+
 ```  
 void CLEditFrame::LookForLCCC()	// implemented in Main.cpp
 {
@@ -3223,7 +3310,9 @@ void CLEditFrame::LookForLCCC()	// implemented in Main.cpp
 
 }
 ```
+
 **void LookForCC();**	// declared in functions.h
+
 ```
 void CLEditFrame::LookForCC()	// implemented in Main.cpp
 {
@@ -3242,10 +3331,13 @@ void CLEditFrame::LookForCC()	// implemented in Main.cpp
 Look for block Delete commands and check if the request makes sense. We don’t allow multiple blocks, or incomplete pairs.  
 
 Add to functions.h
+
 ```
 	void LookForDD();
 ```
+
 **void LoookForLCDD();**	// declared in functions.h
+
 ```
 void CLEditFrame::LookForLCDD()	// implemented in Main.cpp
 {
@@ -3276,7 +3368,9 @@ void CLEditFrame::LookForLCDD()	// implemented in Main.cpp
 
 }
 ```	
+
 **void LookForDD();**    // declared in functions.h
+
 ```
 void CLEditFrame::LookForDD()	// implemented in Main.cpp
 {
@@ -3295,10 +3389,13 @@ void CLEditFrame::LookForDD()	// implemented in Main.cpp
 Look for block Move  commands and check if the request makes sense. We don’t allow multiple blocks, or incomplete pairs.  
 
 Add to functions.h
+
 ```
 	void LookForLCMM();
 ```
+
 **void LookForLCMM();**	// declared in functions.h
+
 ```
 void CLEditFrame::LookForLCMM()	// implemented in Main.cpp
 {
@@ -3329,7 +3426,9 @@ void CLEditFrame::LookForLCMM()	// implemented in Main.cpp
 
 }
 ```
+
 **void LookForMM();**	// declared in functions.h
+
 ```
 void CLEditFrame::LookForMM()  // implemented in main.cpp
 {
@@ -3348,10 +3447,13 @@ void CLEditFrame::LookForMM()  // implemented in main.cpp
 Look for block Overlay commands and check if the request makes sense. We don’t allow multiple blocks, or incomplete pairs.
 
 Add to functions.h
+
 ```
 	void LookForOO();
 ```
+
 **void LookForLCOO();**	// declared in functions.h
+
 ```
 void CLEditFrame::LookForLCOO()	// implemented in Main.cpp
 {
@@ -3381,7 +3483,9 @@ void CLEditFrame::LookForLCOO()	// implemented in Main.cpp
 
 }
 ```
-**void LookForOO();**		// declared in functions.h
+
+**void LookForOO();**	// declared in functions.h
+
 ```
 void CLEditFrame::LookForOO()		// implemented in Main.cpp
 {
@@ -3400,10 +3504,13 @@ void CLEditFrame::LookForOO()		// implemented in Main.cpp
 Look for block Repeat  commands and check if the request makes sense. We don’t allow multiple blocks, or incomplete pairs. 
 
 Add to functions.h
+
 ```
 		void LookForRR(); 
 ```
+
 **void LookForLCRR();** 	// declared in functions.h
+
 ```
 void CLEditFrame::LookForLCRR() 	// implemented in Main.cpp
 {
@@ -3434,7 +3541,9 @@ void CLEditFrame::LookForLCRR() 	// implemented in Main.cpp
 
 }
 ```
+
 **void LookForRR();**		// declared in functions.h
+
 ```
 void CLEditFrame::LookForRR()		// implemented in Main.cpp
 {
@@ -3457,7 +3566,9 @@ Add to functions.h
 ```
 		void LookForSR(); 
 ```
+
 **void LookForLCSR();**	// declared in functions.h
+
 ```
 void CLEditFrame::LookForLCSR()	// implemented in Main.cpp
 {
@@ -3487,7 +3598,9 @@ void CLEditFrame::LookForLCSR()	// implemented in Main.cpp
 
 }
 ```	
+
 **void LookForSR();**    // declared in functions.h
+
 ```
 void CLEditFrame::LookForSR()		// implemented in Main.cpp
 {
@@ -3507,10 +3620,13 @@ void CLEditFrame::LookForSR()		// implemented in Main.cpp
 Look for block Shift Left commands and check if the request makes sense. We don’t allow multiple blocks, or incomplete pairs. 
 
 Add to functions.h
+
 ```
 		void LookForSL(); 
 ```
+
 **void LookForLCSL();** 	// declared in functions.h
+
 ```
 void CLEditFrame::LookForLCSL() 	// implemented in Main.cpp
 {
@@ -3540,7 +3656,9 @@ void CLEditFrame::LookForLCSL() 	// implemented in Main.cpp
     }
 }
 ```
+
 **void LookForSL():**    // declared in functions.h
+
 ```
 void CLEditFrame::LookForSL()		// implemented in Main.cpp
 {
@@ -3555,9 +3673,11 @@ void CLEditFrame::LookForSL()		// implemented in Main.cpp
     }
 }
 ```
+
 I’ll bet you want to use the Repeat block line and change commands right? Even though there was no mouse, you can still do all sorts of things. We have more grunt work in Apply Changes to do. We need to perform reasonability tests. This is some serious grunt work. Lots of conditions. Lots of thought.
 
 Add to functions.h
+
 ```
         void LCReasonabilityBlock();
         void LCReasonabilityBlockMM();
@@ -3565,16 +3685,20 @@ Add to functions.h
         void LCReasonabilityOverall();
 	    void Continue();	
 ```
+
 The boolean (flag) ‘badchanges’ is set to false just before ApplyChanges(). If we encounter a ‘bad change’ request, if something does not make sense, we want to set that flag to true and get out, stop processing. Often times it’s clearer to put a condition in positive terms, like if (a  ==  b). It flows and reads better, and if this is the condition we’re looking for, that’s the way to code it. However, if (a == b ) is ok and everything else is not, we are tempted to write if (a != b) which will send you off to your favorite search engine. We’d love to be able to say if (a == b) continue otherwise stop. There is no continue in C++, unless it’s within a loop. Annoying. So I created a function called Continue. Case matters! '!' the exclamation point means 'not' in C++. C++ is funny.
 
-**void Continue();**	// declared in functions.h          
+**void Continue();**  	// declared in functions.
+ 
 ```
 void CLEditFrame::Continue()    // implemented in Main.cpp
 {
 // do nothing C++ continue is only for loops!
 }
 ```
+
 **void LCReasonability();**	// declared in functions.h
+
 ```
 void CLEditFrame::LCReasonability()    // implemented in Main.cpp
 {
@@ -3606,9 +3730,11 @@ void CLEditFrame::LCReasonability()    // implemented in Main.cpp
 
 }
 ```
+
 '&&' means logical 'and', '||' means logical 'or', remember your boolean algebra? 
 
-**void LCReasonabilityBlock();**	// declared in functions.h
+**void LCReasonabilityBlock();**  	// declared in functions.h
+
 ```
 void CLEditFrame::LCReasonabilityBlock()    // implemented in Main.cpp
 {
@@ -3743,7 +3869,9 @@ void CLEditFrame::LCReasonabilityBlock()    // implemented in Main.cpp
 
 }
 ```
-**void LCReasonabilityBlockMM();**	// declared in functions.h
+
+**void LCReasonabilityBlockMM();**  	// declared in functions.h
+
 ```
 void CLEditFrame::LCReasonabilityBlockMM()   	 // implemented in Main.cpp
 {
@@ -3788,7 +3916,9 @@ void CLEditFrame::LCReasonabilityBlockMM()   	 // implemented in Main.cpp
 
 }
 ```	
+
 **void LCReasonabilityLine();**    // declared in functions.h
+
 ```
 void CLEditFrame::LCReasonabilityLine()    // implemented in Main.cpp
 {
@@ -3880,7 +4010,9 @@ void CLEditFrame::LCReasonabilityLine()    // implemented in Main.cpp
 
 }
 ```
-**void LCReasonabilityOverall();**	// declared in functions.h
+
+**void LCReasonabilityOverall();**    	// declared in functions.h
+
 ```
 void CLEditFrame::LCReasonabilityOverall()    // implemented in Main.cpp
 {
@@ -3934,10 +4066,13 @@ void CLEditFrame::LCReasonabilityOverall()    // implemented in Main.cpp
 For certain commands, principally , the ones that change the size of the file, we need to capture data, and or if there is an instance of a single line command. More grunt work. Clunk Clunk Clunk.
 
 Add to functions.h 
+
 ```
 	void Capture();
 ```
+
 **void Capture();**	// declared in functions.h
+
 ```
 void CLEditFrame::Capture()    // implemented in Main.cpp
 {
@@ -3962,9 +4097,11 @@ void CLEditFrame::Capture()    // implemented in Main.cpp
     }
 }
 ```
+
 Check to be sure that ranges of the Move Overlay make sense.
 
 **void Ranges();**	// declared in functions.h
+
 ```
 void CLEditFrame::Ranges()   // implemented in Main.cpp
 {
@@ -4001,13 +4138,16 @@ void CLEditFrame::Ranges()   // implemented in Main.cpp
 Real life, clunk clunk clunk. Capture the block of data required to satisfy the request. These requests modify the file length. Plus a block Copy can be used in a “create”, now or later.   Clearly I didn’t add all this code in one day. It was added in parts. Add a part, test a part. Rinse and repeat. Build the forest one tree at a time. 
 
 Add to functions.h
+
 ```
 		void CaptureCC();
 		void CaptureMM();
 		void CaptureOO();
 		void CaptureRR();
 ```
+
 **void CaptureLC();**	// declared in functions.h
+
 ```
 void CLEditFrame::CaptureLC()   // implemented in Main.cpp
 {
@@ -4036,7 +4176,9 @@ void CLEditFrame::CaptureLC()   // implemented in Main.cpp
 
 }
 ```
+
 **void CaptureCC();**	// declared in functions.h
+
 ```
 void CLEditFrame::CaptureCC()   // implemented in Main.cpp
 {
@@ -4060,7 +4202,9 @@ void CLEditFrame::CaptureCC()   // implemented in Main.cpp
 
 }
 ```
+
 **void CaptureMM();**	// declared in functions.h
+
 ```
 void CLEditFrame::CaptureMM()   // implemented in Main.cpp
 {
@@ -4084,7 +4228,9 @@ void CLEditFrame::CaptureMM()   // implemented in Main.cpp
 
 }
 ```
+
 **void CaptureOO();**	// declared in functions.h
+
 ```
 void CLEditFrame::CaptureOO()   // implemented in Main.cpp
 {
@@ -4108,7 +4254,9 @@ void CLEditFrame::CaptureOO()   // implemented in Main.cpp
 
 }
 ```
+
 **void CaptureRR();**	// declared in functions.h
+
 ```
 void CLEditFrame::CaptureRR()   // implemented in Main.cpp
 {
@@ -4127,9 +4275,11 @@ void CLEditFrame::CaptureRR()   // implemented in Main.cpp
 
 }
 ```
+
 Everything is looking good so far. Make those changes. This is real work, real thinking, real life. Lot’s of code, lots of functions. But the method is step by step. Keep things simple. Avoid functions that span a page. Most people only read the first few lines right? 
  
 Add to functions.h
+
 ```
 		void ApplyCC();
       	void ApplyDD();
@@ -4140,7 +4290,9 @@ Add to functions.h
         	void ApplyRR();
         	void ApplyI(); 
 ```
+
 **void ApplyCommands();**	// declared in functions.h
+
 ```
 void CLEditFrame::ApplyCommands()   // implemented in Main.cpp
 {
@@ -4224,6 +4376,7 @@ void CLEditFrame::ApplyCommands()   // implemented in Main.cpp
 Apply the Copy if requested.
 
 Add to variables.h
+
 ```
     		int oldwfilecnt;
         	int wi;             // index into work string
@@ -4234,13 +4387,17 @@ Add to variables.h
         	int posp1;          // search position plus 1 - next byte
         std::string str;            // common string
 ```
+
 Add to functions.h
+
 ```
 		void LineCopy();
 		void BlockCopy();
 		void InitWIF();
 ```
+
 **void ApplyCC();**	// declared in functions.h
+
 ```
 void CLEditFrame::ApplyCC()   // implemented in Main.cpp
 {
@@ -4290,13 +4447,17 @@ void CLEditFrame::ApplyCC()   // implemented in Main.cpp
     }
 }
 ```
+
 This is a line Copy. Copy The Line is reused often.
 
 Add to functions.h
+
 ```
 		void CopyTheLine();
 ```
+
 **void LineCopy();**	// declared in functions.h
+
 ```
 void CLEditFrame::LineCopy()   // implemented in Main.cpp
 {
@@ -4334,9 +4495,11 @@ void CLEditFrame::LineCopy()   // implemented in Main.cpp
 
 }
 ```
+
 Copy The Line is reused often.
 
 **void CopyTheLine();**	// declared in functions.h
+
 ```
 void CLEditFrame::CopyTheLine()   // implemented in Main.cpp
 {
@@ -4349,9 +4512,11 @@ void CLEditFrame::CopyTheLine()   // implemented in Main.cpp
 
 }
 ```
+
 This is a block Copy.
 
 **void BlockCopy();**	// declared in functions.h
+
 ```
 void CLEditFrame::BlockCopy()   // implemented in Main.cpp
 {   // implemented in Main.cpp
@@ -4395,9 +4560,11 @@ void CLEditFrame::BlockCopy()   // implemented in Main.cpp
 
 }
 ```
+
 This is the working file. This code is reused a bunch.
 
 **void InitWIF();**	// declared in functions.h
+
 ```
 void CLEditFrame::InitWIF()   // implemented in Main.cpp
 {
@@ -4417,14 +4584,18 @@ void CLEditFrame::InitWIF()   // implemented in Main.cpp
 
 }
 ```
+
 Apply the Delete if requested. 
 
 Add to functions.h
+
 ```
 		void LineDelete();
 		void BlockDelete();
 ```
+
 **void ApplyDD();**	// declared in functions.h
+
 ```
 void CLEditFrame::ApplyDD()   // implemented in Main.cpp
 {
@@ -4464,7 +4635,9 @@ void CLEditFrame::ApplyDD()   // implemented in Main.cpp
 
 }
 ```
+
 **void LineDelete();**	// declared in functions.h
+
 ```
 void CLEditFrame::LineDelete()   // implemented in Main.cpp
 {
@@ -4483,7 +4656,9 @@ void CLEditFrame::LineDelete()   // implemented in Main.cpp
 
 }
 ```
+
 **void BlockDelete();**    // declared in functions.h
+
 ```
 void CLEditFrame::BlockDelete()   // implemented in Main.cpp
 {
@@ -4506,11 +4681,14 @@ void CLEditFrame::BlockDelete()   // implemented in Main.cpp
 Apply the Move if requested. 
 
 Add to functions.h
+
 ```
 		void LineMove();
 		void BlockMove);
 ```
+
 **void ApplyMM();**	// declared in functions.h
+
 ```
 void CLEditFrame::ApplyMM()   // implemented in Main.cpp
 {
@@ -4550,7 +4728,9 @@ void CLEditFrame::ApplyMM()   // implemented in Main.cpp
 
 }
 ```
+
 **void LineMove();**	// declared in functions.h
+
 ```
 void CLEditFrame::LineMove()   // implemented in Main.cpp
 {
@@ -4593,7 +4773,9 @@ void CLEditFrame::LineMove()   // implemented in Main.cpp
 
 }
 ```
+
 **void BlockMove();**	// declared in functions.h
+
 ```
 void CLEditFrame::BlockMove()   // implemented in Main.cpp
 {
@@ -4644,9 +4826,11 @@ void CLEditFrame::BlockMove()   // implemented in Main.cpp
 }
 
 ```
+
 Apply the Overlay if requested. We can Move one line Over another. We can Move a block of lines Over another block the same size. We can Move one line Over a block of lines.
 	
 Add to functions.h
+
 ```
 		void LineOver();
 		void BlockOver();
@@ -4656,7 +4840,9 @@ Add to functions.h
 		void LinePushOver();
 		void BlockPushOver();
 ```
+
 **void ApplyOO();**	// declared in functions.h
+
 ```
 void CLEditFrame::ApplyOO()   // implemented in Main.cpp
 {
@@ -4723,7 +4909,9 @@ void CLEditFrame::ApplyOO()   // implemented in Main.cpp
 
 }
 ```
+
 **void LineOver();**	// declared in functions.h
+
 ```
 void CLEditFrame::LineOver()   // implemented in Main.cpp
 {
@@ -4778,7 +4966,9 @@ void CLEditFrame::LineOver()   // implemented in Main.cpp
 
 }
 ```
+
 **void BlockOver();**	// declared in functions.h
+
 ```
 void CLEditFrame::BlockOver()   // implemented in Main.cpp
 {
@@ -4792,7 +4982,9 @@ void CLEditFrame::BlockOver()   // implemented in Main.cpp
 
 }
 ```
+
 **void BlockMoveOver();**	// declared in functions.h
+
 ```
 void CLEditFrame::BlockMoveOver()   // implemented in Main.cpp
 {
@@ -4847,7 +5039,9 @@ void CLEditFrame::BlockMoveOver()   // implemented in Main.cpp
 
 }
 ```
+
 **void LinePushOver();**	// declared in functions.h
+
 ```
 void CLEditFrame::LinePushOver()   // implemented in Main.cpp
 {
@@ -4876,7 +5070,9 @@ void CLEditFrame::LinePushOver()   // implemented in Main.cpp
 
 }
 ```
+
 **void BlockPushOver();**	// declared in functions.h
+
 ```
 void CLEditFrame::BlockPushOver()   // implemented in Main.cpp
 {
@@ -4908,6 +5104,7 @@ void CLEditFrame::BlockPushOver()   // implemented in Main.cpp
 
 }
 ```
+
 **void MoveOverOver();** // declared in functions.h
 ```
 void CLEditFrame::MoveOverOver()   // implemented in Main.cpp
@@ -4923,7 +5120,9 @@ void CLEditFrame::MoveOverOver()   // implemented in Main.cpp
 
 }
 ```
+
 **void MoveBlockOver();** // declared in functions.h
+
 ```
 void CLEditFrame::MoveBlockOver()   // implemented in Main.cpp
 {
@@ -4977,6 +5176,7 @@ void CLEditFrame::MoveBlockOver()   // implemented in Main.cpp
 
 }
 ```
+
 Apply the Shift Right if requested. 
 
 Add to functions.h
@@ -5026,7 +5226,9 @@ void CLEditFrame::ApplySR()   // implemented in Main.cpp
 
 }
 ```
+
 **void LineSR();**	// declared in functions.h
+
 ```
 void CLEditFrame::LineSR()   // implemented in Main.cpp
 {
@@ -5053,7 +5255,9 @@ void CLEditFrame::LineSR()   // implemented in Main.cpp
     
 }
 ```
+
 **void BlockSR();**	// declared in functions.h
+
 ```
 void CLEditFrame::BlockSR()   // implemented in Main.cpp
 {
@@ -5081,7 +5285,9 @@ void CLEditFrame::BlockSR()   // implemented in Main.cpp
     }
 }
 ```
+
 **void ShiftRight();**	// declared in functions.h
+
 ```
 void CLEditFrame::ShiftRight()   // implemented in Main.cpp
 {
@@ -5097,6 +5303,7 @@ void CLEditFrame::ShiftRight()   // implemented in Main.cpp
 
 }
 ```
+
 Apply the Shift Left if requested. 
 
 Add to functions.h
@@ -5107,8 +5314,7 @@ Add to functions.h
 ```
 	
 **void ApplySL();**	// declared in functions.h
-~~
-```
+
 ```
 void CLEditFrame::ApplySL()  // implemented in main.cpp	
 {
@@ -5132,9 +5338,7 @@ void CLEditFrame::ApplySL()  // implemented in main.cpp
         {
             BlockSL();
         }
-```
     }
-
 // refresh input with work input
     RefreshInput();
 
@@ -5151,7 +5355,9 @@ void CLEditFrame::ApplySL()  // implemented in main.cpp
 
 }
 ```
+
 **void LineSL();**	// declared in functions.h
+
 ```
 void CLEditFrame::LineSL()   // implemented in Main.cpp
 {
@@ -5179,7 +5385,9 @@ void CLEditFrame::LineSL()   // implemented in Main.cpp
 
 }
 ```
+
 **void BlockSL();**	// declared in functions.h
+
 ```
 void CLEditFrame::BlockSL()   // implemented in Main.cpp
 {
@@ -5208,7 +5416,9 @@ void CLEditFrame::BlockSL()   // implemented in Main.cpp
 
 }
 ```
+
 **void ShiftLeft();**	  // declared in functions.h
+
 ```
 void CLEditFrame::ShiftLeft()   // implemented in Main.cpp
 {
@@ -5226,14 +5436,18 @@ void CLEditFrame::ShiftLeft()   // implemented in Main.cpp
 
 } 
 ```
+
 Apply the Repeat if requested. 
 
 Add to functions.h
+
 ```
 	void LineRepeat();
 	void BlockRepeat();
 ```
+
 **void ApplyRR();** 	// declared in functions.h
+
 ```
 void CLEditFrame::ApplyRR()   // implemented in Main.cpp
 {
@@ -5282,7 +5496,9 @@ void CLEditFrame::ApplyRR()   // implemented in Main.cpp
 
 }
 ```
+
 **void LineRepeat();**	// declared in functions.h
+
 ```
 void CLEditFrame::LineRepeat()   // implemented in Main.cpp
 {
@@ -5305,7 +5521,9 @@ void CLEditFrame::LineRepeat()   // implemented in Main.cpp
 
 }
 ```
+
 **void BlockRepeat();** 	// declared in functions.h
+
 ```
 void CLEditFrame::BlockRepeat()   // implemented in Main.cpp
 {
@@ -5337,13 +5555,17 @@ void CLEditFrame::BlockRepeat()   // implemented in Main.cpp
 
 }
 ```
+
 Apply the Insert if requested.
 
 Add to functions.h
+
 ```
 		void LineInsert();
 ```
+
 **void ApplyI();**  	// declared in functions.h
+
 ```
 void CLEditFrame::ApplyI()   // implemented in Main.cpp
 {
@@ -5374,7 +5596,9 @@ void CLEditFrame::ApplyI()   // implemented in Main.cpp
 
 }
 ```
+
 **void LineInsert();**	// declared in functions.h
+
 ```
 void CLEditFrame::LineInsert()   // implemented in Main.cpp
 {
@@ -5399,19 +5623,23 @@ void CLEditFrame::LineInsert()   // implemented in Main.cpp
 
 }
 ```
+
 Wow! If you made it this far I applaud you! What do we do next? Let’s play around on our little screen. Note that we’ve haven’t built any logic for scrolling, so if you make the file bigger than 50 lines, you won’t be able to see them yet. You should be able to test out everything you’ve coded. Please do. 
 
-What should we do next?  We started with our connections and we left them incomplete. Namely OnKeyDown and OnApplyClicked. Well since OnKeyDown are short cuts to OnApplyClicked, lets tackle that. Not to worry, well finish with the fun parts, file and database IO! 
+What should we do next?  We started with our connections and we left them incomplete. Namely OnKeyDown and OnApplyClicked. Well since OnKeyDown are short cuts to OnApplyClicked, lets tackle that. Not to worry, we'll finish with the fun parts, file and database IO! 
 
 OnApplyClicked processes the commands available and executed by pressing our button. Let’s discuss. The user is going to enter a command, like “open”. And we need to do something. We’ll call the first thing they enter the Primary Command. Naturally, if the User wants to open a file, we’ll need a filename. We’ll call that the First Parameter. Imagine a “change” Command. That would have a First Parameter of some string, the ‘from’ string. That would have a Second Parameter of some other string, the ‘to’ string. And potentially a Third Parameter like “all”. We handle one at a time too, with the next change key traditionally F6. So in OnApplyClicked we’ll scrub the Command line for the goods. If we don’t see anything good, that’s fine. We still need to maintain the send/receive loop. We will not be punishing the User if they enter “mary had a little lamb” and press Apply. No bother. If we find a valid command, and we see that it makes sense, we act.      
 
 I know, it’s kinda long, but, it’s really only three parts. Find the command and parameters. Execute the command. Complete the send/receive loop. It is startling how much code is needed just for that! 
 
 Add to variables.h
+
 ```
     		int strpos;         // start position
 ```
+
 Add to functions.h a function for each action right?
+
 ```
 		void WipeCommand();
         	void FindPrimary();
@@ -5436,7 +5664,9 @@ Add to functions.h a function for each action right?
    		void Reset();
    		void SortSM();
 ```
+
 **void OnApplyClicked(wxCommandEvent & event);**  	// declared in functions.h
+
 ```
 void CLEditFrame::OnApplyClicked(wxCommandEvent & event) /* implemented in Main.cpp */
 {
@@ -5615,8 +5845,10 @@ ExitOnApplyClicked:
 
 }	
 ```
+
 This is how to clear out the command parts. I could have called it InitCommand(). 
-**void WipeCommand();**	// declared in functions.h
+void WipeCommand();	// declared in functions.h
+
 ```
 void CLEditFrame::WipeCommand()   // implemented in Main.cpp
 {
@@ -5630,8 +5862,11 @@ void CLEditFrame::WipeCommand()   // implemented in Main.cpp
 
 }
 ```
+
 This is looking for the Primary Command. 
+
 **void FindPrimary();**	// declared in functions.h
+
 ```
 void CLEditFrame::FindPrimary()   // implemented in Main.cpp
 {
@@ -5662,8 +5897,11 @@ void CLEditFrame::FindPrimary()   // implemented in Main.cpp
 
 }
 ```
+
 This is lloking for the First Parameter. 
+
 **void FindFirst();**  	// declared in functions.h
+
 ```
 void CLEditFrame::FindFirst()   // implemented in Main.cpp
 {
@@ -5700,8 +5938,11 @@ void CLEditFrame::FindFirst()   // implemented in Main.cpp
 
 }
 ```
-This is lloking for the Second Parameter. 
+
+This is looking for the Second Parameter. 
+
 **void FindSecond();**	// declared in functions.h
+
 ```
 void CLEditFrame::FindSecond()   // implemented in Main.cpp
 {
@@ -5738,8 +5979,11 @@ void CLEditFrame::FindSecond()   // implemented in Main.cpp
 
 }
 ```
+
 This is looking for the Third Parameter 
+
 **void FindThird();**		// declared in functions.h
+
 ```
 void CLEditFrame::FindThird()   // implemented in Main.cpp
 {
@@ -5771,6 +6015,7 @@ void CLEditFrame::FindThird()   // implemented in Main.cpp
 
 }
 ```
+
 This is the ‘create’ action. It means we want to create a new file, using a part of this file. The part is identified by a block Copy. If you want to save the entire file as something else, use the ‘saveas’ action. So you need to provide a name for the file.  Or, you can stage the file, the block copied, part to a table.  If you want to stage the whole file, use the ‘tostage’ command.    
 Example “create filename.txt” or “create mydb mytable”   
 
@@ -5779,11 +6024,14 @@ Add to variables.h
 std::string CurrentFile;  // the name of the file currently being edited
 ```
 Add to functions.h
+
 ```
     		void CreateFile();
     		void CreateTable();
 ```
-**void Create();**  	// declared in functions.h	
+
+**void Create();**  	// declared in functions.h
+	
 ```
 void CLEditFrame::Create()  // implemented in main.cpp
 {
@@ -5826,23 +6074,30 @@ ExitCreate:
 
 }
 ```
+
 This is the ‘create file’ action. It uses a class, CLEditCF to perform file functions. This class is implemented later. It’s only about 300 lines.
 
 Add to CLEditMain.h
+
 ```
 	#include "CLEditCF.h"
 ```
+
 Add to functions.h
+
 ```
 	void InitCF();
     	void SetEndl();
 ```
-Add to objects.h – we’ll implement the class later. What “CLEditCF CF;” means is that we’d like an instance of the object CLEditCF, we’ll call our instance CF.  We will take advantage of the public functions (methods) CLEditCF provides for us. You’ll see in the header, CLEditCF.h, there are many functions, some public that we can use and some private to CLEditCF. We’re using a class, so that we don’t have to put the code in our Editor, and, we could use it elsewhere. We’re using wxWidgets right? Same idea.      
+
+Add to objects.h – we’ll implement the class later. What “CLEditCF CF;” means is that we’d like an instance of the object CLEditCF, we’ll call our instance CF.  We will take advantage of the public functions (methods) CLEditCF provides for us. You’ll see in the header, CLEditCF.h, there are many functions, some public that we can use and some private to CLEditCF. We’re using a class, so that we don’t have to put the code in our Editor, and, we could use it elsewhere. We’re using wxWidgets right? Same idea.
+
 ```
 	// file processing
 	// this is an instance of a class to process a file
 		CLEditCF CF;   // change to CLEditCF * CF; 
 ```
+
 Here we just declared a dynammic instance of a class. C++ is funny.
 We could have declared CLEditCF * CF; in objects.h. 
 Then everywhere before we refer to CF dot anything, in Main.cpp 
@@ -5894,40 +6149,50 @@ label:
 ```
 
 I think a fantastic lesson would be to test this both ways, and see which is faster. 
+
 I'll do this test script first with the dynamic allocation
+
 	open CLEditMain.cpp
 	saveas dynamic.txt 
-then as a ststic allocation
+	
+then as a static allocation
+
 	open CLEditMain.cpp
 	saveas static.txt 
+	
 Dynamic Test Results: 
-**open**
+
+```
+open
 init 
 Welcome Fri Dec 13 13:39:04 2024
-
 File In Bytes 99611
 File In Records 4625
 open file 
 elapsed time: 144.194
 
-**save**
+save
 init 
 Welcome Fri Dec 13 13:41:48 2024
-
 File In Bytes 99611
 File In Records 4625
 open file 
 elapsed time: 143.939
+```
 
 What in the actual? The log looks as though the 'saveas' didn't work!
 Our screen says saveas dynamic.txt applied. The file static.txt is created.
 So what gives? C++ didn't say there was anything wrong. But something is!
-And I doubt it's because it's Friday thte 13th.
+And I doubt it's because it's Friday the 13th.
 
 We opened the log file and wrote to it many times. No issues. 
 Let me see, how did we open the log file? 
+
+```
 LogFile.open("CLEditCFLogFile.txt", std::ios::out);
-All four files are fsteam types.
+```
+
+All four files are fstream types.
 We check the open status of the mainfiles filei and fileo
 *We didn't check the status of the log and error files.*
 We need to add that I think!
@@ -5940,33 +6205,38 @@ What that did was only log the first run, not the others.
 C++ said nothing. Nice. 
 Then, I was using 'save' instead of 'saveas' and overwriting the wrong file!
 Lucky for me the actions 'open', 'save' and 'saveas' actually work!
-Mercifully, I take a backup of my work daily.
-Also, I think, actually I know, the byte count on 'save' is wrong.
+Mercifully, I take a backup of my work daily. Sometimes hourly would be smarter. Also, I think, actually I know, the byte count on 'save' is wrong.
 It's different by the record count. This is because we've added a endline to each record. Can I live with that? No. 
 
 Dynamic Test Results; 
 **open**
+
+```
 init 
 Welcome Sat Dec 14 13:40:28 2024
-
 open file 
 elapsed time: 143.844
 File In Bytes 100807
 File In Records 4662
 File Out Bytes 0
 File Out Records 0
+```
+
 **saveas**
+
+```
 init 
 Welcome Sat Dec 14 13:41:06 2024
-
 save file 
 elapsed time: 4.154
 File In Bytes 0
 File In Records 4662
 File Out Bytes 100807
 File Out Records 4662
+```
 
 Static Test Results;
+
 **open**
 **saveas**
 
@@ -5979,6 +6249,7 @@ Using a Unix command in a terminal, diff filename newname
 there are odd differences!
 need to fix!
 I changed this open 
+
 ```
 LogFile.open("CLEditCFLogFile.txt", ios_base::out | ios_base::app);
 ```
@@ -6063,6 +6334,7 @@ void CLEditFrame::CaptureFF()
 yikes! what happened to the white space? more de bug time...
 I need to see what CF sees when it sees a blank line
 ah ha! this code in SetEndl()
+
 ```
     for (pos = (WorkStrl - 1); pos > 0; pos--)
 ```
@@ -6089,7 +6361,6 @@ I got it!
 
 ```
 Welcome Sun Dec 15 10:03:31 2024
-
 open file 
 elapsed time: 5.635
 File In Bytes 723
@@ -6141,13 +6412,16 @@ pierre@pierre-OptiPlex-9020:~/CLEdit$ diff test.cpp test.txt
 pierre@pierre-OptiPlex-9020:~/CLEdit$ 
 ```
 
-Done! byte by byte match. no missing pennies 
+Done! byte by byte match. no missing pennies! 
 
 Add to variables.h
+
 ```
  int CLEditCFrc;	
 ```
+
 **void CreateFile();**	// declared in functions.h
+
 ```
 void CLEditFrame::CreateFile()   // implemented in Main.cpp
 {
@@ -6186,12 +6460,43 @@ ExitCreateFile:
      WipeCommand();
 }
 ```
-A word please. References. Have you noticed that we’re using classes, some within our project and some outside. And we reference, or use, different functions of each class. Sometimes this is coded, written, as Apply = new wxButton followed by   Apply->Bind() or other time you see it written, as CLEditCF CF; followed by   CF.savefile();. See the difference? Why does C++ do that? No idea. The ‘new’ means dynamic allocation. What? It means, load the program into memory, on the ‘heap’, only if and when I say so with ‘new’. Oh, and if I forget to delete it when I’m done, I generate a memory leak and the computer will crash. Nice. If I don’t use ‘new’ it means static allocation, the program is included with your logic, like junk in your trunk that you never use. Which is better and why you would prefer one or the other would occupy books. I can say that wxWidget things must be allocated as ‘new’. Wxwidgets performs the ‘deletes’. You’ll see we actually allocate some things as ‘new’ in CLEditDB and we do the ‘delete’. You’ll see. My issue is that C++ makes you code the reference in a different way, even tough, it ‘knows’ one is static and the other is dynamic. Country dumb.               
-        
+
+A word please. References. Have you noticed that we’re using classes, some within our project and some outside. And we reference, or use, different functions of each class. Sometimes this is coded, written, as
+
+```
+	Apply = new wxButton;
+```
+
+ 
+followed by
+
+```
+	Apply->Bind();
+```
+
+ 
+or other time you see it written, as
+
+```
+	CLEditCF CF;
+```
+
+	
+followed by
+
+```
+	CF.savefile();
+```
+
+
+See the difference? Why does C++ do that? No idea. The ‘new’ means dynamic allocation. What? It means, load the program into memory, on the ‘heap’, only if and when I say so with ‘new’. Oh, and if I forget to delete it when I’m done, I generate a memory leak and the computer will crash. Nice. If I don’t use ‘new’ it means static allocation, the program is included with your logic, like junk in your trunk that you never use. Which is better and why you would prefer one or the other would occupy books. I can say that wxWidget things must be allocated as ‘new’. Wxwidgets performs the ‘deletes’. You’ll see we actually allocate some things as ‘new’ in CLEditDB and we do the ‘delete’. You’ll see. My issue is that C++ makes you code the reference in a different way, even tough, it ‘knows’ one is static and the other is dynamic. Country dumb. 
+
+***file class***
 Our first, preliminary, temporary, class declaration for file processing. We’ll fill out all the details, after we are done with the Editor.
 
 Add this file, a class, to your project.
 file CLEditCF.h – the header, partial
+
 ```
 #include <string>
 using namespace std;
@@ -6227,8 +6532,10 @@ class CLEditCF
 
 };
 ```
+
 Add this file, a class, to your project.
 file CLEDitCF.cpp – the implementation, partial
+
 ```
 #include "CLEditCF.h"
 using namespace std;
@@ -6262,6 +6569,7 @@ int CLEditCF::savefile(std::string fileoname)
 
 }
 ```
+
 A word about function location and use. In the ancient past, we desk checked our logic and code with our eyes looking at a printed copy of the program. Two practices we employed were, placing a called function physically after the function where it is called, or the last placed it’s called. This keep you from having to flip through, back and forth through the paper. The computer really won’t care. You will. I’m sure you notice that as we progress, we’re reusing functions already implemented. I’m really not a fan of this practice. 
 
 It’s a judgment call. In ancient times, we created a ‘flow chart’. Using box shapes as symbols for functions and drew lines from box to box to visually describe what the program was supposed to do. It’s funny, but at my first professional job, I was assigned a program to write and I banged it out in no time. I told my boss I was done and the first thing out of his mouth was “let me see the flow chart”. I didn’t have one. He deleted my program. I hadn’t made a copy. I learned a few lessons there. 
@@ -6271,7 +6579,9 @@ The point I’m trying to make is that you’ll see logic flows that overlap. So
 The compiler will not care how many exact copies of this() you create. It will notice they are duplicates and only create one. Yup, it will do that. There is this, in my humble opinion, bad idea of function ‘overloading’. You can create for example 'void fun()' and 'int fun()'. C++ will be happy to let you do that. It will create different versions of fun(), and generate different names for each. It won’t tell you the names, this is a process called, I kid you not, 'mangling'. It will execute the right fun() based on the code you use to invoke the function. If you code 'anint = fun();' or just 'fun();' C++ will know what you mean. I’m not a big fan. I get it, it’s pretty cleaver but I feel like you lose control of what you are really trying to do. When you use more wxWidget parts, you’ll, as your typing, see all the different shapes and sizes of fun(). Which one is right? You’ll find out eventually.                                    
 
 This is the interface between our editor and the file class. It’s how we pass data from one class to the other, and back, it’s a public structure. 
-**void InitCF();**  	// declared in functions.h	
+
+**void InitCF();**  	// declared in functions.h
+	
 ```
 void CLEditFrame::InitCF()  // implemented in main.cpp
 {
@@ -6287,8 +6597,11 @@ void CLEditFrame::InitCF()  // implemented in main.cpp
 
 }
 ```
+
 This is in order to add a new line or “carriage return” to each line of text. We remove it when we import the file with a ‘copy’, ‘open’ or ‘fromstage’. Make sense? We don’t what to see the 'carriage return' on the screen, but we need it in the file as a record terminator. 
+
 **void SetEndl();**  	// declared in functions.h
+
 ```
 void CLEditFrame::SetEndl()  // implemented in main.cpp
 {
@@ -6315,23 +6628,32 @@ void CLEditFrame::SetEndl()  // implemented in main.cpp
 
 }
 ```
+
+***database class***
 This is the ‘create table’ action. It uses a class, CLEditDB to perform database functions. This class is implemented later. It’s only about 350 lines.  We’re going to make it fancier! 
 
 Add to CLEditMain.h
+
 ```
 	#include "CLEditDB.h"
 ```
+
 Add to objects.h – we’ll implement the class later. What “CLEditDB DB;” means is that we’d like an instance of the object CLEditDB, we’ll call our instance DB.  We will take advantage of the public functions (methods) CLEditDB provides for us. You’ll see in the header, CLEditDB.h, there are many functions, some public that we can use and some private to CLEditDB. We’re using a class, so that we don’t have to put the code in our Editor, and, we could use it elsewhere. We’re using wxWidgets right? Same idea.
+
 ```
 	// database processing
 	// this is an instance of a class to access the database
    			CLEditDB DB;
 ```
+
 Add to functions.h
+
 ```
 	void InitDB();
 ```
+
 **void CreateTable();**  	// declared in functions.h
+
 ```
 void CLEditFrame::CreateTable()  // implemented in main.cpp
 {
@@ -6373,8 +6695,11 @@ void CLEditFrame::CreateTable()  // implemented in main.cpp
 
 }
 ```
+
 This is the interface between our editor and the database class. It’s how we pass data from one class to the other and back, it’s a public structure.
+
 **void InitDB();**  	// declared in functions.h
+
 ```
 void CLEditFrame::InitDB()  // implemented in main.cpp
 {
@@ -6390,6 +6715,7 @@ void CLEditFrame::InitDB()  // implemented in main.cpp
 
 }
 ```
+
 Our second, preliminary, temporary, class declaration for database processing. We’ll fill out all the details, after we are done with the Editor.
 
 Add this file, a class, to your project.
@@ -6430,6 +6756,7 @@ class CLEditDB
 
 };
 ```
+
 Add this file, a class, to your project. You may or may not have noticed that a class declares two functions, one with the name of the class, the other with a squiggle '~' in front of the name of the class. 
 
 
@@ -6472,6 +6799,7 @@ a virtual function defines a target function to be executed, but the target migh
 I can't even begin to imagine what that would be used for. I'm not that smart.
 
 file CLEDitDB.cpp – the implementation, partial
+
 ```
 #include "CLEditDB.h"
 using namespace std;
@@ -6504,15 +6832,19 @@ void CLEditDB::Free()
 {
 }    	
 ```
+
 This is the ‘copy’ file action. It will copy a file,  before or after a line in the current file. So you have to supply a name and a location, or it can be used to copy one file to another given two file names. 
 Example “copy fromfile tofile”.  It uses the CF class member copyfile referenced by the dot.         
 
 Add to functions.h
+
 ```
 	void InitScreen();
 	void CLEditCFmsg();
 ```
-**void CopyFile();**   	// declared in functions.h
+
+**void CopyFile();**  	// declared in functions.h
+
 ```
 void CLEditFrame::CopyFile()  // implemented in main.cpp
 {
@@ -6555,8 +6887,11 @@ void CLEditFrame::CopyFile()  // implemented in main.cpp
 
 }
 ```
+
 This is the screen the User sees. Let’s clear it off, before we fill it up.
+
 **void InitScreen();**  	// declared in functions.h
+
 ```
 void CLEditFrame::InitScreen()  // implemented in main.cpp
 {
@@ -6571,8 +6906,11 @@ void CLEditFrame::InitScreen()  // implemented in main.cpp
 
 }
 ```
+
 This is a message to the user, if there is a problem.
+
 **void CLEditCFmsg();**  	// declared in functions.h
+
 ```
 void CLEditFrame::CLEditCFmsg()  // implemented in main.cpp
 {
@@ -6591,15 +6929,19 @@ void CLEditFrame::CLEditCFmsg()  // implemented in main.cpp
 
 }
 ```
-This is the ‘find’ action. It will find all the occurrences of a string provided. It will scroll to the first instance of the string in the file. Pressing F5, the traditional ‘find next’,  will scroll to next occurrence.
+
+This is the ‘find’ action. It will find all the occurrences of a string provided. It will scroll to the first instance of the string in the file. Pressing F5, the traditional ‘find next’, will scroll to next occurrence.
 
 Add to functions.h
+
 ```
 	void TrimFile();
 	void InitFF();
 	void LookForFF();
 ```
+
 Add to variables.h
+
 ```
    	std::string FindStr;        // find string
 	int FindCnt;        // number of times string found
@@ -6608,7 +6950,9 @@ Add to variables.h
 	int res;            // result of STD::STRING::FIND
 	int MinusOne;       // a constant 
 ```
+
 Add to structures.h
+
 ```
 	// index to found strings - find
     		struct FindFile
@@ -6618,7 +6962,9 @@ Add to structures.h
     		};
       	FindFile FF[25000];  // not at all likely
 ```
+
 **void Find();**  	// declared in functions.h
+
 ```
 void CLEditFrame::Find()  // implemented in main.cpp
 {
@@ -6660,7 +7006,9 @@ void CLEditFrame::Find()  // implemented in main.cpp
 }
 ```
 This is to truncate the blank lines from the end of the file. It’s an efficiency thing.
+
 **void TrimFile();**  	// declared in functions.h
+
 ```
 void CLEditFrame::TrimFile()  // implemented in main.cpp
 {
@@ -6678,8 +7026,11 @@ void CLEditFrame::TrimFile()  // implemented in main.cpp
 
 }
 ```
+
 This is standard array initialization, using the trick. We’re keeping track of what ‘card’ contains the string, and the position on the ‘card’. The string might exist more than one time on a line. No problem.
+
 **void InitFF();**  	// declared in functions.h
+
 ```
 void CLEditFrame::InitFF()  // implemented in main.cpp
 {
@@ -6695,14 +7046,17 @@ void CLEditFrame::InitFF()  // implemented in main.cpp
 
 }
 ```
+
 This is where we capture all the places in the file where the string exists. This the the ugliest piece of C++ code in this whole project. I hate it. It’s not so much the ‘while’ loop, it’s the miniature function in the while condition. It would be much nice as a ‘do….while’ . We’ll do that later. As it is you’ll hurt yourself figuring out what it’s doing. This is the style of code I abhor. 
 
-But, the absolute worst part of this code is that it doesn't  work if the search string is in the first column! I got it from the internet.
+But, the absolute worst part of this code is that it doesn't work if the search string is in the first column! I got it from the internet!
 
 https://www.geeksforgeeks.org/string-find-in-cpp/#finding-multiple-occurrences-of-a-substring
  
 This example and 1000 other reasons are why I wrote all this down.
+
 **void LookForFF();**  	// declared in functions.h
+
 ```
 void CLEditFrame::LookForFF()  // implemented in main.cpp
  for (i = 0; i < wfilecnt; i++)
@@ -6728,6 +7082,7 @@ void CLEditFrame::LookForFF()  // implemented in main.cpp
 
 }
 ```
+
 I need to sidebar here. I really need to explain the “while”. There are three loop commands in C++. A 'for' loop. It has 4 parts. Part one is in brackets. The first is to set an initial value. The second is a condition. The third is an iterator. Follow by a block {} of code. 
 Example 
 
@@ -6741,10 +7096,14 @@ do this
 
 C++ manages the loop and if you don’t mess up the condition, you’ll be fine. If the condition you code can never be false, you’ll be in trouble. Caution not to effect the condition in the block. In other words don’t touch “wfilecnt” within the block.     	
 Believe it or not C++ in it’s infinite brilliance will let you code this:
+
+```
 for (;;)
 {
 //	do this
 }
+```
+
 What does it mean? It means just keep running until I say stop. Very dangerous.
 A 'for' loop is a ‘test before’ loop, obviously created for iterating through arrays. Test before means, check the condition first, before doing the stuff in the block. As long as the condition is true, it will execute the block  What if we want to do stuff in a loop, without an array. What if we want to do stuff at least once and then ‘test after’ before doing the block again. This is where the other two loops come in, 'while' and 'do while' respectively. 
 In the prior code we see an ugly 'while. A 'while looks like this. Test before.
@@ -6765,6 +7124,7 @@ do
 }   
 while ( condition );
 ```
+
 Sadly, in my not so humble opinion, C++ will let you code virtually anything as a condition. C++ executes commands. Commands create a result. If that result is zero, that means false, everything else is true. So you can create nonsense like this:
 ```
 If (1+1) 
@@ -6772,13 +7132,15 @@ If (1+1)
 	// do this
 } 
 ```
+
 I kid you not, try it. 
 In the prior 'while', what a mouth full
 ```
 while ((res = winputfile[i].wIFCode.find(FirstParameter, res + 1)) != MinusOne)
 ```
 
-The condition is 'if something not equal to minus one'. Ok. Let’s unpack the something, the something is in brackets because we want C++ to do all of the something first, then check to see if it is not equal to -1.    
+The condition is 'if something not equal to minus one'. Ok. Let’s unpack the something, the something is in brackets because we want C++ to do all of the something first, then check to see if it is not equal to -1.
+
 ```
 res = winputfile[i].wIFCode.find(FirstParameter, res + 1)
 ```
@@ -6791,7 +7153,7 @@ res = string(substring, res++)
 
 We’re going to execute find() and put the result in res. The variable wIFCode, an element of the winputfile array is of std::string type. The function find() is a method within the std::string. So we can say wIFCode dot find(). What does find() do? It has 5 variations, this variation performs a loop. 
 
-The loop It goes like this. res is both a result and a index. This is bad. Period. find() says, set iterator res + 1, 0 + 1 = 1,  bad, loop through the string, byte by byte, looking for the sub string. If you can’t find it, then res is -1 or false. If you do find it, res is set to the position in the string (array) where the sub string is found. The first character of a string ( array ) is position zero, not one.    
+The loop It goes like this. res is both a result and a index. This is bad. Period. find() says, set iterator res + 1, 0 + 1 = 1,  bad, loop through the string, byte by byte, looking for the sub string. If you can’t find it, then res is -1 or false. If you do find it, res is set to the position in the string (array) where the sub string is found. The first character of a string ( array ) is position zero, not one.   
 Our block of code says, every time you find the string, keep track of where it is. And keep looking until you don’t find the sub string anymore. I tested it with “this that this that”, applied a “find this” command and it only found the second “this” in position 10. Boy was I stunned. I hadn’t even done any searching in position one because C++ is all indented. Lessons learned.
 ```
 res = 0;
@@ -6803,13 +7165,15 @@ while ((res = winputfile[i].wIFCode.find(FirstParameter, res + 1)) != MinusOne)
 	f++;
 }
 ```
-Could we make it better, better meaning, can I write code, so that when it’s read, it will not cause the reader to search the Intenet to de-sypher. You bet we can. And We will. Bye the way, the reason that the code sample does not work is that the “res + 1” is executed first. If you start res at -1, it wont execute at all!  Let’s fix this rude nonsense! First put what we want to have happen when we find the substring in a function. Next use separate int type for the result and search start position.
+Could we make it better, better meaning, can I write code, so that when it’s read, it will not cause the reader to search the Intenet to de-cypher. You bet we can. And We will. Bye the way, the reason that the code sample does not work is that the “res + 1” is executed first. If you start res at -1, it wont execute at all!  Let’s fix this rude nonsense! First put what we want to have happen when we find the substring in a function. Next use separate int type for the result and search start position.
 
 Add to function.h
 ```
 	void CaptureFF(); 
 ```
+
 **void LookForFF();**  	// declared in functions.h
+
 ```
 void CLEditFrame::LookForFF()	 // implemented in main.cpp
 {
@@ -6832,6 +7196,7 @@ void CLEditFrame::LookForFF()	 // implemented in main.cpp
 
 }
 ```
+
 Now the intent is clear. Look for the sub string. The result will either be not found “-1” or the position of the location of the first character of the sub string. Remember it is the position in the string, an array. If we find the string we capture where it is, count it and set the next search start position. Can you figure out how to make this even more efficient? Pierre, what do you mean? What's wrong with it now?
 
 **void CaptureFF();**  	// declared in functions.h
@@ -6854,6 +7219,7 @@ void CLEditFrame::CaptureFF() 	// implemented in main.cpp
 
 }
 ```
+
 In my better testing, I searched for sub string 'this' in a string containing 'this that this that'. The sub string was found twice, once in pos 0 and then in position 10. In CaptureFF() we increment the start search position by the last position, plus one. This is not ideal, unless the sub string is one character. Suppose it was 10. In that case it would check 10 characters for no reason right? If the first position found is 0, and the sub string length is 10, the next possible position to find the sub string is 11. Right? The hint to this is not to add 'res + 1' to pos, but to include the length of the sub string, plus one. To be supper supper efficient! Believe me, it makes a difference. Note that is you want to do two things after a condition, you need to wrap those two things in brackets {}. Alas, C++ let’s you slack off if you only wan to do one thing. That is a bad practice to start. 
 
 	Add to variables.h
@@ -6870,7 +7236,9 @@ In my better testing, I searched for sub string 'this' in a string containing 't
 
 
 New and much improved CaptureFF().
+
 **void CaptureFF();**  	// declared in functions.h
+
 ```
 void CLEditFrame::CaptureFF() 	// implemented in main.cpp
 {
@@ -6893,18 +7261,24 @@ void CLEditFrame::CaptureFF() 	// implemented in main.cpp
 
 }
 ```
+
 This is the ‘open’ file action. It will open a file and present it on the screen. This becomes the current file. The prior file is ignored. There is no ‘auto save’ on exit. So, yes, you can type all day and lose everything. Also, there is no ‘undo’. You need to provide a file name to open
-example “open myfile.txt”.   I suppose you could implement an ‘undo’ action. You’d have to save a version of the file, each send / receive loop, track it and so on. Good luck. I save often. I backup my project at least once per day. And if I’m trying things out, I put the existing code in block comments.  
+example “open myfile.txt”.   I suppose you could implement an ‘undo’ action. You’d have to save a version of the file, each send / receive loop, track it and so on. Good luck. I save often. I backup my project at least once per day. And if I’m trying things out, I put the existing code in block comments. 
 
 Add to CLEditMain.h
+
 ```
 	#include <algorithm>
 ```
+
 Add to functions.h
+
 ```
     void GetEndl();
 ```
+
 **void OpenFile();**  	// declared in functions.h
+
 ```
 void CLEditFrame::OpenFile()  // implemented in main.cpp
 {
@@ -6975,7 +7349,9 @@ ExitOpenFile:
 
 }
 ```
-This is where we remove the ‘carriage return’ or ‘end line’ . The carriage return looks terrible in the wxTextCtrl, so it’s got to go. What a mouthful of a command. It uses the string functions, erase, remove, begin, end and cend. It says look from the beginning of the string to the end and if you see ‘\n’ take it out. I cheated and copied this code from the internet because I got lazy. If I coded it myself it would, get the length or the string, read the string backwards and if ‘\n’ is found. Make it a blank. I think I’ll do that. It will make more sense, to me.  What do you think.    	
+
+This is where we remove the ‘carriage return’ or ‘end line’ . The carriage return looks terrible in the wxTextCtrl, so it’s got to go. What a mouthful of a command. It uses the string functions, erase, remove, begin, end and cend. It says look from the beginning of the string to the end and if you see ‘\n’ take it out. I cheated and copied this code from the internet because I got lazy. If I coded it myself it would, get the length or the string, read the string backwards and if ‘\n’ is found. Make it a blank. I think I’ll do that. It will make more sense, to me.  What do you think.    
+	
 **void GetEndl();**  	// declared in functions.h
 
 ```
@@ -6988,15 +7364,19 @@ void CLEditFrame::GetEndl()  // implemented in main.cpp
 
 }
 ```
-We have to be careful here not to clobber all our good work with a hidden bug so we’re going to use new unused variables for this specific task. Be safe out there. What GetEndl() does now is put the wxTextCtrl into a string, look backwards from the end of the string and blank out the new line character, then put the string back into the wxTextCtrl. Then Simple and fast.  
+
+We have to be careful here not to clobber all our good work with a hidden bug so we’re going to use new unused variables for this specific task. Be safe out there. What GetEndl() does now is put the wxTextCtrl into a string, look backwards from the end of the string and blank out the new line character, then put the string back into the wxTextCtrl. Then Simple and fast.
 
 Add to variables.h
+
 ```
     	int xpos;              // X position left/right  
     	int WorkStrl;          // length of the work string
     	std::string WorkStr;   // a work string
 ```
+
 **void GetEndl();**  	// declared in functions.h
+
 ```
 void CLEditFrame::GetEndl() 	// implemented in main.cpp
 {
@@ -7021,7 +7401,9 @@ void CLEditFrame::GetEndl() 	// implemented in main.cpp
 
 This is the ‘save’ file action. It will save the current file. It will use the current file name if it has one, otherwise it will ask you for one. It uses the CF class. 
 Example “save filename.txt”
+
 **void SaveFile();**  	// declared in functions.h
+
 ```
 void CLEditFrame::SaveFile()  // implemented in main.cpp
 {
@@ -7078,10 +7460,13 @@ ExitSaveFile:
 
 }
 ```
+
 This is the ‘saveas’ file action. It will save the current file using the name provided. It will clobber the file if it already exists, so be careful. It uses the CF class.
 Example “saveas filename.txt”
 Notice that there is less and less to add...
+
 **void SaveAsFile();**  	// declared in functions.h
+
 ```
 void CLEditFrame::SaveAsFile()  // implemented in main.cpp
 {
@@ -7134,8 +7519,11 @@ ExitSaveAsFile:
 
 }
 ```
+
 This is the ‘exit’ action. There are many ways out, "exit", "quit", "bye", "end", "leave" or "stop". Pick your favorite. It just drops everything and leaves the application. 
+
 **void Exit();**  	// declared in functions.h
+
 ```
 void CLEditFrame::Exit()  // implemented in main.cpp
 {
@@ -7146,17 +7534,24 @@ void CLEditFrame::Exit()  // implemented in main.cpp
 
 }
 ```
+
 This is the ‘tostage’ database action. It will make a table and load it with the code from the current file with a simple command. 'tostage mydb mytable'.   We’re using MySQL for database management.  I can imagine providing an SQL interface from CLEdit inot MySQL. That’s a great idea. 
 It uses the DB class. The table is defined as, like our structure.
+
 ```
 CREATE TABLE mytable(id INT, code VARCHAR(255));
 ```
+
 the table has an index ‘id’ to the row ‘code’. 
+
 Add to variables.h
+
 ```
 	int rowcnt;
 ```
+
 **void ToStage();**  	// declared in functions.h
+
 ```
 void CLEditFrame::ToStage()	// implemented in main.cpp
 {  
@@ -7232,8 +7627,11 @@ void CLEditFrame::ToStage()	// implemented in main.cpp
 
 }
 ```
+
 This is the ‘fromstage’ database action. It will take a table and unload it onto the screen. You need to provide a database name and a table name. I use mydb and the file name as the table name. So if my file is  CLEditMain.cpp and I staged it, I can get it back with a command, 'fromstage mydb mytable'. I like to think of ‘staging’ as a way to protect code. I can imagine having multiple databases, by file level, like dev,test,prod,old. Something like that. Try to support some sort of promotion model. Once the code in an object, it’s more protected from loss.  We’re using MySQL for database management. It uses the DB class.
+
 **void FromStage();**  	// declared in functions.h
+
 ```
 void CLEditFrame::FromStage()  // implemented in main.cpp
 {
@@ -7325,10 +7723,13 @@ ExitFromStage:
 This is the ‘bottom’  action. It is a scrolling function. It will scroll to the bottom page of the file. The same action as pressing End. Look simple enough. We don’t permit scrolling if the user changed data, because, changing the data can change the view.
 
 Add to variables.h
+
 ```
       int lastl; 
 ```
+
 **void Bottom();**  	// declared in functions.h
+
 ```
 void CLEditFrame::Bottom()   // implemented in main.cpp
 {
@@ -7355,9 +7756,12 @@ void CLEditFrame::Bottom()   // implemented in main.cpp
 
 }
 ```
+
 This is the ‘home’ action. It is a scrolling function. It will scroll to the beginning of the file.  The
 same action as pressing Home.  Ridiculously simple. We don’t permit scrolling if the user changed data, because, changing the data can change the view.
+
 **void Home();**  	// declared in functions.h
+
 ```
 void CLEditFrame::Home()   // implemented in main.cpp
 {
@@ -7375,8 +7779,11 @@ void CLEditFrame::Home()   // implemented in main.cpp
 
 }
 ```
+
 This is the ‘up’ action. It is a scrolling function. It will scroll up, one page. The same action as pressing Page Up or the traditional F7.  We don’t permit scrolling if the user changed data, because, changing the data can change the view. Discussion point. If there are changes, we skip the ‘up’. If we’re already at the top, we just say so, otherwise we do the ‘up’. So, the log status statement, where does it belong, before the condition (where it is) or after the condition? It belongs after. Plus the logic can be cleaned up.
+
 **void Up();**  	// declared in functions.h
+
 ```
 void CLEditFrame::Up()   // implemented in main.cpp
 {
@@ -7407,8 +7814,11 @@ void CLEditFrame::Up()   // implemented in main.cpp
 
 }
 ```
-This is improvement is the type of thing I obsess on. It drives people crazy, but I was made this way. The layout of this function is perfect, because it’s clear. How do you like the '-=' or do you prefer 'frstl = frstl – 50'? The fact is that '-=' is not the same as '=-'. Scary right? See prefix and postfix in operators elsewhere. improved
+
+This is improvement is the type of thing I obcess on. It drives people crazy, but I was made this way. The layout of this function is perfect, because it’s clear. How do you like the '-=' or do you prefer 'frstl = frstl – 50'? The fact is that '-=' is not the same as '=-'. Scary right? See prefix and postfix in operators elsewhere. improved
+
 **void Up();**   	// declared in functions.h
+
 ```
 void CLEditFrame::Up()   // implemented in main.cpp
 {
@@ -7439,9 +7849,12 @@ void CLEditFrame::Up()   // implemented in main.cpp
 
 }
 ```
+
 This is the ‘down’ action. It is a scrolling function. It will scroll down, one page. The same action as pressing Page Down or the traditional F8.  Here’s another discussion. The thinking is a) should we perform the ‘down’, b) can we perform the ‘down’. You could ask that two different says. 
-One is an affirmative, ‘>’ or the negative ‘!>’ . We abhor the ‘not’ operator ‘!’.          
+One is an affirmative, ‘>’ or the negative ‘!>’ . We abhor the ‘not’ operator ‘!’.     
+
 **void Down();**  	// declared in functions.h
+
 ```
 void CLEditFrame::Down()   // implemented in main.cpp
 {
@@ -7465,8 +7878,11 @@ void CLEditFrame::Down()   // implemented in main.cpp
 
 }
 ```
+
 This is the ‘help’ action. It will dump a help file into the log file. The same action as pressing the traditional F1. build
+
 **void Help();**    // declared in functions.h
+
 ```
 void CLEditFrame::Help()    // implemented in Main.cpp
 {
@@ -7520,9 +7936,10 @@ void CLEditFrame::Help()    // implemented in Main.cpp
 
 } 
 ```
-This is the ‘change’ action. It starts as a ‘find’, using the First Parameter as the ‘from string’. Then, uses the Second Parameter as the ‘to string’. Only the first found occurrence is changed, unless the Third Parameter is ‘all’. Otherwise the traditional ‘change next’ key F6 will change the next occurrence. The screen view will change to the current changed line. This is a complex function.    
+This is the ‘change’ action. It starts as a ‘find’, using the First Parameter as the ‘from string’. Then, uses the Second Parameter as the ‘to string’. Only the first found occurrence is changed, unless the Third Parameter is ‘all’. Otherwise the traditional ‘change next’ key F6 will change the next occurrence. The screen view will change to the current changed line. This is a complex function. 
 
 Add to variables.h
+
 ```
 	int ChangeFroml;    // change from string length
 	int ChangeTol;      // change to string length
@@ -7531,7 +7948,9 @@ Add to variables.h
 	int ChngCnt;        // number of times change from string found
 	int prevtf;         // previously found string location
 ```
+
 Add to functions.h
+
 ```
 	void ChangeFind();
  	void ChangeNext();
@@ -7541,7 +7960,9 @@ Add to functions.h
  	void ChangeOverShort();
  	void ChangeOverLong();
 ```
+
 Add to structures.h
+
 ```
 // index to found strings - change from
 	struct ChngFile
@@ -7551,8 +7972,11 @@ Add to structures.h
 	};
 	ChngFile TF[25000];  // not at all likely
 ```
-From 1000 feet we need to do several things here and naturally give it all a decent amout of thought. Did we get both parameters? How about the length? Is what we are changing to bigger or smaller than what we are changing from? We’re not too concerned with the total length of the resulting line, but we need to think about it. The next thing we need to do is ‘find’. Yes! We already coded that. Then we need to figure out how to apply the change once. When we can do that, doing it once, or ‘next’ is easy. Of course it’s grunt work, byte by byte, character by character logic.         	  	
+
+From 1000 feet we need to do several things here and naturally give it all a decent amout of thought. Did we get both parameters? How about the length? Is what we are changing to bigger or smaller than what we are changing from? We’re not too concerned with the total length of the resulting line, but we need to think about it. The next thing we need to do is ‘find’. Yes! We already coded that. Then we need to figure out how to apply the change once. When we can do that, doing it once, or ‘next’ is easy. Of course it’s grunt work, byte by byte, character by character logic. 
+        	  	
 **void Change();**  	// declared in functions.h
+
 ```
 void CLEditFrame::Change()   // implemented in main.cpp
 {
@@ -7600,13 +8024,18 @@ void CLEditFrame::Change()   // implemented in main.cpp
 
 }
 ```
+
 This is where we going to look for the from string, like ‘find’.
+
 Add to functions.h
+
 ```
 	void InitTF();
 	void LookForTF(); 
 ```
+
 **void ChangeFind();**  	// declared in functions.h
+
 ```
 void CLEditFrame::ChangeFind()   // implemented in main.cpp
 {
@@ -7628,13 +8057,17 @@ void CLEditFrame::ChangeFind()   // implemented in main.cpp
 
 }
 ```
+
 This is the our standard array initialize.  
 
 Add to variables.h
+
 ```
 	int tf;  // index into change from found string locations
 ```
+
 **void InitTF();**  	// declared in functions.h
+
 ```
 void CLEditFrame::InitTF()   // implemented in main.cpp
 {
@@ -7650,8 +8083,11 @@ void CLEditFrame::InitTF()   // implemented in main.cpp
 
 }
 ```
+
 This is where we look for the from string. Same as ‘find’ right? Why don’t we use ‘find’? Great question! It’s because ‘find’ is a unit of work and ‘change’ is a different unit of work. Imagine the user command “find this”. Then the User commands “change that this”. Then they press “next” change F6, or “next” find F5. Using different keys, let’s us do different things. Not forgetting what the User wants or expects is important. Actions “find” and “change” are very similar but very different. Keep them that way. 
+
 **void LookForTF();**  	// declared in functions.h
+
 ```
 void CLEditFrame::LookForTF()   // implemented in main.cpp
 {
@@ -7676,8 +8112,11 @@ void CLEditFrame::LookForTF()   // implemented in main.cpp
 
 } 
 ```
+
 This is typical. Figure out how to do it once, and then you can do it over and over.
+
 **void ChangeNext();**  	// declared in functions.h
+
 ```
 void CLEditFrame::ChangeNext()   // implemented in main.cpp
 {
@@ -7700,8 +8139,11 @@ void CLEditFrame::ChangeNext()   // implemented in main.cpp
 
 }
 ```
+
 This is how you reuse code. Change It handles a change, so now, we just do it in a loop.
+
 **void ChangeAll();**  	// declared in functions.h
+
 ```
 void CLEditFrame::ChangeAll()   // implemented in main.cpp
 {
@@ -7715,16 +8157,20 @@ void CLEditFrame::ChangeAll()   // implemented in main.cpp
 
 }
 ```
+
 This is the switcheroo. Capture the line to change, from. Initialize the target, to. Change from to. Apply the new result string back from where you took it.
 
 Add to variables.h
+
 ```
 	int ChangeLineTl;   // change line to string length
     int ChangeLineFl;   // change line from string length
     std::string ChangeLineT;    // change line to string
     std::string ChangeLineF;    // change line from string
 ```
+
 **void ChangeIt();**  	// declared in functions.h
+
 ```
 void CLEditFrame::ChangeIt()   // implemented in main.cpp
 {
@@ -7748,8 +8194,11 @@ void CLEditFrame::ChangeIt()   // implemented in main.cpp
 
 }
 ```
+
 This is the mechanics of changing a string in a line. It helps to perform this task on a piece of paper to get a feel of what needs to be done and considered. It’s clunky grunt work. There’s probably another way to do this, but, I’m so used to character and array processing, I did it like this.
+
 **void ChangeOver();**  	// declared in functions.h
+
 ```
 void CLEditFrame::ChangeOver()   // implemented in main.cpp
 {
@@ -7775,8 +8224,11 @@ void CLEditFrame::ChangeOver()   // implemented in main.cpp
 
 }
 ```
+
 This is if the change to string length is less than or equal to the change from string length. It fits inside the same space. A picture is worth 1000 words.
+
 **void ChangeOverShort();**  	// declared in functions.h
+
 ```
 void CLEditFrame::ChangeOverShort()   // implemented in main.cpp
 {
@@ -7803,8 +8255,11 @@ void CLEditFrame::ChangeOverShort()   // implemented in main.cpp
 
 }
 ```
+
 This is if the change to string length is greater than the change from string length. We need to make space for it. A picture is worth 1000 words. Did you notice the ‘+=’ is acting on characters just as easy as numbers? It’s called operator overloading. With strings it means append, or add it to the end. C++ does it for you. 
+
 **void ChangeOverLong();**  	// declared in functions.h
+
 ```
 void CLEditFrame::ChangeOverLong()   // implemented in main.cpp
 {
@@ -7836,8 +8291,11 @@ void CLEditFrame::ChangeOverLong()   // implemented in main.cpp
 
 }
 ```
+
 This is the ‘reset’ action. It removes all the line commands from the current file. Sort of like a do over.
+
 **void Reset();**  	// declared in functions.h
+
 ```
 void CLEditFrame::Reset()   // implemented in main.cpp
 {
@@ -7865,30 +8323,40 @@ void CLEditFrame::Reset()   // implemented in main.cpp
 
 }
 ```
-This is the ‘sort’ action. It’s silly and just for fun. It could be useful, but, I included it to provide you with an example of the fastest sort logic ever created. It was created by a woman.Shell-Metzner sort an adaptation of the Shell sort by Marlene Metzner Implemented in a class, so that we make it fun! And even more fun later. We’ll call if CLEditSM. 
+
+This is the ‘sort’ action. It’s silly and just for fun. It could be useful, but, I included it to provide you with an example of the fastest sort logic ever created. It was created by a woman.Shell-Metzner sort an adaptation of the Shell sort by Marlene Metzner Implemented in a class, so that we make it fun! And even more fun later. We’ll call it CLEditSM. 
 
 Add to objects.h
+
 ```
 	// SORT
 	// this is an instance of a class to SORT the current file
 		CLEditSM SM;
 ```
+
 Add to Main.h
+
 ```
 	#include "CLEditSM.h"
 ```
+
 Add to functions.h
+
 ```
 	int BiSearch();
 ```
+
 Add to variables.h
+
 ```
     int left;           // lower bound of array
 	int right;          // upper bound of array
    	int mid;            // location of 'key' if found
     	std::string key;    // key value to search for
 ```
+
 **void SortSM();**  	// declared in functions.h
+
 ```
 void CLEditFrame::SortSM()   // implemented in main.cpp
 {
@@ -7944,11 +8412,19 @@ void CLEditFrame::SortSM()   // implemented in main.cpp
 
 }
 ```
+
 This is the logic for a binary search. It’s not need by our Editor, but I included it because it might come in handy.
 
 Add to functions.h
+
+
+```
 	int BiSearch();
+```
+
+
 **int BiSearch();**   // declared in function.h
+
 ```
 int CLEditFrame::BiSearch()	// implemented in main.cpp
 {
@@ -7974,9 +8450,12 @@ int CLEditFrame::BiSearch()	// implemented in main.cpp
 
 }
 ```
+
 Add the header and implementation files for class CLEditSM 
 
 file CLEditSM.h
+
+
 ```
 #include <string>
 class CLEditSM
@@ -8012,8 +8491,11 @@ class CLEditSM
         void LoopLoop();
 
 };
+```
 
 CLEditSM.cpp
+
+```
 /* this is the Shell-Metzner sort an adaptation of the Shell sort by Marlene 	Metzner the fastest sort on the planet */
 #include "CLEditSM.h"
 CLEditSM::CLEditSM()
@@ -8092,7 +8574,9 @@ perform a sort on a coluom on a spread sheet, or fields on a record, like name e
 Well, in the current logic we're sorting the entire line. Not very usefull. If you specify a certain coloum or set of coloums, everytime you want to change the colums you have to change the sort. The sort is in out CLEditSM object. What if there was a way to change the Sort from outside CLEditSM? There is.
 In CLEditSM we'll always sort the same thing, the same area. There is no structure like a spreadsheet or a database here, just a string. So what we need to do is provide the data that we want to sort in the area that is being sorted.
 We can then change our minds whenever we want in CLEDitMain and never change CLEditSM. Isn't that cleaver? 
+
 **Change in CLEditSM.h** add a sortarea and change the TYPE of temp
+
 ```
        struct InputFile
         {
@@ -8105,7 +8589,9 @@ private:
         InputFile temp;
 
 ```
+
 **Change CLEditSM.cpp** how smart is that
+
 ```
 void CLEditSM::LoopLoop()
 {
@@ -8138,10 +8624,13 @@ void CLEditSM::Swap()
 
 **Change CLEditMain.cpp**
 Change in functions.h add a function to populate the sortarea, it could get hard
+
 ```
 	 void SortArea(); 
 ```
+
 **Change in CLEditMAin.cpp** change to use SortArea() to populate sortarea
+
 ```
 void CLEditFrame::SortSM()
 {
@@ -8189,17 +8678,22 @@ void CLEditFrame::SortArea()	// implemented in Main.cpp
 
 }
 ```
+
 Try it. It's so much fun! You'll never think of sorting the same way. 
 
 **Back to CLEdit**
-This is a real mile stone. We’ve completed OnApplyClicked! Let’s finish out our connection OnKeyDown. We had much more to do. We left it because these are keyboard event driven connections to actions. It’s clear that we’re injecting actions between the send LoadScreen, receive ProcessScreen loop. At the level of the ENTER key event, and not a key level event. We’re not going to react to key press event like the IDE does. We don’t need to. 
+This is a real milestone. We’ve completed OnApplyClicked! Let’s finish out our connection OnKeyDown. We had much more to do. We left it because these are keyboard event driven connections to actions. It’s clear that we’re injecting actions between the send LoadScreen, receive ProcessScreen loop. At the level of the ENTER key event, and not a key level event. We’re not going to react to key press event like the IDE does. We don’t need to. 
 
 Add to functions.h
+
 ```
 	void FindNext(); 
 ```
-Really? We added eight key shortcuts and only need to add one function? Why you ask. It’s because the ‘change’ action performs one change by default, but the ‘find’ action performs ‘all’ by default. Why? Because I said so. Kidding. I coded it like that because most of the time, this is what we want done. Similar applications exhibit the same behavior. Weird things happen.           
+
+Really? We added eight key shortcuts and only need to add one function? Why you ask. It’s because the ‘change’ action performs one change by default, but the ‘find’ action performs ‘all’ by default. Why? Because I said so. Kidding. I coded it like that because most of the time, this is what we want done. Similar applications exhibit the same behavior. Weird things happen.
+
 **void OnKeyDown(wxKeyEvent & event);**  	// declared in functions.h
+
 ```
 void CLEditFrame::OnKeyDown(wxKeyEvent & event)   // implemented in main.cpp
 {
@@ -8281,8 +8775,11 @@ void CLEditFrame::OnKeyDown(wxKeyEvent & event)   // implemented in main.cpp
 
 }
 ```
+
 This is the reaction to key F5. All we need to do here is Load Screen from a new location. 
+
 **void FindNext();**  	// declared in functions.h
+
 ```
 void CLEditFrame::FindNext()   // implemented in main.cpp
 {
@@ -8306,8 +8803,11 @@ void CLEditFrame::FindNext()   // implemented in main.cpp
 
 } 
 ```
+
 We’re done! We’re done with CLEditMain. We just need to go back to Initialize, because we left it incomplete. 
+
 **void Initialize();**  	// declared in functions.h
+
 ```
 void CLEditFrame::Initialize()   // implemented in main.cpp
 {
@@ -8404,7 +8904,8 @@ void CLEditFrame::Initialize()   // implemented in main.cpp
 
 }
 ```
-We completed CLEditSM, because it’s small. Now we need to finish out two other classes CLEditCF the file functions and CLEditDB the database functions. Lastly, we circle back and add more features, and maybe clean some things up. 
+We completed CLEditSM, because it’s small. Now we need to finish out two other classes; CLEditCF the file functions and CLEditDB the database functions. Lastly, we circle back and add more features, and maybe clean some things up. 
+
 You might be asking, how did I write all this down and put it all together. What I did was I thought about what I wanted to do. I wrote it down on paper. Then I open a file and start adding comments. Only Comments. That is step one.
 Example
 
@@ -8414,13 +8915,18 @@ Example
 // do the other thing
 ```
 
-Step two is to create high level, empty files, as containers for the code. I put comments into each of those. Then as I added topics and logic to this document, I did the exact same action in the IDE and I compiled and tested as I progressed. This ensures, as best possible the completeness of this document. Recall that so far, there are two basically empty class implementations. We’ll complete those now. They are small so we’ll just dive into CLEditCF. This is for file processing, not stream processing. Real life, not silly list taking and such. I need to digress. Bits and bytes hardly matter unless they are organized into some form of useful collection. We are not taking about dials, buttons, check boxes. Were talking about real data. Real data is complicated.
+Step two is to create high level, empty files, as containers for the code. I put comments into each of those. Then as I added topics and logic to this document, I did the exact same action in the IDE and I compiled and tested as I progressed. This ensures, as best possible the completeness of this document. Recall that so far, there are two basically empty class implementations. We’ll complete those now. They are small so we’ll just dive into CLEditCF. This is for file processing, not stream processing. Real life, not silly list taking and such. I need to digress. Bits and bytes hardly matter unless they are organized into some form of useful collection. We are not taking about dials, buttons, check boxes. We're talking about real data. Real data is complicated.
+
 Take my personal favorite example, names and addresses. Everyone has a name and address. People have a first name, a last name and perhaps a middle initial. Some people have a title at the end of their names like lawyers, esquire, or doctors MD. Then in the address typically we see street number, street, apartment number, city, state, zip, county, country. 
+
 How many different ways can you combine all those values? How many different days can you define those values? Is zip code 5 numbers, or 9 numbers. Does it include the dash? The US Postal Service has one way, the IRS another. And guess what, nobody is the same. Oh. How many addresses can a person have? Good questions. 
 The point to be made here is that data requires structure. The whole idea is called data administration. It’s both a science, and an art. You need to decide, what data, what it will look like and how are you going to 'process' it. You also have to be disciplined. When you read that C++ is a strongly typed language, that’s type discipline. 
+
 Everyone born before the year 2000, and those after, experience the cost of poor data administration and some woefully poor data discipline. My professional career started in 1982, on cards. With only 80 bytes per card, how do you imagine they decided to define Dates? You guess it, they said to themselves, we don’t need the century, we’ll save two bytes! Besides, this program wont be running in 20 years, and I’ll be retired by then. Not to mention format, will it be yymmdd, mmddyy, ddmmyy or julian yyddd or dddyy. You save 1 byte!
 Were they ever wrong! Programs that I wrote at AT&T in the 90’s are still running 1000’s of times per day, even today. Today’s ‘modern’ languages have ‘date’ types and all sorts of functions to deal with them.
+
 In the beginning. I do like to talk about the past because it can explain the future. In the beginning, remember those punch cards. Data was on punch cards too. Each card could only hold 80 characters. These cards, when they were data, were referred to as ‘records’. So now your name and address ‘file’ needs structure. These structures know as ‘layouts’ need to be defined by you, and filled in character by character for consumption. Some languages like COBOL make that so easy for you. Not C++. CLEditCF will give you the frame work for even thinking about this methodology. 
+
 CLEditCF is what real file processing looks like. For fun, we’ll improve CLEdit by adding a create record function, later. For now CLEditCF will simply consider records to be one field terminated by an 'end line'. In Data Processing terms, records within a file are consistent within a layout. Each file will have a different layout.  The language of file processing is like  Open, Read, Write, ReWrite, Delete, Close. 
 
 Some 'programmers' do nothing all day long except create ETL's. They write programs to Extract Data, Transform it and Load it into a file or more likely a table. All for consuption by a 'real' program that processes it. I'm sure I've insulted someone. Oh well. When I started there was no one to do all the ETL work for you. You did it yourself, and, you wrote the program too. Now a days, you probably won't even test your code. Some tester, will write scripts (more code) to automate the testing of your code. I always asked, 'who is testing the script?'. I got into a lot of trouble for asking that. anywho
@@ -8428,6 +8934,7 @@ Some 'programmers' do nothing all day long except create ETL's. They write progr
 Databases. A database stores data in tables. Tables have a structure. Shocker. Each ‘record’ in the table is called a row. A database management system DBMS can handle many databases each containing many tables. Also, the DBMS provides a ton of functions. There are books and books. The language of database is like USE, CREATE,SELECT,UDATE,DELETE,INSERT. And many more. We’ll touch on the basics. The language of all DBMS is SQL. 
 
 Ok. Back to reality. Hey Pierre, why did you write ‘using namespace std’ and then waste all those keystrokes typing std::string instead of just string? Because, if you add a new library, or someone changes a library, affecting the ‘string’ type, my code will always work. Now and forever. 
+
 Reminder that CLEditCF is a class. It has public parts and private parts. Never us a class in your  project, unless, you have all the code to the class and everything inherited from those classes. If you can’t read the code, you have no idea that your program is doing. No idea! Period. All the libraries we’ve used are open source, the code is 100% available. 
 
 ***File Processing***
@@ -8777,6 +9284,7 @@ void CLEditCF::openfo()
 ```
 
 **danger caution warning**
+
 We’re going to read, or input a file here “std::ios::in” means input. 
 I could write a whole book here. Computers are fast. Files are generally small. But file systems are funny. They catalog the file as soon as you touch it.
 What’s the problem? The problem is, suppose the file is large, and suppose that the file is being created, at the same time that you want to read it. You might not be looking at the whole file. Imagine if that file is being sent someplace via secure ftp. Secure FTP aka guaranteed delivery, will try to send the file in one go, but if it can’t it will keep trying until its successful. If you try to read this file, the system will let you, but you won’t get the whole file! And you won’t know it! 
@@ -8800,7 +9308,7 @@ void CLEditCF::openfi()
 }
 ```
 
-this is the right way:
+This is the right way:
 to test this, open the file with another editor first then try ‘open filename’ and you will get a ‘file unavailable’ message. Exactly what we want. We're using the 'app' option, so that C++ doesn't erase the file when we finally open it. We're allowing for 2 attempts. Perhaps, using a time frame would be smarter. Just trying to make a point. How long would you wait? 
  
 ```
@@ -8847,7 +9355,9 @@ void CLEditCF::openfi()
 ```
 
 Closing the input file. Nothing special here. Pierre, a function() for one line of code? Yes. I know. It looks rediculous. But here is the thing. 
-*This function is called by the destructor of basic_fstream when the stream object goes out of scope and is not usually invoked directly.*
+
+This function is called by the destructor of basic_fstream when the stream object goes out of scope and is not usually invoked directly.
+
 Interesting. I know if you don't close the file stream, you results willl not meet your expectations. The issue I have is, suppose you change from fstream to a better file system, and there are things that ccan go wrong with the close, like 'open' has a 'is_open()'. This is where that code would belong, so isn't it nice that a function() exists? I agree.
 
 ```
@@ -8964,7 +9474,7 @@ void CLEditCF::readfir()
 }
 ```
 
-The wrong way, combining separate and distinct units of work, just because they both need initfileir(). In the copy, we just want to write the record fileir. In the open file action we wan to load the record fileir into a structure. then after each record is process call initfileir(). 
+The wrong way, combining separate and distinct units of work, just because they both need initfileir(). In the copy, we just want to write the record fileir. In the open file action we can to load the record fileir into a structure. Then after each record is process call initfileir(). 
 
 ```
 void CLEditCF::processfor()
@@ -9122,8 +9632,7 @@ void CLEditCF::CloseErr()
 
 
 ###***DataBase***
-A header for our database class. Nothing scary here. We’re going to use pointers, to dynamically instantiate objects, because they are big under the hood. Then ‘free’ them later, ‘delete’ them.
-
+A header for our database class. Nothing scary here. We’re going to use pointers, to dynamically instantiate objects, because they are big under the hood. Then ‘free’ them later. In other words delete them.
 
 **file CLEditDB.h** complete
 
@@ -9310,7 +9819,6 @@ void CLEditDB::Connect()
 
 Step Three: implement a Statement object. I'll talk more about this in a minute.
 
-
 ```
 void CLEditDB::Statement()
 {
@@ -9334,7 +9842,14 @@ void CLEditDB::Statement()
 
 This is our first SQL statement. Before asking MySQL, the DBMS, to go romping through a table, we need to know if there is anything to look at right? A simple way to do that is to ask MySQL to count the rows. Rows in a table is like a structured record in a file. The SQL query as it's called is a string. We build the string up out of its parts. Notice, we declare 'total' inside the query. Since the database name and table names are dynmic, they are provided in pieces.
 The DBMS will populate the values as it encounters the variables. If the daqtabase and table names were 'hard coded' you could just say
-"SELECT COUNT(*) AS total FROM mydb.mytbl;" in one line of code. 
+
+```
+SELECT COUNT(*) AS total FROM mydb.mytbl;
+
+```
+
+in one line of code. 
+
 The important part here is some queries return a result and some do not. Next, we need to use getInt() to get the result. The user manual is invaluable. I'll admit it's a little cludgy, but once you get the hange of it, you too can make MySQL wince. 
 
 ```
@@ -9680,6 +10195,8 @@ void CLEditDB::Error()
 } 
 ```
 
+Open the log file.
+
 ```
 void CLEditDB::OpenLog()
 {
@@ -9698,6 +10215,7 @@ void CLEditDB::OpenLog()
 }
 ```
 
+Close the log file.
 
 ```
 void CLEditDB::CloseLog()
@@ -9707,6 +10225,8 @@ void CLEditDB::CloseLog()
 
 }
 ```
+
+Open the error file.
 
 ```
 void CLEditDB::OpenErr()
@@ -9723,6 +10243,8 @@ void CLEditDB::OpenErr()
     }
 }
 ```
+
+Cloe the error file.
 
 ```
 void CLEditDB::CloseErr()
@@ -9780,11 +10302,14 @@ Create Table: stage from a block copy of cards
     DB.Free();
 
 
-See the pattern? Initialize(), Driver(), Connect(), Statement() with no code inbetween them. These 4 functions are needed, in that order. They act exactly the same as a file.open, except it's a database.open, but obviousely more complicated. So it looks like we should have a function in DB that does those 4 things, since they make sense together. We should come up with a good name. 
+See the pattern? Initialize(), Driver(), Connect(), Statement() with no code inbetween them. These 4 functions are needed, in that order. They act exactly the same as a file.open, except it's a database.open, but obviousely more complicated.
+
+So it looks like we should have a function in DB that does those 4 things, since they make sense together. We should come up with a good name. 
 InitializeDriverConnectStatement() would be a bit much. Connect() would be too terse. What is the opposite of 'free'? I got it! Wordhippo.com sugests bound! On the mainframe, if your code includes SQL, the compiler make two executables. One for your code the other for your SQL. These need to be combined together with a command, a 'bind' command. So Bind() it is!
 
 Plus there is another problem. In CLEditDB::Error(), the function called whenever a Try fails, it just exits and we don't know what's wrong in Edit. That's bad.
 Let's fix that.
+
 It's easy.
 
 First lets add a function to CLEditDB.h, it will return an integer. 
@@ -9797,6 +10322,7 @@ In CLEditDB, Bind() will call Initialize(), Driver(), Connect() and Statement()
 checking the return code abendi between each.
 
 **int Bind();**	// declared in CLEditDB.h
+
 ```
 int CLEditDB::Bind()	 	// implemented in CLEditDB.cpp
 {
@@ -9882,6 +10408,7 @@ void CLEditFrame::CreateTable()	// implemented in CLEditMain.cpp
 }
 ```
 
+To Stage.
 
 ```
 void CLEditFrame::ToStage()	// implemented in CLEditMain.cpp
@@ -9961,6 +10488,8 @@ void CLEditFrame::ToStage()	// implemented in CLEditMain.cpp
 
 }
 ```
+
+From Stage.
 
 ```
 void CLEditFrame::FromStage()		// implemented in CLEditMain.cpp
@@ -10054,12 +10583,15 @@ void CLEditFrame::FromStage()		// implemented in CLEditMain.cpp
 
 }
 ```
+
 This is easy to test, try it without a database name.
 
-CLEditDB::Free() I've decided I do not like this function. Why? Because it's doing too many things. It's inprecise. the try block is really 4 different parts. It should be 5, one for each object we delare, but C++ won't let you delete driver. Interesting. I'm tring to find out why. Also I notices in an example that the declare is in a try catch block? Whacky. Ah, it;s because it's like all the other trivial examples, local declare!
+CLEditDB::Free() I've decided I do not like this function. Why? Because it's doing too many things. It's inprecise. The try block is really 4 different parts. It should be 5, one for each object we delare, but C++ won't let you delete driver. Interesting. I'm tring to find out why. Also I notices in an example that the declare is in a try catch block? Whacky. Ah, it's because it's like all the other trivial examples, local declare!
+
 We can fix Free() easy.
 
 add to CLEditDB.h
+
 ```
 /*      void Freedriver();   not allowed ??? */
         void Freecon();
@@ -10067,7 +10599,9 @@ add to CLEditDB.h
         void Freepstmt();
         void Freeres(); 
 ```
+
 bad
+
 ```
 void CLEditDB::Free()
 {
@@ -10095,8 +10629,11 @@ void CLEditDB::Free()
 
 }
 ```
+
 good
+
 **void CLEditDB::Free();**    // declared in CLEditDB.h
+
 ```
 void CLEditDB::Free() 	// implemeted in CLEditDB.cpp 
 {
@@ -10117,7 +10654,9 @@ void CLEditDB::Free() 	// implemeted in CLEditDB.cpp
 
 }
 ```
+
 **void CLEditDB::Freecon();**    // declared in CLEditDB.h
+
 ```
 void CLEditDB::Freecon() 	// implemeted in CLEditDB.cpp
 {
@@ -10140,7 +10679,9 @@ void CLEditDB::Freecon() 	// implemeted in CLEditDB.cpp
 
 }
 ```
+
 **void CLEditDB::Freestmt();**    // declared in CLEditDB.h
+
 ```
 void CLEditDB::Freestmt() 	// implemeted in CLEditDB.cpp
 {
@@ -10163,7 +10704,9 @@ void CLEditDB::Freestmt() 	// implemeted in CLEditDB.cpp
 
 }
 ```
+
 **void CLEditDB::Freepstmt();**    // declared in CLEditDB.h
+
 ```
 void CLEditDB::Freepstmt() 	// implemeted in CLEditDB.cpp
 {
@@ -10186,7 +10729,9 @@ void CLEditDB::Freepstmt() 	// implemeted in CLEditDB.cpp
 
 }
 ```
+
 **void CLEditDB::Freeres();**    // declared in CLEditDB.h
+
 ```
 void CLEditDB::Freeres() 	// implemeted in CLEditDB.cpp
 {
@@ -10211,10 +10756,12 @@ void CLEditDB::Freeres() 	// implemeted in CLEditDB.cpp
 ```
 
 I'm still not satistified with this project. I'd like to keep track of all the logging, check, and the errors, to do. But I don't want the files to occupy my entire hard drive. So we'll open the Log and Error files with the 'app' option.
-The 'app' option means 'append', add data to the existing stream.  
+The 'app' option means 'append', add data to the existing stream. 
+
 ```
 filename.open("filename.txt", std::ios::out | ios_base::app);
 ```
+
 then, if that is successful, check the file size with filename.tellg() 
 Add to variables.h, CLEditCF.h and CLEditDB.h
 ```
@@ -10223,6 +10770,7 @@ int bytecnt;
 then check the byte count using tellg(). If the byte count, the file size, is greater than some number you pick, close the file and re open it without the 'app' option. Yes we can do all sorts of things like this with files and much more. 
 
 Make CLEditFrame::CLEditFrame() look like this:
+
 ```
     OpenLog();
 
@@ -10230,7 +10778,9 @@ Make CLEditFrame::CLEditFrame() look like this:
 
     CreateControls();
 ```
+
 Change CLEditFrame::OnTerminal() to this. We need to put a message somewhere, then exit the application.
+
 ```
 void CLEditFrame::OnTerminal()
 {
@@ -10245,6 +10795,7 @@ void CLEditFrame::OnTerminal()
 In CLEditMain.cpp add these(): don't forget functions.h
 open the Log file in append mode
 if it's 'too big' close it and re open as a new file 
+
 ```
 void CLEditFrame::OpenLog()
 {
@@ -10271,7 +10822,9 @@ void CLEditFrame::OpenLog()
 
 }
 ```
-open the Log file as a new file 
+
+open the Log file as a new file
+ 
 ```
 void CLEditFrame::OpenLogn()
 {
@@ -10288,7 +10841,9 @@ void CLEditFrame::OpenLogn()
 
 }
 ```
+
 close Log file
+
 ```
 void CLEditFrame::CloseLog()
 {
@@ -10297,8 +10852,10 @@ void CLEditFrame::CloseLog()
 
 }
 ```
+
 open the Error file in append mode
 if it's too big, close it and re open as a new file
+
 ```
 void CLEditFrame::OpenErr()
 {
@@ -10325,7 +10882,9 @@ void CLEditFrame::OpenErr()
 
 }
 ```
+
 open Error file as a new file
+
 ```
 void CLEditFrame::OpenErrn()
 {
@@ -10342,7 +10901,9 @@ void CLEditFrame::OpenErrn()
 
 }
 ```
+
 close Error file
+
 ```
 void CLEditFrame::CloseErr()
 {
@@ -10355,6 +10916,7 @@ void CLEditFrame::CloseErr()
 In CLEditCF.cpp do this: don't forget CLEditCF.h (declare the functions)
 open the Log file
 if it's too big, close it and re open as a new file
+
 ```
 void CLEditCF::OpenLog()
 {
@@ -10382,7 +10944,9 @@ void CLEditCF::OpenLog()
 
 }
 ```
+
 open the Log file as a new file
+
 ```
 void CLEditCF::OpenLogn()
 {
@@ -10400,7 +10964,9 @@ void CLEditCF::OpenLogn()
 
 }
 ```
+
 close log file
+
 ```
 void CLEditCF::CloseLog()
 {
@@ -10409,8 +10975,10 @@ void CLEditCF::CloseLog()
 
 }
 ```
+
 open Error file in append mode
 if it's too big, close it and re open as a new file
+
 ```
 void CLEditCF::OpenErr()
 {
@@ -10437,7 +11005,9 @@ void CLEditCF::OpenErr()
 
 }
 ```
+
 open Error file as a new file
+
 ```
 void CLEditCF::OpenErrn()
 {
@@ -10454,7 +11024,9 @@ void CLEditCF::OpenErrn()
 
 }
 ```
+
 close Error file
+
 ```
 void CLEditCF::CloseErr()
 {
@@ -10467,6 +11039,7 @@ void CLEditCF::CloseErr()
 In CLEditDB.cpp do this: don't forget CLEditDB.h (declare functions)
 open the Log file in append mode
 If it's too big, close it and re open as a new file 
+
 ```
 void CLEditDB::OpenLog()
 {
@@ -10494,7 +11067,9 @@ void CLEditDB::OpenLog()
 
 }
 ```
+
 open the Log file as a new file
+
 ```
 void CLEditDB::OpenLogn()
 {
@@ -10512,7 +11087,9 @@ void CLEditDB::OpenLogn()
 
 }
 ```
+
 close the Log file
+
 ```
 void CLEditDB::CloseLog()
 {
@@ -10521,7 +11098,9 @@ void CLEditDB::CloseLog()
 
 }
 ```
+
 open the Error file in append mode
+
 ```
 void CLEditDB::OpenErr()
 {
@@ -10548,7 +11127,9 @@ void CLEditDB::OpenErr()
 
 }
 ```
+
 open Error file as a new file
+
 ```
 void CLEditDB::OpenErrn()
 {
@@ -10565,7 +11146,9 @@ void CLEditDB::OpenErrn()
 
 }
 ```
+
 close the Error file
+
 ```
 void CLEditDB::CloseErr()
 {
@@ -10574,76 +11157,103 @@ void CLEditDB::CloseErr()
 
 }
 ```
+
 That was fun right? I looked at the Log files and I'm still not satisfied. This project was started years ago and you can see I did things differently here and there. That's unlike me. Not my 'style'.
+
 I especially like the start / end time in CF. I want to apply that everywhere. Also, I'd like to know how long each action takes to perform. For this we'll need a couple of new variables and use some clock functions.
+
 Since we're running actions in CLEdit, this is where we'll put our start/stop logic. Also, since we're always thinking about the future, we'll structure the information so that we can process it later. I'm thinking a nice usage report. Oh, this will be fun!
 
 Let's start by increasing the file size limit to 100KB or 102,400 bytes 
 We'll do that with a C++ '#define' directive in CLEditMain.h, CLEditCF.h and CLEditDB.h just before the namespace line
+
 ```
 #define FILE_SIZE 102400 
 ```
+
 then change the condition testing the file size, everywhere, to:
+
 ```
     if  (bytecnt > FILE_SIZE)
 ```
+
 Did you notice how simple it is to share code, if you use the same variable names? Remember that.
+
 We're tempted to pull the clock logic from CF and put it into CLEdit. When I wrote CLEditCF it was a stand alone application, and now it's a class. So where would you put it? CLEditCF and CLEditDB could be used anywhere. I could have put them into different libraries or projects. I will perhaps next time. We'll modify the clock logic in CLEditCF to give us the elapsed time by action, and add that logic to CLEditDB too of it's actions. We'll put the reporting action in CLEdit because we can. Actually, we'll do better, we'll create a reporting class called CLEditRP.
 Why not.
 
 The basics of the clock are a: start time
 declare
+
 ```
         int start_s;
 ```
 
 implement
+
 ```
     start_s = std::clock();
 ```
 
 b: end time
 declare
+
 ```
         int stop_s;
 ```
+
 implement
+
 ```
     stop_s = std::clock();
 ```
+
 c: elapsed time
 implement
+
 ```
 (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 
 ```
+
 this command returns a string like:
+
 ```
 "Tue Dec 17 08:09:50 2024"
 ```
+
 Full disclosure, this command is actually several instructions
 first subtract the stop time from the start time
 
 used in our code
+
 ```
     LogFile << "elapsed time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << std::endl; 
 ```
+
 Let's add those instructions to the beginning and end of each action.
 In CF that's copyfile(), openfile() and savefile(). In DB that's Cursor(), FromStage(), Count() and ToStage(). In other words, the public functions.
 Make sense?
+
 In CLEditCF each public function starts with init() and ends with eop(). So guess where we'll put our code. duh 
+
 In CLEditDB it's a little diffferent, because the init() and eop() logic are different by action. I think we might need to account for that. Furthermore, CLEdit uses some DB functions in combination within CreateTable(), ToStage() and FromStage(). So we'll account for that.
+
 Let's exercise our changes by performing all the actions that use our classes and observe our Log files. It will good to re test everything.
+
 CLEditLog.txt
 CLEditCFLog.txt
 CLEditDBLog.txt 
-Did you notice that CreateFile() is broken?
-Did you figure out why?
+
+Did you notice that CreateFile() is broken? Did you figure out why?
+
 It's because we decided to declare CF dynamically with new. So what? This means that CF is now local scope. When we try to call InitCF() you abend, you generate an 'addressing exception'. We only declare DB once in the header, that makes it static true, but, also it's global. So no matter what we do and where we do it with DB dot we're golden. Are you starting to get the difference? 
+
 InitCF is only used in one place, so we have options. We can put the code for InitCF() in CreateFile() or we can revert it to static. I do not want to start coding functions one way for dynamic and another way for static. I think that this was enough 'learning'. I'm changing the declare in objects.h to static, changing all 'CF->' back to 'CF.' and removing the related 'new' and 'delete'.
 I'll never use dynamic allocations. You can do as you wish.
 
 Let's get back to the Log files and what fun we could have.
 CF Log shows, abridged
+
 ```
 Welcome Tue Dec 17 15:36:05 2024
 open file 
@@ -10653,6 +11263,7 @@ Open File elapsed time: 0.922
 it shows the date, which I love, the action but not the file name
 
 Main Log shows, abridged
+
 ```
 Find Primary open
 Find First objects.h
@@ -10670,11 +11281,14 @@ btw avoid using underscores, and all caps, they are used all over the standard l
     std::time_t currentdatetime = std::time(nullptr);
     LogFile << "Welcome " << std::ctime(&currentdatetime) << std::endl;
 ```
+
 let's put std::time_t currentdatetime; in the headers where it belongs
 and remove the endl because ctime adds one already 
+
 ```
     LogFile << "Welcome " << std::ctime(&currentdatetime);
 ```
+
 Lets add one more thing to out Welcome message; the user name
 declare in variables.h
 
@@ -10683,18 +11297,24 @@ declare in variables.h
     uid_t username;
 	std::string userid;
 ```
+
 implement in CLEditFrame::CLEditFrame() just before OpenLog(). As the first instruction
+
 ```
     username = geteuid ();
     password = getpwuid (username);
     userid   = password->pw_name;
 ```
+
 and pretty up the Welcome
+
 ```
     LogFile << "Welcome " << userid << " " << std::ctime(& currentdatetime);
 ```
+
 Here is an abridged version of our log files
 CLEdit
+
 ```
 On Apply Clicked Length 14
 Find Primary open
@@ -10704,6 +11324,7 @@ Open File elapsed time: 15.439
 ```
 
 CLEditCF
+
 ```
 Welcome Wed Dec 18 13:01:18 2024
 Open File objects.h
@@ -10711,9 +11332,12 @@ File In Bytes 334
 File In Records 15
 Open File elapsed time: 0.848
 ```
-As you can see, it's handy to say things in the same manner. From the Main program we see that user pierre did an open file action, and the driven program CF opened file objects.h and it was 334 bytes across 15 records. I can't comment on the elapsed time yet. There's CPU time and clock time and the uniots are unclear. No matter, we can treat them relatively. It a unit of something, a number. That's enough for me.
+As you can see, it's handy to say things in the same manner. From the Main program we see that user pierre did an open file action, and the driven program CF opened file objects.h and it was 334 bytes across 15 records. I can't comment on the elapsed time yet. There's CPU time and clock time and the units are unclear. No matter, we can treat them relatively. It a unit of something, a number. That's enough for me.
+
 There is plenty to play with here, if we can get it into some sort of format that is usefull. Let's create a new class called CLEditRP for 'report', in our project. It will add two files CLEditRP.cpp and CLEditRP.h. 
+
 header file CLEditRP.h
+
 ```
 class CLEditRP
 {
@@ -10728,7 +11352,9 @@ class CLEditRP
     private:
 };
 ```
+
 implentation file CLEditRP.cpp
+
 ```
 #include "CLEditRP.h"
 CLEditRP::CLEditRP()
@@ -10743,10 +11369,12 @@ void CLEditRP::Report()
 ```
 We'll add a 'report' action in Main. That's the easy part.  
 
-Now let's think. This is what programming is all about. How are we going to organize all our meta data from the log files. Should we create structures? Should we create a record layout? Should we create a table in a database? And  how should we generate a report from that data? 
+Now let's think. This is what programming is all about. How are we going to organize all our meta data from the log files. Should we create structures? Should we create a record layout? Should we create a table in a database? And how should we generate a report from that data? 
+
 I have a crazy idea. Let's do all three!
 
-Where oh where to begin. Don't forget, we can always improve our log file to help us. Let's see how it goes. Lets start by adding the framework we've been using so far. Meaning, a log file, an error file, a basic init() etc. I'll do that by copying the two CLEditCF files and deleting we don't need yet.
+Where oh where to begin. Don't forget, we can always improve our log file to help us. Let's see how it goes. Lets start by adding the framework we've been using so far. Meaning, a log file, an error file, a basic init() etc. I'll do that by copying the two CLEditCF files and deleting anything we don't need yet.
+
 Now I have CLEditRP.h
 
 ```
@@ -10846,6 +11474,7 @@ reportexit:
 
 }
 ```
+
 standard stuff
 
 ```
@@ -10876,7 +11505,9 @@ void CLEditRP::init()
 
 }
 ```
+
 open log file in append mode
+
 ```
 void CLEditRP::OpenLog()
 {
@@ -10904,7 +11535,9 @@ void CLEditRP::OpenLog()
 
 }
 ```
+
 open the log file as a new file
+
 ```
 void CLEditRP::OpenLogn()
 {
@@ -10922,6 +11555,7 @@ void CLEditRP::OpenLogn()
 
 }
 ```
+
 open the error file in append mode
 
 ```
@@ -10950,7 +11584,9 @@ void CLEditRP::OpenErr()
 
 }
 ```
+
 open the error file as a new file
+
 ```
 void CLEditRP::OpenErrn()
 {
@@ -10967,7 +11603,9 @@ void CLEditRP::OpenErrn()
 
 }
 ```
+
 standard end of processing stuff
+
 ```
 void CLEditRP::eop()
 {
@@ -10982,6 +11620,7 @@ void CLEditRP::eop()
 
 }
 ```
+
 close the log file
 
 ```
@@ -10992,7 +11631,9 @@ void CLEditRP::CloseLog()
 
 }
 ```
+
 close the error file
+
 ```
 void CLEditRP::CloseErr()
 {
@@ -11001,24 +11642,33 @@ void CLEditRP::CloseErr()
 
 }
 ```
+
 Too easy. Build upon what you know. Code reuse. OOP without even trying.
 Are you thinking of putting init() in the constructor, and eop() in the
 destructor? Try it.
 
 At this point we can do the easy part and add the 'report' action to main.
+
 In objects.h add
+
 ```
 	CLEditRP RP;
 ```
+
 In functions.h add
+
 ```
 	void Report();
 ```
+
 InCLEditMain.h add
+
 ```
 #include "CLEditRP.h"
 ```
+
 In CLEditMain.cpp in OnApply() add
+
 ```
 //create a file - or stage to a table - from a block copy
     if (PrimaryCommand == "report")
@@ -11027,7 +11677,9 @@ In CLEditMain.cpp in OnApply() add
         goto ExitOnApplyClicked;
     }
 ```
+
 Check step: test it! and look at the log
+
 ```
 Log file size 0
 init 
@@ -11056,7 +11708,9 @@ File Out Bytes 0
 File Out Records 0
 Open File elapsed time: 0.848
 ```
+
 Let's review our data points we've put into the logs. Interesting list.
+
 ```
 User
 Date ccyy/mm/dd
@@ -11079,23 +11733,36 @@ datbase name
 table name
 elapsed time
 ```
+
 The first thing is to figure out how to gather it all, then organize it for consumption. From the Main log, it looks like there is a unit of work from On Apply Clicked through elapsed time. Lets call that an action.
 
 From the CF log, the unit of work is from Welcome to elapsed time. Let's call that a reaction. 
 
 What ties them together? The File name and a Date, maybe. Not alot to go on.
-We need something better. Especially when you consider that the log files, rollover, at different rates, and the date can change. We need to invent a unique key. We need to tie the action with the reaction, We can do that by creating a unique value in Main and pass that value to CF, DB and RP even. What ever we pass will give us something to match on regardless of date and or time changes. Can you think of something? This is a very common problem in data processing. It is typically solved by storing and maintaining an Action number somewhere. Either in a file or a table. Then, since the Action number can grow quickly, normally a Date would be included. How many times can an Action run in one day? Values for an int are up to 2,147,483,647. That's plenty. If we add a Date in front we have ccyymmdd2147483647. That should do it. That looks like a ton for work doesn't it. It also looks like you'd not want to clutter up Main with all this logic either. So what will we do? We'll create another class! We'll call it CLEditAR for action/reaction. We'll just call it from Main. 
+We need something better. Especially when you consider that the log files, rollover, at different rates, and the date can change. We need to invent a unique key. 
 
-This exersize is common in computer programming. We separate our work into managable functions. These can be built, tested and trusted separately. Did you notice that we were working on Report and we found an issue and now the project is bigger? This is without considering people asking for more functionality. This is just us, solving a problem. It happens all the time. It's frustrating. It's life. Build your stuff to be flexable, or be prepaired to suffer. The persons making the requirements never suffer. We programmers don't like to suffer. I carried around a toolbox of code my entire career. I never promisede to do something I didn't already know how to do. 
+We need to tie the action with the reaction, We can do that by creating a unique value in Main and pass that value to CF, DB and RP even. What ever we pass will give us something to match on regardless of date and or time changes. Can you think of something? This is a very common problem in data processing. 
+
+It is typically solved by storing and maintaining an Action number somewhere. Either in a file or a table. Then, since the Action number can grow quickly, normally a Date would be included. How many times can an Action run in one day? Values for an int are up to 2,147,483,647. That's plenty. If we add a Date in front we have ccyymmdd2147483647. That should do it.
+
+That looks like a ton for work doesn't it. It also looks like you'd not want to clutter up Main with all this logic either. So what will we do? We'll create another class! We'll call it CLEditAR for action/reaction. We'll just call it from Main. 
+
+This exersize is common in computer programming. We separate our work into managable functions. These can be built, tested and trusted separately. Did you notice that we were working on Report and we found an issue and now the project is bigger? This is without considering people asking for more functionality. This is just us, solving a problem. It happens all the time. It's frustrating. It's life.
+
+Build your stuff to be flexable, or be prepaired to suffer. The persons making the requirements never suffer. We programmers don't like to suffer. I carried around a toolbox of code my entire career. I never promisede to do something I didn't already know how to do. 
 
 CLEditAR is a copy of CLEditRP, like a template. We can do that because we didn't put any meat on the bones of RP yet. Heck, we should create a basic template class. We'll call it CLEditTemp and copy it when we need to. So from now on we'll have a little useable proven framework to build on.
 
 CLEditAR.cpp; what does it need to do?
+
 declare public
+
 ``` 
 	int ActReact();
 ```
+
 implement
+
 ```
 int CLEditAR::ActReact()
 {
@@ -11146,6 +11813,9 @@ actreactexit:
 }
 ```
 I think that will do it. You know the drill by now. Convert all the comments into C++ instructions. It's clear that there are blocks of logic, and repeated actions. Each will get their own function, within reason. 
+
+
+```
 // do stuff
 // get the currrent date
 	GetDate();
@@ -11189,7 +11859,10 @@ I think that will do it. You know the drill by now. Convert all the comments int
 		Write(); 
 //     close the file
 		Close();
+```
+
 Now declare those functions() in CLEditAR.h 
+
 ```
     void GetDate();
     void OpenI();
@@ -11202,7 +11875,9 @@ Now declare those functions() in CLEditAR.h
     void DateMatch();
     void FormatRec();  
 ```
+
 Now do stuff in ActReact() becomes
+
 ```
 // do stuff
 // get the currrent date
@@ -11229,10 +11904,14 @@ Now do stuff in ActReact() becomes
 	    NewFile();
     }
 ```
+
 Get Date, This was tough! Makes little sence to me but C++ is funny.
+
 declare in CLEditAR.h 
-public
+
+
 ```
+public
         struct dateseq
         {
             std::string date;
@@ -11240,16 +11919,23 @@ public
         };
         dateseq DateSeq;
 ```
+
+
 declare in CLEditAR.h
-private	
+
+
 ```
+private	
         time_t timestamp;
 /* struct */  tm datetime;
         dateseq CurrentAR;
         dateseq NewAR;
 ```
+ 
 implement in CLEditAR.cpp
+
 I know, I know. C++ is funny. Two instructions, read backwards. pass a reference to a pointer of time_t type to function localtime() that dereferences a pointer to populate tm structure. Now here is the 'best' part; after all that it returns the number of years since 1900, and an index value, off by one, for the month. I don't get it. That's not even Y2K compilant! Perpetual silliness.
+
 ```
 void CLEditAR::GetDate()
 {
@@ -11280,14 +11966,20 @@ void CLEditAR::GetDate()
 
 }
 ```
+
 Open CLEditAR.txt for input
+
 declare in CLEditAR.h
-private
+
 ```
+private
+
         std::fstream ActFile;
         int lrecl;
 ```
+ 
 implement in CLEditAR.cpp
+
 ```
 void CLEditAR::OpenI()
 {
@@ -11346,6 +12038,7 @@ implement in OldFile()
 ```
 
 implement in CLEditAR.cpp
+
 ```
 void CLEditAR::Close()
 {
@@ -11356,7 +12049,9 @@ void CLEditAR::Close()
 
 }
 ```
+
 implement in CLEditAR.cpp
+
 ```
 void CLEditAR::OpenO()
 {
@@ -11374,18 +12069,22 @@ void CLEditAR::OpenO()
 
 }
 ```
+
 declare in CLEditAR.h
+
 add #include <iomanip>
-private
 
 ```
+private
         int seq;
         std::string ToString(int); 
         char Actrec[19];
         int j;
 ```
+
 implement in CLEditAR.cpp 
 from CLEditMain.cpp
+
 ```
 std::string CLEditAR::ToString(int u)
 {
@@ -11399,7 +12098,9 @@ std::string CLEditAR::ToString(int u)
 
 }
 ```
+
 implement in CLEditAR.cpp 
+
 ```
 void CLEditAR::OldFile()
 {
@@ -11436,12 +12137,17 @@ void CLEditAR::OldFile()
 
 }
 ```
+
 declare in CLEditAR.h
-private
+
 ```
+private
+
 void DateMatch();
 ```
+
 implement in CLEditAR.cpp
+
 ```
 void CLEditAR::DateMatch()
 {
@@ -11469,12 +12175,16 @@ void CLEditAR::DateMatch()
 
 }
 ```
+
 declare in CLEditAR.h
-private
+
 ```
+private
 void FormatRec();
 ```
+
 implement in CLEditAR.cpp
+
 ```
 void CLEditAR::FormatRec()
 {
@@ -11497,7 +12207,11 @@ void CLEditAR::FormatRec()
 ```
 
 declare in CLEditAR.h
+
+```
 private
+	void NewFile();
+```
 
 implement in CLEditAR.cpp
 
@@ -11527,12 +12241,16 @@ void CLEditAR::NewFile()
 }
 ```
 
-
 declare in CLEditAR.h
+
+```
 private
+	void ActReact();
+```
 
 implement in CLEditAR.cpp 
 complete
+
 ```
 int CLEditAR::ActReact()
 {
@@ -11582,6 +12300,8 @@ actreactexit:
 }
 ```
 
+Open
+
 ```
 void CLEditAR::OpenO()
 {
@@ -11603,18 +12323,28 @@ void CLEditAR::OpenO()
 
 Time to test!
 start without a file, should show date/1
+
 202412200000000001
+
 next with a file, should show date/2
+
 202412200000000002
+
 change the date, retest. should show date2/1
+
 202412200000000001
+
 next with a file, should show date2/2
+
 202412200000000002
+
 B I N G O, you win a car! that's what my first manager would say to me when I succeded.
 
 Let's add DateSeq everywhere it's needed. All the headers need
-public
+
+
 ```
+public
         struct dateseq
         {
             std::string date;
@@ -11622,8 +12352,10 @@ public
         };
         dateseq DateSeq;
 ```
+
 implement the set, pass everywhere in CLEditMain.cpp 
 set where ever there is a 'Welcome'. 9 places 
+
 ```
     res = AR.ActReact();
 
@@ -11640,13 +12372,16 @@ set where ever there is a 'Welcome'. 9 places
 
     LogFile << "Usage Date " << DateSeq.date << " " << DateSeq.seq << std::endl;
 ```
+
 pass prior to each CF action, 5 places 
+
 ```
     CF.DateSeq.date = DateSeq.date;
     CF.DateSeq.seq = DateSeq.seq;
 ```
 
 or DB action, 3 places
+
 ```
     DB.DateSeq.date = DateSeq.date;
     DB.DateSeq.seq = DateSeq.seq;
@@ -11681,8 +12416,10 @@ Parameter III
 Usage Date 20241222 0000000002
 Open File elapsed time: 10.215
 ```
+
 I want the put the actions after the Welcome
 CF
+
 ```
 Welcome Fri Dec 20 14:15:02 2024
 Error file size 0
@@ -11694,7 +12431,9 @@ File Out Bytes 0
 File Out Records 0
 Open File elapsed time: 1.106
 ```
-DB 
+
+DB
+ 
 ```
 Welcome Fri Dec 20 14:16:12 2024
 Count(*) 1 testones
@@ -11708,6 +12447,7 @@ it the act react file exists, but is empty or the wrong size, you get a Date and
 C++ is funny. It tells you nothing! 
 this issue is here - another missing close()!
 bad
+
 ```
 	if  (ActFile.is_open())
 	{
@@ -11754,8 +12494,8 @@ WOW. Ok. That was really hard to find. Thank God we could focus on one file.
 Back to the report. We're going to read through the Main log file first, end to end. Then create an initial structure gathering the meta data from the log. Then we'll read the CF log file, end to end, plugging in the missing meta data where we can. Then do the same thing with the DB log. Then, we'll create a table and load the meta there. We'll do our very own extract, transform and load. An ETL! From there we can use fancy SQL to draw whatever reports we want. This is what happens in the real world. 
 
 in CLEditRP.h create these structures 
+
 private
-```
 User
 Date ccyymmdd
 seq  0000000000
@@ -11769,8 +12509,9 @@ Output Files, Copy, Create, Save and Save As
 output file name
 record count
 byte count
-```
+
 let's refine CF action to:
+
 ```
 struct cfaction
 {
@@ -11789,7 +12530,9 @@ struct cfaction
 };
 cfaction CFAction;
 ```
+
 let's refine DB action to:
+
 ```
 struct dbaction
 {
@@ -11805,6 +12548,7 @@ struct dbaction
 };
 dbaction DBAction;
 ```
+
 in CLEditRP.cpp
 implement these steps, the 'do stuff' in Report(). Not really an accurate name. It's more of a reporting facilitation, or even more accurately an extract and transform and load logical unit of work. An ETL.
 
@@ -11840,8 +12584,7 @@ the process the Main log file would look like this
 // gather those keywords into a structure
 // collect those structures into an array 
 ```
-   
-
+  
 the process the CF log file would look like this
 
 ```
@@ -11863,7 +12606,12 @@ dump the CF log array into a Table, attach to the anchor points
 
 dump the DB log array into a Table, attach to the anchor points
 
- So here is one of those stop and think moments. The dillema. Should or would you put all this logic in one place. Would you create three separate programs, one for each log. If so why? What we need is a table where each action, and it's associated meta data is gathered and results in a row in a table. Each record in the log has the Usage data in it, the 'key', index or anchor, so we could create a row with the records for either log file. Another thing to ask yourself is, am I ever going to have another log file, or other types of actions. How would I handle that. If I have one program that does the ETL for all ETL's and I change it, I need to retest all the ETL's to be certain that they still all work. Yikes. If I have one ETL per log file, I'd only have one ETL to test, without risking the others. Also, a nagging issue is that the log files roll over at different points. What happens if I don't run the Report() action often enough. I might lose meta data and create incomplete meta data. Everyone hates that. If you do that in real life your going to get the famouse 'why did you do that ' ding. Not fun. We prefer ' how did you do that ' compliment. Pierre it sounds like you're thinking of redesigning the entire unit. Yes, I am. Let's face it, following this path, we're createing a future headache. The smart play here is to a) create an ETL process per log and b) make Report() action actually produce a report. duh Maybe, we can try this inheritance business. 
+So here is one of those stop and think moments. The dillema. Should or would you put all this logic in one place. Would you create three separate programs, one for each log. If so why? What we need is a table where each action, and it's associated meta data is gathered and results in a row in a table.
+
+Each record in the log has the Usage data in it, the 'key', index or anchor, so we could create a row with the records for either log file. Another thing to ask yourself is, am I ever going to have another log file, or other types of actions. How would I handle that. If I have one program that does the ETL for all ETL's and I change it, I need to retest all the ETL's to be certain that they still all work. Yikes. If I have one ETL per log file, I'd only have one ETL to test, without risking the others. 
+
+Also, a nagging issue is that the log files roll over at different points. What happens if I don't run the Report() action often enough. I might lose meta data and create incomplete meta data. Everyone hates that. If you do that in real life your going to get the famouse 'why did you do that ' ding. Not fun. We prefer ' how did you do that ' compliment. Pierre it sounds like you're thinking of redesigning the entire unit. Yes, I am. Let's face it, following this path, we're createing a future headache. The smart play here is to a) create an ETL process per log and b) make Report() action actually produce a report. duh Maybe, we can try this inheritance business. 
+
 The ETL process will be triggered before a Log File 'new'. We're gonna need a smarter Template! We're going to improve CF,DB and Main to give us the meta data we need in a format that is easy to gather. It's not cheating. Then, one day, we'll actually build Report() RP. Maybe, maybe not. Perhaps there are tools out there that we can leverage for reporting. Most companies rely on collections of applications to run their businesses. Some of these talk to each other or, are made to! 
 
 Structually, the ETL will look like CF combined with DB, right? CF reads and processes a file and DB does SQL stuff like SELECT and INSERT rows. There will be very little 'new' instructions. So let's get cracking, what do we want to call this? It's an application log etl, how about CLEditMETL, CLEditCFETL and CLEditDBETL. Not terrible. We'll start with XETL. We can test it by lowering FILE_SIZE to 100 lol. 
@@ -11874,7 +12622,9 @@ add in CLEditTemp.h
 public
 CLEditXETL ETL;
 ```
+
 implement in CLEDitTemp.cpp in OpenLog().
+
 ```
         CloseLog();
         abendi = ETL.DoStuff();
@@ -11892,7 +12642,9 @@ implement in CLEDitTemp.cpp in OpenLog().
         }
 
 ```
+
 Now, let's build it, test it and copy it as needed. Did you say 'inherit'. Hold that thought. Let's build it first using DB as a template, since it already processes files and tables. It needs to do the following;
+
 ```
 // open log file for input
 // read byte by byte
@@ -11917,6 +12669,7 @@ For CLEditXETL.h there will be one public function; not DoStuff() too silly
 delcare
 int ETL();
 implement the following improved unit of work
+
 ```
 // init
 // 	open log file for input
@@ -11932,7 +12685,9 @@ implement the following improved unit of work
 ```
 C++ is funny. Remember when I said that XETL would combine code from CF and DB? Well. We started with Main.cpp adding #include "CLEditXETL.h". Main already uses CF and DB. But, DB amd CF didn't use XETL yet. So we needed to add #include "CLEditXETL.h". to them too. What happens next is kinda funny. C++  complains
 that class CLEditXETL is redefined!
+
 What?
+
 This project is headed by Main. CF,DB,XETL are children of Main. But, XETL is also a child of CF and DB. So when the compiler does it's thing, it sees the definition or declaration of XETL 4 times! Once in each Main.CF,DB and XETL.
 How do we fix that? 
 We need to use a compiler directive to control the define. At the start of each header file for the classname.cpp file add two lines:
@@ -11942,13 +12697,15 @@ We need to use a compiler directive to control the define. At the start of each 
 ```
 
 At the end of the header file add one line:
+
 ```
 #endif // classname_H
 ```
 
-This is actually code. Pre compiler code. It says "if you, C++, have not seen this definition called classname_H, then define classname_H with the below. The 'end if' goes at the bottom. Some cpp files are absolutely littered with pre compiler directives.   
+This is actually code. Pre compiler code. It says "if you, C++, have not seen this definition called classname_H, then define classname_H with the below. The 'end if' goes at the bottom. Some cpp files are absolutely littered with pre compiler directives. 
 
 CLEditXETL.h 
+
 ```
 #ifndef CLEDITXETL_H
 #define CLEDITXETL_H
@@ -12165,11 +12922,13 @@ class CLEditXETL
 ```
 
 CLEditXETL will handle the roll over af any log file in the project, to start. If we discover that we want more logic for one log over another, we can reevaluate. Maybe we'll inherit a class or override a function?
+
 CLEditXETL will read a text file of log records, gather meta data and store that data in a row in a table for processing elsewhere. 
 
 declare in CLEditXETL.h
-public
+
 ```
+public
         CLEditXETL();
         virtual ~CLEditXETL();
 ```
@@ -12190,8 +12949,9 @@ CLEditXETL::~CLEditXETL()
 ```
 
 declare in CLEditXETL.h
-public
+
 ```
+public
         int ETL();
 ```
 
@@ -12254,8 +13014,9 @@ int CLEditXETL::ETL()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
         void Init();
 ```
 
@@ -12359,12 +13120,14 @@ void CLEditXETL::Init()
 This is the 'standard' open for input file processing. Check to be sure that the file is complete and available first, then open it in input mode.
  
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void OpenLog();
 ```
 
 implement in CLEditXETL.cpp 
+
 ```
 void CLEditXETL::OpenLog()
 {
@@ -12394,8 +13157,9 @@ void CLEditXETL::OpenLog()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void OpenLogn();	
 ```
 
@@ -12420,8 +13184,9 @@ void CLEditXETL::OpenLogn()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void OpenErr();
 ```
 
@@ -12456,10 +13221,12 @@ void CLEditXETL::OpenErr()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void OpenErrn();
 ```
+
 
 implement in CLEditXETL.cpp 
 
@@ -12482,8 +13249,9 @@ void CLEditXETL::OpenErrn()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void OpenFile();
 ```
 
@@ -12534,9 +13302,11 @@ void CLEditXETL::OpenFile()
 }
 ```
 These are the 'standard' steps to connect your application to MySQL. It's simple, once someone else figured it all out. One day that might be you.
+
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Bind();
 ```
 
@@ -12597,14 +13367,13 @@ void CLEditXETL::Bind()
         return;
     }
 
-
 }
 ```
 
 declare in CLEditXETL.h
-private
 
 ```
+private
 	void Driver();
 ```
 
@@ -12634,9 +13403,14 @@ void CLEditXETL::Driver()
 ```
 
 declare in CLEditXETL.h
+
+```
 private
 	void Connect();
+```
+	
 implement in CLEditXETL.cpp 
+
 ```
 void CLEditXETL::Connect()
 {
@@ -12664,8 +13438,9 @@ void CLEditXETL::Connect()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Statement();
 ```
 
@@ -12695,8 +13470,9 @@ void CLEditXETL::Statement()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void UseDb();
 ```
 
@@ -12729,9 +13505,11 @@ void CLEditXETL::UseDb()
 }
 ```
 A simple SQL query that tells us if a table exists. We normally would not check to see if a database exists. That is the job of a database admistrator (DBA). They would make sure the subsystems are up and running. It's a good idea to keep your DBA close. They can make or break you.
+
 declare in CLEditXETL.h
-private
+
 ```
+private
 	bool Exists();
 ```
 
@@ -12775,10 +13553,12 @@ bool CLEditXETL::Exists()
 }
 ```
 
-Here is the 'standard' way of safely creating a table. Wipe the board clean first. 
+Here is the 'standard' way of safely creating a table. Wipe the board clean first.
+ 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void DropTable();
 ```
 
@@ -12811,11 +13591,14 @@ void CLEditXETL::DropTable()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void CreateTable();
 ```
+
 This is the 'standard' SQL to create a table. There are many columns in this table. Not too many, not too few. Never fear, if you have too many or too few, you can change that with your code or an SQL utility.
+
 implement in CLEditXETL.cpp 
 
 ```
@@ -12861,8 +13644,9 @@ void CLEditXETL::CreateTable()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Error();
 ```
 
@@ -12887,11 +13671,14 @@ void CLEditXETL::Error()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void ProcessFile();
 ```
+
 Remember, files don't need to have end of record or end line markers. We put them there on purpose, for a purpose. Our purpose. That's not cheating. This is pod racing. 
+
 implement in CLEditXETL.cpp 
 
 ```
@@ -12922,8 +13709,9 @@ void CLEditXETL::ProcessFile()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void ReadFile();
 ```
 
@@ -12951,11 +13739,14 @@ void CLEditXETL::ReadFile()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void ProcessRecord();
 ```
+
 This is really the guts of the processing. We create log records, formatted in a way that makes it easy for us to digest. A unit of work ends with an Elapsed record. Other records contain other pieces of meta data.
+
 implement in CLEditXETL.cpp 
 
 ```
@@ -12995,10 +13786,12 @@ void CLEditXETL::ProcessRecord()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void InitRecord();
 ```
+
 If you skip this step, you experience bad dreams. No. Actually what will happen is that fileir will just get bigger and bigger and bigger. A nightmare. 
 implement in CLEditXETL.cpp 
 
@@ -13024,11 +13817,14 @@ void CLEditXETL::InitRecord()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Gather();
 ```
+
 Each log record starts with a key word we decided on. Formatted in a way we decided on. That is what programming is all about. You take a problem and solve it. IF you can make the problem easier to solve, so be it. That's not cheating.
+
 implement in CLEditXETL.cpp 
 
 ```
@@ -13136,9 +13932,11 @@ void CLEditXETL::Gather()
 
 }
 ```
+
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void LookForWord();
 ```
 
@@ -13173,11 +13971,14 @@ void CLEditXETL::LookforWord()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Welcome();
 ```
+
 Gather the time from the welcome log record. We are trying to extract the time in hh:mm:ss. We could make this code complicated, but, instead we'll just 'cheat' and start gathering the time from the position we put it in, position 19. 
+
 implement in CLEditXETL.cpp 
 
 ```
@@ -13212,10 +14013,13 @@ void CLEditXETL::Welcome()
 
 }
 ```
+
 Gather the user id from the User log record.
+
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void User();
 ```
 
@@ -13252,9 +14056,11 @@ void CLEditXETL::User()
 }
 ```
 Gather the action or reaction from the command log record.
+
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Command();
 ```
 
@@ -13293,11 +14099,14 @@ void CLEditXETL::Command()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Parameterone();
 ```
+
 Gather the database name or input file name from the paramater one log record. 
+
 implement in CLEditXETL.cpp 
 
 ```
@@ -13342,11 +14151,14 @@ void CLEditXETL::Parameterone()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Parametertwo();
 ```
+
 Gather table name or output file name from the parameter two log record.
+
 implement in CLEditXETL.cpp 
 
 ```
@@ -13396,11 +14208,14 @@ void CLEditXETL::Parametertwo()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void UsageDate();
 ```
+
 Gather usage date and sequence number from the usage date log record.
+
 implement in CLEditXETL.cpp 
 
 ```
@@ -13451,9 +14266,11 @@ void CLEditXETL::UsageDate()
 
 }
 ```
+
 declare in CLEditXETL.h
-private
+
 ```
+private
         void FileInBytes();
 ```
 
@@ -13493,12 +14310,14 @@ void CLEditXETL::FileInBytes()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
         void FileInRecords();
 ```
 
 implement in CLEditXETL.cpp 
+
 ```
 void CLEditXETL::FileInRecords()
 {
@@ -13532,12 +14351,14 @@ void CLEditXETL::FileInRecords()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
         void FileOutBytes();
 ```
 
 implement in CLEditXETL.cpp
+
 ```
 void CLEditXETL::FileOutBytes()
 {
@@ -13572,12 +14393,14 @@ void CLEditXETL::FileOutBytes()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
         void FileOutRecords();
 ```
 
 implement in CLEditXETL.cpp
+
 ```
 void CLEditXETL::FileOutRecords()
 {
@@ -13610,14 +14433,18 @@ void CLEditXETL::FileOutRecords()
 
 }
 ```
+
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Rows();
 ```
 
 Gather the number of rows from the rowcnt log record.
+
 implement in CLEditXETL.cpp 
+
 ```
 void CLEditXETL::Rows()
 {
@@ -13652,11 +14479,14 @@ void CLEditXETL::Rows()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Elapsed();
 ```
+
 Gather the elapsed time of the action or reaction from the elapsed log record.
+
 implement in CLEditXETL.cpp 
 
 ```
@@ -13712,11 +14542,14 @@ void CLEditXETL::Elapsed()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Select();
 ```
+
 This is a 'standard' SELECT WHERE. You get the idea. We need to gather all the meta data we might already have. We could create a row from the action or the reaction, since the log files roll over at different times. If we find the row, we'll update the mata data on it. Or create a new row. The value of dateseq ties the action to the reaction and visa versa. 
+
 implement in CLEditXETL.cpp 
 
 ```
@@ -13768,8 +14601,9 @@ void CLEditXETL::Select()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void GetRes();
 ```
 
@@ -13860,11 +14694,14 @@ void CLEditXETL::GetRes()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Update();
 ```
+
 This is a 'standard' UPDATE. Don't try to combine the lines of code. It will stop working. MySQL needs to 'see' the variables to resolve the values. It can't if you bury them in a string. 
+
 implement in CLEditXETL.cpp 
 
 ```
@@ -13929,11 +14766,14 @@ void CLEditXETL::Update()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Insert();
 ```
+
 This is a 'standard' INSERT. 
+
 implement in CLEditXETL.cpp 
 
 ```
@@ -13997,8 +14837,9 @@ void CLEditXETL::Insert()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void InitLA();
 ```
 
@@ -14034,12 +14875,14 @@ void CLEditXETL::InitLA()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Free();
 ```
 
 implement in CLEditXETL.cpp 
+
 ```
 void CLEditXETL::Free()
 {
@@ -14062,9 +14905,11 @@ void CLEditXETL::Free()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Freecon();
+
 ```
 
 implement in CLEditXETL.cpp 
@@ -14093,8 +14938,9 @@ void CLEditXETL::Freecon()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Freestmt();
 ```
 
@@ -14124,8 +14970,9 @@ void CLEditXETL::Freestmt()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Freepstmt();
 ```
 
@@ -14155,8 +15002,9 @@ void CLEditXETL::Freepstmt()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void Freeres();
 ```
 
@@ -14186,8 +15034,9 @@ void CLEditXETL::Freeres()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void EoP();
 ```
 
@@ -14217,8 +15066,9 @@ void CLEditXETL::EoP()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void CloseFile();
 ```
 
@@ -14236,8 +15086,9 @@ void CLEditXETL::CloseFile()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void CloseLog();
 ```
 
@@ -14253,8 +15104,9 @@ void CLEditXETL::CloseLog()
 ```
 
 declare in CLEditXETL.h
-private
+
 ```
+private
 	void CloseErr();
 ```
 
@@ -14268,8 +15120,9 @@ void CLEditXETL::CloseErr()
 }
 ```
 
-After the roll over of the Main log, this was the result. Remember, we make life as easy for us as we can. If you were trying to connect to an existing application you job would be harder. Since we are in development, we make things easy for us. We'll complete the meta data when we roll the other logs. The main log I consider the Action log, and the others, re actions. Makes sense to me.  
-**MySQL**
+After the roll over of the Main log, this was the result. Remember, we make life as easy for us as we can. If you were trying to connect to an existing application your job would be harder. Since we are in development, we make things easy for us. We'll complete the meta data when we roll the other logs. The main log I consider the Action log, and the others, re actions. Makes sense to me. 
+
+***MySQL***
 
 ```
 $ sudo mysql
@@ -14293,6 +15146,7 @@ as public in all the classes and in Main. I added a file
  std::fstream StatFile;
 ```
 in all the classes and Main. The errors will go in the Error File like normal. The StatFile will be used to gather statistics from all the actions and reactions. The log file will only be populated when asked for in Main and two new commands; logon and logoff. This value will be passed to the reaction classes.
+
 implemented in OnApplyClicked()
 
 ```
@@ -14306,7 +15160,12 @@ implemented in OnApplyClicked()
         Logging = false;
     }
 ```
-So I also decided that XETL will suffice for the project for capturing statistics. There are not too many colums in the editxetl table and the likely hood of new functions is low. We really need to learn more important things. The reporting can be handled by tools like MySQL. How about another challange? What if instead of gathering statistics into a table, what if we wanted to, or had to, do that using a file? I mention 'have to', because sometimes you have to do certain things. What if you are processing a customers data and it's not to your liking? You could always ask the customer to do it. It's not an unrealistic ask. They have a computer deptartment and their own programmers. What if they say "no". Are you going to argue with a client? The reality of life is that if the customer can get you to program for them, for free, they will insist on it. So now your processing data from all sorts of clients but some of them are smarter in a certain way. If they make the changes on their end, they have to pay for the development and testing, plus risk a failed implementation. So they push it on to you! 
+
+So I also decided that XETL will suffice for the project for capturing statistics. There are not too many colums in the editxetl table and the likely hood of new functions is low. We really need to learn more important things. The reporting can be handled by tools like MySQL. How about another challange? What if instead of gathering statistics into a table, what if we wanted to, or had to, do that using a file? I mention 'have to', because sometimes you have to do certain things.
+
+What if you are processing a customers data and it's not to your liking? You could always ask the customer to do it. It's not an unrealistic ask. They have a computer deptartment and their own programmers. What if they say "no". Are you going to argue with a client? 
+
+The reality of life is that if the customer can get you to program for them, for free, they will insist on it. So now your processing data from all sorts of clients but some of them are smarter in a certain way. If they make the changes on their end, they have to pay for the development and testing, plus risk a failed implementation. So they push it on to you! 
 
 Here is what we'll do. We'll change XETL to output a flat file with statistics records, and we'll make RP produce a couple of reports from that file. It will be so much fun I promise you'll never want to do it again and you'll use a tool instead. But we will learn. I promise. 
 
@@ -14323,7 +15182,9 @@ Here is what we'll do. We'll change XETL to output a flat file with statistics r
    // executes the UNIX command ls -l 
    // ouput to test.txt
 ```
+
 **Beep**
+
 get the computer to speak
 
 ```
@@ -14448,6 +15309,7 @@ int main (int argc, char *argv[])
 ```
 
 And we run it a couple of times, one argument. 
+
 ```
 $ ./Arguethis xxx
 Hello world!
@@ -14456,7 +15318,9 @@ Hello world!
 ./Arguethis
 xxx
 ```
-And we run it a couple of times, two arguments.  
+
+And we run it a couple of times, two arguments.
+ 
 ```
 $ ./Arguethis xxx yyy
 Hello world!
@@ -14482,7 +15346,9 @@ zzz
 
 Alright. I can work with this. I could modify my copy file program to accept the from file name and the to file name at the time of execution.
 Variables create a ‘console’ project called Vegetables or whatever you like
-create **file Timer.h**
+create
+
+ **file Timer.h**
 
 ```
 #include <iostream>
@@ -14510,7 +15376,7 @@ class Timer
 
 create **file arrays.h**
 
-Arrays
+***Arrays***
 Arrays are collections of values that are referred to using a number, an integer starting with 0 aka an index
 normally the first value would be 1 but in C++ the reference is to the beginning address of the first value
 with all the other fancy obfuscation the compiler performs you'd think that would be not biggie but meh
